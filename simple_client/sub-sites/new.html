@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">      
+    <link rel="stylesheet" type="text/css" href="new-style.css">
+</head>
+
+<body>
+
+    <div id="container">
+        <div class="inner-navbar">
+            <a href="#cities" class="active">Miasta</a>
+            <a href="#agent">Agent</a>
+            <a href="#map-params">Parametry mapy</a>
+            <a href="#time-params">Parametry czasowe</a>
+            <a href="#other">Inne</a> 
+        </div>
+        <div id="inner-body">
+            <form action="/action_page.php" method="get">
+                <table id="form-table">
+                    <tr>
+                        <th>Miasto</th>
+                        <th>Liczba pojazdów</th>
+                        <th>Liczba kierowców</th>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="city" value="Warsaw"> Warszawa<br></td>
+                        <td><input type="text" name="wars-cars-num" ></td>
+                        <td><input type="text" name="wars-drivers-num" ></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="city" value="Cracow" checked="checked"> Kraków<br></td>
+                        <td><input type="text" name="crac-cars-num" ></td>
+                        <td><input type="text" name="crac-drivers-num" ></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Zatwierdź">
+            </form>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <a href="#simulate" class="active">Symuluj</a>
+        <a href="#save-params">Zapisz parametry</a>
+        <a href="#load-params">Załaduj parametry</a>
+        <a href="../index.html">Wróć</a> 
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+body {
+    background-color: #68829E;
+    font-family: sans-serif;
+}
+  
+h1 {
+    color: #FFFFFF;
+}
+
+.title {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .button-div{
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .button {
+    background-color: #626588;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #505160;
+  }
+
+  .help-button{
+    background-color: #626588;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 1%;
+    position: fixed;
+    bottom: 2%;
+  }
+
+  .help-button:hover {
+    background-color: #505160;
+  }

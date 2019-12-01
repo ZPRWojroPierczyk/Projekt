@@ -18,15 +18,24 @@
     </div>
 
     <div class="button-div">
-        <a href="sub-sites/new.html"><button class="button" type="button">Załaduj</button></a>
+        <div class="dropdown">
+            <button class="button dropbtn" type="button" onclick="myFunction()">Załaduj</button>
+            <div id="myDropdown" class="dropdown-content">
+              <form action="/action_page.php" method="get">
+                <p>Wybierz plik:</p> 
+                <input type="file" class="dropdown-input" name="myFile">
+                <input type="submit" value="Zatwierdź">
+              </form>
+            </div>
+         </div>
     </div>
 
     <div class="button-div">
-        <a href="sub-sites/new.html"><button class="button" type="button">Opcje</button></a>
+        <a href="sub-sites/options.html"><button class="button" type="button">Opcje</button></a>
     </div>
 
     <div class="button-div">
-        <a href="sub-sites/new.html"><button class="button" type="button">Autorzy</button></a>
+        <a href="sub-sites/authors.html"><button class="button" type="button">Autorzy</button></a>
     </div>
 
     <div class="button-div">
@@ -34,6 +43,28 @@
     </div>
 
     <button class="help-button" type="button">?</button>
+
+    <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+          document.getElementById("myDropdown").classList.toggle("show");
+        }
+        
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropbtn')&&!event.target.matches('.dropdown-content')&&!event.target.matches('.dropdown-input')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+    </script>
 
 </body>
 

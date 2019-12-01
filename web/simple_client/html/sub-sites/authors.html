@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../../css/sub-sites/authors-style.css">
+    <script src="../../js/sub-sites/authors-script.js"></script>
+</head>
+
+<!-- Animation not working :c -->
+<!-- https://speckyboy.com/css-javascript-text-animation-snippets/ -->
+
+<body>
+    <section class="container">
+        <h1>
+            <span class="title">Authors:</span>
+            <span class="title">Wojciech Rokicki</span>
+            <span class="title">Krzysztof Pierczyk</span>
+        </h1>
+        <div class="button">restart</div>
+    </section>
+
+    <div class="amazing-cube-1"></div>
+    <div class="amazing-cube-2"></div>
+
+    <div class="navbar">
+        <a href="../index.html">Wróć</a>
+    </div>
+
+    <script>
+        document.ready(function () {
+            document.getElementsByClassName('title').lettering();
+            document.getElementsByClassName('button').lettering();
+        });
+
+        document.ready(function () {
+            animation();
+        }, 1000);
+
+        document.getElementsByClassName('button').click(function () {
+            animation();
+        });
+
+
+        function animation() {
+            var title1 = new TimelineMax();
+            title1.to(".button", 0, { visibility: 'hidden', opacity: 0 })
+            title1.staggerFromTo(".title span", 0.5,
+                { ease: Back.easeOut.config(1.7), opacity: 0, bottom: -80 },
+                { ease: Back.easeOut.config(1.7), opacity: 1, bottom: 0 }, 0.05);
+            title1.to(".button", 0.2, { visibility: 'visible', opacity: 1 })
+        }
+    </script>
+</body>

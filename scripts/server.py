@@ -3,6 +3,11 @@ import http.server
 import os
 import configparser
 
+#
+# Temporary HTTP server created to design and test frontend
+# side of the application.
+#
+
 
 class baseHTTPHandler(http.server.BaseHTTPRequestHandler):
 
@@ -50,7 +55,7 @@ if __name__ == "__main__":
 
     # Load server's config
     config = configparser.ConfigParser()
-    config.read("../config/server.conf")
+    config.read("../config/python_server.conf")
     PORT = config['DEFAULT']['Port']
 
     # Change dir to the web content

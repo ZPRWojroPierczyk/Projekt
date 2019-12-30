@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/sub-sites/new-style.css">
+    <script src="/js/sub-sites/new-script.js"></script>
+</head>
+
+<!-- 
+    [TODO] Zakładka Parametry mapy -> jak zrobić aby dla każdej drogi można było wprowadzać parametry? Do przemyślenia.
+    [TODO] Walidacja danych wprowadzanych w formularzach -> JS? Musze zapoznać się z przyjmowaniem danych z formularzy html.
+-->
+
+<body>
+
+    <div id="container">
+        <div class="inner-navbar">
+            <a href="#cities" class="tablinks active" onclick="openTab(event, 'Cities')">Miasta</a>
+            <a href="#agent" class="tablinks" onclick="openTab(event, 'Agent')">Agent</a>
+            <a href="#map-params" class="tablinks" onclick="openTab(event, 'Map-Params')">Parametry mapy</a>
+            <a href="#time-params" class="tablinks" onclick="openTab(event, 'Time-Params')">Parametry czasowe</a>
+            <a href="#other" class="tablinks" onclick="openTab(event, 'Other')">Inne</a>
+        </div>
+        <div id="Cities" class="inner-body">
+            <form action="/action_page.php" method="get">
+                <table id="form-table">
+                    <tr>
+                        <th>Miasto</th>
+                        <th>Liczba pojazdów</th>
+                        <th>Liczba kierowców</th>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="city" value="Warsaw"> Warszawa<br></td>
+                        <td><input type="text" name="wars-cars-num"></td>
+                        <td><input type="text" name="wars-drivers-num"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="city" value="Cracow" checked="checked"> Kraków<br></td>
+                        <td><input type="text" name="crac-cars-num"></td>
+                        <td><input type="text" name="crac-drivers-num"></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Zatwierdź">
+            </form>
+        </div>
+        <div id="Agent" class="inner-body">
+            <form action="/action_page.php" method="get">
+                <table id="form-table">
+                    <tr>
+                        <td>Prawdopodobieństwo awarii: </td>
+                        <td><input type="text" name="agent-malfunction-probability"></td>
+                    </tr>
+                    <tr>
+                        <td>Maksymalny czas jazdy bez przerwy: </td>
+                        <td><input type="text" name="agent-driving-time"></td>
+                    </tr>
+                    <tr>
+                        <td>Ładowność pojazdu: </td>
+                        <td><input type="text" name="agent-truck-load"></td>
+                    </tr>
+                    <tr>
+                        <td>Maksymalna prędkość: </td>
+                        <td><input type="text" name="agent-truck-speed"></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Zatwierdź">
+            </form>
+        </div>
+        <div id="Map-Params" class="inner-body">
+            <form action="/action_page.php" method="get">
+                <table id="form-table">
+                    <tr>
+                        <td>Prawdopodobieństwo korków: </td>
+                        <td><input type="text" name="map-congestion-probability"></td>
+                    </tr>
+                    <tr>
+                        <td>Prawdopodobieństwo wypadków: </td>
+                        <td><input type="text" name="map-accident-probability"></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Zatwierdź">
+            </form>
+        </div>
+        <div id="Time-Params" class="inner-body">
+            <form action="/action_page.php" method="get">
+                <table id="form-table">
+                    <tr>
+                        <td>Okno czasowe symulacji: </td>
+                        <td><input type="text" name="time-window"></td>
+                    </tr>
+                    <tr>
+                        <td>Krok symulacji: </td>
+                        <td><input type="text" name="time-step"></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Zatwierdź">
+            </form>
+        </div>
+        <div id="Other" class="inner-body">
+            <h1>Other</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in maximus tortor. Duis elementum nisi in efficitur varius. Mauris elementum tortor urna, ac egestas justo pretium et. Quisque eget maximus mauris. In condimentum lectus quam,
+                id volutpat leo ornare sed. Maecenas malesuada elementum dui, sed venenatis sapien volutpat ac. Vivamus eleifend sem quis ante venenatis congue. Nunc sollicitudin velit quam, a porta diam vestibulum quis.</p>
+
+            <p>Vestibulum at iaculis lorem. Ut vitae mi condimentum, finibus lorem ac, cursus turpis. In feugiat dolor non mi elementum tristique. Cras at mi nibh. Donec non justo hendrerit, aliquet ante ornare, aliquam velit. Sed sagittis pellentesque nisl
+                eget viverra. In semper velit non eros dapibus, eget commodo lacus efficitur. Aliquam erat volutpat. Quisque nec pretium lorem. Ut elit felis, ornare quis ex ut, efficitur lacinia lacus.</p>
+        </div>
+    </div>
+
+    <div class="navbar">
+        <a href="/sub-sites/simulate.html" class="active">Symuluj</a>
+        <a href="#save-params">Zapisz parametry</a>
+        <a href="#load-params">Załaduj parametry</a>
+        <a href="/">Wróć</a>
+    </div>
+
+</body>
+
+</html>

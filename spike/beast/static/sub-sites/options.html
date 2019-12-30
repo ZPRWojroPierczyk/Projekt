@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/sub-sites/options-style.css">
+    <script src="/js/sub-sites/options-script.js"></script>
+</head>
+
+<body>
+
+    <div id="container">
+        <div class="inner-navbar">
+            <a href="#graphics" class="tablinks" onclick="openTab(event, 'Graphics')">Grafika</a>
+            <a href="#sound" class="tablinks" onclick="openTab(event, 'Sound')">Dźwięk</a>
+            <a href="#default-settings" class="tablinks" onclick="openTab(event, 'Default-Settings')">Ustawienia
+                domyślne</a>
+            <a href="#default-folder" class="tablinks active" onclick="openTab(event, 'Default-Folder')">Katalog
+                domyślny</a>
+            <a href="#other" class="tablinks" onclick="openTab(event, 'Other')">Inne</a>
+        </div>
+        <div id="Graphics" class="inner-body">Grafika</div>
+        <div id="Sound" class="inner-body">Dźwięk</div>
+        <div id="Default-Settings" class="inner-body">Default-Settings</div>
+        <div id="Default-Folder" class="inner-body">
+            Default-Folder
+            <input type="file" webkitdirectory directory multiple />
+        </div>
+        <div id="Other" class="inner-body">Other</div>
+    </div>
+
+    <div class="navbar">
+        <a href="/index.html">Wróć</a>
+    </div>
+
+</body>
+
+</html>

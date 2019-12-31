@@ -1,6 +1,6 @@
 import platform, os
 
-Import('env', 'DEBUG')
+Import('env', 'DEBUG', 'BOOST_LIB_PATH')
 
 DEBUG = int(DEBUG)
 
@@ -11,7 +11,7 @@ DEBUG = int(DEBUG)
 if(platform.system() == "Linux"):
     env.Append( CPPPATH = [ Dir('#include/server') ] )
     env.Append( LIBPATH = [] )
-    env.Append( LIBS = ['boost_thread'] )
+    env.Append( LIBS = ['boost_thread', 'boost_program_options'] )
     # Custom compiller flags
     env.Append( CPPFLAGS = ' -pthread' )
     # Custom linker flags
@@ -19,15 +19,17 @@ if(platform.system() == "Linux"):
     #    shared libraries for the result app
     #    (thanks to using it, user has not to define
     #    LD_LIBRARY_PATH while running app)
-    env.Append( LINKFLAGS = ' -pthread -Wl,-R $BOOST_LIB_PATH')
+    #
+    #    WARNING : For some reason g++ needs a single
+    #              '-Wl,...' per a shared library to
+    #              make a fine linkage
+    env.Append( LINKFLAGS = ' -pthread -Wl,-R $BOOST_LIB_PATH -Wl,-R $BOOST_LIB_PATH')
 
     # Debug-dependant configuration
     if DEBUG == 0:
         pass
     elif DEBUG == 1:
         pass
-    
-    
 
 elif(platform.system() == "Windows"):
     env.Append( CPPPATH = [ Dir('#include\\server') ] )

@@ -1,55 +1,44 @@
-//
-// Copyright (c) 2018 Vinnie Falco (vinnie dot falco at gmail dot com)
-//
-// Distributed under the Boost Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-//
-// Official repository: https://github.com/vinniefalco/CppCon2018
-//
-
-//------------------------------------------------------------------------------
-/*
-    WebSocket chat server
-
-    This implements a multi-user chat room using WebSocket.
-*/
-//------------------------------------------------------------------------------
-
+#include <iostream>
+#include <string>
+#include <boost/asio/signal_set.hpp>
 #include "Listener.h"
 #include "SharedState.h"
-#include <boost/asio/signal_set.hpp>
-#include <iostream>
-
-
+#include "ServerOptions.h"
 
 /**
- * @brief 
+ * main() purpose is to load HTTP server's configurationand run
+ * it. After that main thread is delegated to server asynchonous
+ * operations related to boost::beast actions 
+ * (boost::asio::io_context::run())
  * 
  * @param argc 
  * @param argv 
  * @return int 
  */
 int main(int argc, char* argv[]){
-    // Check command line arguments.
-    if (argc != 4){
-        std::cerr <<
-            "Usage: websocket-chat-server <address> <port> <doc_root>\n" <<
-            "Example:\n" <<
-            "    websocket-chat-server 0.0.0.0 8080 .\n";
-        return EXIT_FAILURE;
-    }
-    auto address = asio::ip::make_address(argv[1]);
-    auto port = static_cast<unsigned short>(std::atoi(argv[2]));
-    auto doc_root = argv[3];
+
+    // Load options from config file
+    ServerOptions options;
+    options.loadOptions();
+
+    // Create asio server parameters from loaded options
+    auto address = asio::ip::make_address(options.getAddress().c_str());
+    auto port = static_cast<unsigned short>(options.getPort());
+    auto docRoot = options.getDocRoot();
 
     // The io_context is required for all I/O
     asio::io_context ioc;
 
     // Create and launch a listening port
+    // NOTE : Shared pointer lives in such cases up to the
+    //        end of the scope. It is run() method
+    //        respoinsibility to create it's coppy and
+    //        prolong Listener lifetime. 
     std::make_shared<Listener>(
         ioc,
         tcp::endpoint{address, port},
-        std::make_shared<SharedState>(doc_root))->run();
+        std::make_shared<SharedState>(docRoot)
+    )->run();
 
     // Capture SIGINT and SIGTERM to perform a clean shutdown
     asio::signal_set signals(ioc, SIGINT, SIGTERM);
@@ -60,12 +49,12 @@ int main(int argc, char* argv[]){
             // to return immediately, eventually destroying the
             // io_context and any remaining handlers in it.
             ioc.stop();
-        });
+        }
+    );
 
     // Run the I/O service on the main thread
     ioc.run();
 
-    // (If we get here, it means we got a SIGINT or SIGTERM)
-
+    // Return on SIGINT (ctrl+C) or SIGTERM (kill)
     return EXIT_SUCCESS;
 }

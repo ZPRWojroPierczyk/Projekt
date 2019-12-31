@@ -23,7 +23,8 @@ if(platform.system() == "Linux"):
 	env.Append( LIBPATH = [ Dir(BOOST_LIB_PATH) ] )
 	env.Append( LIBS = [] )
 	# Custom compiller flags
-	env.Append( CPPFLAGS = '-Wall -pedantic' )
+	env.Append( CPPFLAGS = '-Wall -pedantic ' +  \
+						   '-D ROOT=\\\"' + Dir('.').srcnode().abspath + '\\\"' )
 	# Custom linker flags
 	env.Append( LINKFLAGS = '-Wall')
 	
@@ -46,7 +47,7 @@ elif(platform.system() == "Windows"):
 	if debug == 0:
 		pass
 	elif debug == 1:
-		pass
+		env.Append( CPPFLAGS = ' -g' )
 
 #----------------------------------------------------------
 #----------------------- Exports --------------------------
@@ -54,7 +55,7 @@ elif(platform.system() == "Windows"):
 
 # Export build constants for the nested SCconscript
 Export({'DEBUG': debug})
-Export('env')
+Export('env', 'BOOST_LIB_PATH')
 
 #----------------------------------------------------------
 #------------------------- Build --------------------------

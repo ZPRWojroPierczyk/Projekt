@@ -1,29 +1,26 @@
 import platform, os
 
-Import('env', 'DEBUG', 'BOOST_LIB_PATH')
-
+Import('env', 'DEBUG')
+Import('LINUX_BOOST_LIB_PATH')
 DEBUG = int(DEBUG)
+env_app = env.Clone()
 
 #----------------------------------------------------------
-#---------------------- Environment -----------------------
+#---------------------- env_appironment -----------------------
 #----------------------------------------------------------
 
 if(platform.system() == "Linux"):
-    env.Append( CPPPATH = [ Dir('#include/server') ] )
-    env.Append( LIBPATH = [] )
-    env.Append( LIBS = ['boost_thread', 'boost_program_options'] )
+    env_app.Append( CPPPATH = [ ] )
+    env_app.Append( LIBPATH = [ ] )
+    env_app.Append( LIBS = ['boost_thread', 'boost_program_options'] )
     # Custom compiller flags
-    env.Append( CPPFLAGS = ' -pthread' )
+    env_app.Append( CPPFLAGS = ' -pthread' )
     # Custom linker flags
-    # -- -Wl,-R defines default search path to the 
+    # -- -Wl,-rpath defines default search path to the 
     #    shared libraries for the result app
     #    (thanks to using it, user has not to define
     #    LD_LIBRARY_PATH while running app)
-    #
-    #    WARNING : For some reason g++ needs a single
-    #              '-Wl,...' per a shared library to
-    #              make a fine linkage
-    env.Append( LINKFLAGS = ' -pthread -Wl,-R $BOOST_LIB_PATH -Wl,-R $BOOST_LIB_PATH')
+    env_app.Append( LINKFLAGS = ' -pthread -Wl,-rpath=' + LINUX_BOOST_LIB_PATH)
 
     # Debug-dependant configuration
     if DEBUG == 0:
@@ -32,13 +29,13 @@ if(platform.system() == "Linux"):
         pass
 
 elif(platform.system() == "Windows"):
-    env.Append( CPPPATH = [ Dir('#include\\server') ] )
-    env.Append( LIBPATH = [] )
+    env_app.Append( CPPPATH = [ ] )
+    env_app.Append( LIBPATH = [ ] )
     
     # Custom compiller flags
-    env.Append( CPPFLAGS = '' )
+    env_app.Append( CPPFLAGS = '' )
     # Custom linker flags
-    env.Append( LINKFLAGS = '')
+    env_app.Append( LINKFLAGS = '')
 
     # Debug-dependant configuration
     if DEBUG == 0:
@@ -50,11 +47,14 @@ elif(platform.system() == "Windows"):
 #-------------------- Build and Install -------------------
 #----------------------------------------------------------
 
-app = env.Program( source = [Glob('*.cc'), Glob('*/*.cc')], target = 'app' )
+obj_list = env_app.StaticObject(source = [Glob('*/*.cc'), Glob('*/*/*.cc'), Glob('*/*/*/*.cc')])
+app = env_app.Program( source = ['main.cc', obj_list], target = 'app' )
 
 if DEBUG == 0:
-    env.Install('#bin/release/app', app)
-    env.Alias('install', '#bin/release/app')
+    env_app.Install('#bin/release/app', app)
+    env_app.Alias('install', '#bin/release/app')
 elif DEBUG == 1:
-    env.Install('#bin/debug/app', app)
-    env.Alias('install', '#bin/debug/app')
+    env_app.Install('#bin/debug/app', app)
+    env_app.Alias('install', '#bin/debug/app')
+
+Return('obj_list')

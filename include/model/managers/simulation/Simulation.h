@@ -20,7 +20,7 @@
  */
 class Simulation{
     public:
-        Simulation();
+        // Simulation();
         void setup(SimulationState state, SimulationParameters parameters);
         void run();
         SimulationData get();

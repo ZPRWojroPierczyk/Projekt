@@ -14,7 +14,7 @@
 #define MODEL_H
 
 #include <memory>
-#include "SimulationCreationManager.h"
+#include "SimulationCreatorManager.h"
 #include "SimulationManager.h"
 #include "LoadSimulationManager.h"
 #include "SettingsManager.h"
@@ -34,16 +34,18 @@
 class Model{
     // Constructors
     public:
-        Model();
+        // Model();
+
     // Public member classes
     public:
         /// Actual state of the application seen by the user
         enum class State {Menu,
-                          SimulationCreation,
+                          SimulationCreator,
                           Simulation,
                           Load,
                           Settings,
                           Credits};
+
     // Public methods                          
     public:
         /// Methods changing displayed view of the application
@@ -59,20 +61,21 @@ class Model{
 
     // Private member fields
     private:
-
-        State state;
+        /// Application's state
+        State state_;
 
         /// Module responsible for simulation creation (parameters introcuction)
-        SimulationCreationManager simulationCreationManager;
+        SimulationCreatorManager simulationCreatorManager_;
         /// Module managing simulation process
-        SimulationManager simulationManager;
+        SimulationManager simulationManager_;
         /// Module responsible for loading saved simulations
-        LoadSimulationManager loadSimulationManager;
+        LoadSimulationManager loadSimulationManager_;
         /// Module responsible for app's settings
-        SettingsManager settingsManager;
+        SettingsManager settingsManager_;
+
     // Private methods:
     private:
-        bool setState(Model::State);
+        void setState(Model::State);
 };
 
 #endif

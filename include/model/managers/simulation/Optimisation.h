@@ -14,7 +14,7 @@
 
 class Optimisation{
     public:
-        Optimisation();
+        // Optimisation();
 };
 
 #endif

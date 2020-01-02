@@ -14,7 +14,7 @@
 
 class Agent{
     public:
-        Agent();
+        // Agent();
 };
 
 #endif

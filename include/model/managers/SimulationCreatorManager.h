@@ -12,9 +12,11 @@
  * 
  */
 
-class SimulationCreationManager{
+class SimulationCreatorManager{
     public:
-        SimulationCreationManager();
+        // SimulationCreatorManager();
+    public:
+        
 };
 
 #endif

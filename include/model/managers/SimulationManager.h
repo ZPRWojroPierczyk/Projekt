@@ -12,32 +12,6 @@
 #ifndef SIMULATION_MANAGER_H 
 #define SIMULATION_MANAGER_H
 
-/**
- * @brief Class representing the manager of simulation
- * @todo Think data structures over
- * @see SimulationData, SimulationParameters, SimulationState
- */
-class SimulationManager{
-    private:
-        SimulationState state;
-
-        SimulationParameters parameters;
-
-        SimulationData data;
-    
-    public:
-        SimulationManager();
-
-        SimulationState getState();
-        SimulationParameters getParameters();
-
-        void setParameters();
-        
-        SimulationData simulate(SimulationState state, SimulationParameters parameters);
-        SimulationData update();
-};
-
-
 class SimulationData{
     //some data structure
 };
@@ -48,6 +22,33 @@ class SimulationParameters{
 
 enum SimulationState{
     //some simulation states
+};
+
+/**
+ * @brief Class representing the manager of simulation
+ * @todo Think data structures over
+ * @see SimulationData, SimulationParameters, SimulationState
+ */
+class SimulationManager{
+    public:
+        // SimulationManager();
+
+    public:
+        bool isSimulationRunning();
+
+        SimulationState getState();
+        SimulationParameters getParameters();
+
+        void setParameters();
+        
+        SimulationData simulate(SimulationState state, SimulationParameters parameters);
+        SimulationData update();
+    private:
+        SimulationState state;
+
+        SimulationParameters parameters;
+
+        SimulationData data;
 };
 
 #endif

@@ -14,7 +14,7 @@
 
 class SettingsManager{
     public:
-        SettingsManager();
+        // SettingsManager();
 };
 
 #endif

@@ -14,7 +14,7 @@
 
 class LoadSimulationManager{
     public:
-        LoadSimulationManager();
+        // LoadSimulationManager();
 };
 
 #endif

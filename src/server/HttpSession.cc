@@ -1,13 +1,30 @@
+/**
+ * @file HttpSession.cc
+ * @author Wojtek Rokicki & Krzysiek Pierczyk
+ * @brief HttpSession class' methods definitions
+ * @version 0.1
+ * @date 2020-01-02
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
+
 #include <iostream>
 #include <boost/beast/http.hpp>
 #include "HttpSession.h"
 
 
-// Return a reasonable mime type based on the extension of a file.
-boost::beast::string_view
-mime_type(boost::beast::string_view path)
+/**
+ * @brief Return a reasonable mime type based on the extension of a file.
+ * 
+ * @param path Path to the requested resource
+ * @return boost::beast::string_view Mime type
+ */
+boost::beast::string_view 
+mimeType(boost::beast::string_view path)
 {
     using boost::beast::iequals;
+    // Get extension's name
     auto const ext = [&path]()
     {
         auto const pos = path.rfind(".");
@@ -16,6 +33,7 @@ mime_type(boost::beast::string_view path)
         return path.substr(pos);
     }();
 
+    // Check for the mime type
     if(iequals(ext, ".htm"))  return "text/html";
     if(iequals(ext, ".html")) return "text/html";
     if(iequals(ext, ".php"))  return "text/html";
@@ -40,10 +58,16 @@ mime_type(boost::beast::string_view path)
     return "application/text";
 }
 
-// Append an HTTP rel-path to a local filesystem path.
-// The returned path is normalized for the platform.
+
+/**
+ * @brief Append an HTTP rel-path to a local filesystem path.
+ * 
+ * @param base Path to the doc's root folder
+ * @param path Relative path to the resource
+ * @return std::string Returned path (normalized for the platform.)
+ */
 std::string
-path_cat(
+pathCat(
     boost::beast::string_view base,
     boost::beast::string_view path)
 {
@@ -72,15 +96,27 @@ path_cat(
     return result;
 }
 
-// This function produces an HTTP response for the given
-// request. The type of the response object depends on the
-// contents of the request, so the interface requires the
-// caller to pass a generic lambda for receiving the response.
+// This function . 
+/**
+ * @brief Produces an HTTP response for the given request
+ * 
+ * The type of the response object depends on the
+ * contents of the request, so the interface requires the
+ * caller to pass a generic lambda for receiving the response.
+ * 
+ * @tparam Body Is supplied as a template argument to the message class. It controls both
+ *         the type of the data member of the resulting message object
+ * @tparam Allocator Allocator used for a beast::http::basic_fields
+ * @tparam Send Generic lambda type used to send response
+ * @param doc_root Path to the root folder containing static files
+ * @param req HTTP request
+ * @param send Generic lambda used to send response
+ */
 template<
     class Body, class Allocator,
     class Send>
 void
-handle_request(
+handleRequest(
     boost::beast::string_view doc_root,
     http::request<Body, http::basic_fields<Allocator>>&& req,
     Send&& send)
@@ -136,7 +172,7 @@ handle_request(
         return send(bad_request("Illegal request-target"));
 
     // Build the path to the requested file
-    std::string path = path_cat(doc_root, req.target());
+    std::string path = pathCat(doc_root, req.target());
     if(req.target().back() == '/')
         path.append("index.html");
 
@@ -160,7 +196,7 @@ handle_request(
     if(req.method() == http::verb::head){
         http::response<http::empty_body> res{http::status::ok, req.version()};
         res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
-        res.set(http::field::content_type, mime_type(path));
+        res.set(http::field::content_type, mimeType(path));
         res.content_length(size);
         res.keep_alive(req.keep_alive());
         return send(std::move(res));
@@ -172,14 +208,22 @@ handle_request(
         std::make_tuple(std::move(body)),
         std::make_tuple(http::status::ok, req.version())};
     res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
-    res.set(http::field::content_type, mime_type(path));
+    res.set(http::field::content_type, mimeType(path));
     res.content_length(size);
     res.keep_alive(req.keep_alive());
     return send(std::move(res));
 }
 
 //------------------------------------------------------------------------------
+//------------------------------- HttpSession methods --------------------------
+//------------------------------------------------------------------------------
 
+/**
+ * @brief Construct a new Http Session:: Http Session object
+ * 
+ * @param socket boost:asio::ip::tcp::socket associated with the session
+ * @param state State shared between sessions
+ */
 HttpSession::HttpSession(
     tcp::socket socket,
     std::shared_ptr<SharedState> const& state)
@@ -188,6 +232,10 @@ HttpSession::HttpSession(
 {
 }
 
+/**
+ * @brief Run the session
+ * 
+ */
 void HttpSession::run(){
     // Read a request
     http::async_read(socket_, buffer_, req_,
@@ -198,7 +246,12 @@ void HttpSession::run(){
         });
 }
 
-// Report a failure
+/**
+ * @brief Report a failure
+ * 
+ * @param err_code 
+ * @param what 
+ */
 void HttpSession::fail(error_code err_code, char const* what){
     // Don't report on canceled operations
     if(err_code == asio::error::operation_aborted)
@@ -207,6 +260,11 @@ void HttpSession::fail(error_code err_code, char const* what){
     std::cerr << what << ": " << err_code.message() << "\n";
 }
 
+/**
+ * @brief Method called after getting a new request from the client
+ * 
+ * @param err_code Error code of the async_read()
+ */
 void HttpSession::on_read(error_code err_code, std::size_t){
     // This means they closed the connection
     if(err_code == http::error::end_of_stream){
@@ -219,7 +277,7 @@ void HttpSession::on_read(error_code err_code, std::size_t){
         return fail(err_code, "read");
 
     // Send the response
-    handle_request(state_->doc_root(), std::move(req_),
+    handleRequest(state_->doc_root(), std::move(req_),
         [this]
         (auto&& response)
         {
@@ -229,7 +287,7 @@ void HttpSession::on_read(error_code err_code, std::size_t){
             using response_type = typename std::decay<decltype(response)>::type;
             auto sp = std::make_shared<response_type>(std::forward<decltype(response)>(response));
 
-#if 0
+#if BOOST_MSVC
             // NOTE This causes an ICE in gcc 7.3
             // Write the response
             http::async_write(this->socket_, *sp,
@@ -251,6 +309,12 @@ void HttpSession::on_read(error_code err_code, std::size_t){
         });
 }
 
+/**
+ * @brief Method called after writing a response to the client
+ * 
+ * @param err_code Error code of the async_write()
+ * @param close If connection is to be closed
+ */
 void HttpSession::on_write(error_code err_code, std::size_t, bool close){
     // Handle the error, if any
     if(err_code)

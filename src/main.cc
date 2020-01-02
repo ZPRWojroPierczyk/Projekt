@@ -1,6 +1,17 @@
+/**
+ * @file main.cc
+ * @author Wojtek Rokicki & Krzysiek Pierczyk
+ * @brief Main function definition
+ * @version 0.1
+ * @date 2020-01-02
+ * 
+ * @copyright Copyright (c) 2020
+ */
+
 #include <iostream>
 #include <string>
 #include <boost/asio/signal_set.hpp>
+
 #include "Listener.h"
 #include "SharedState.h"
 #include "ServerOptions.h"
@@ -24,14 +35,14 @@ int main(int argc, char* argv[]){
     // Create asio server parameters from loaded options
     auto address = asio::ip::make_address(options.getAddress().c_str());
     auto port = static_cast<unsigned short>(options.getPort());
-    auto docRoot = options.getDocRoot();
+    auto docRoot = options.getDocRoot();    
 
     // The io_context is required for all I/O
     asio::io_context ioc;
 
     // Create and launch a listening port
     // NOTE : Shared pointer lives in such cases up to the
-    //        end of the scope. It is run() method
+    //        end of the scope. It is run() method's
     //        respoinsibility to create it's coppy and
     //        prolong Listener lifetime. 
     std::make_shared<Listener>(

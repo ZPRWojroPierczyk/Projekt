@@ -1,3 +1,14 @@
+/**
+ * @file SharedState.h
+ * @author Wojtek Rokicki & Krzysiek Pierczyk
+ * @brief SharedState class' declaration
+ * @version 0.1
+ * @date 2020-01-02
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
+
 #ifndef SHARED_STATE_H
 #define SHARED_STATE_H
 
@@ -7,10 +18,16 @@
 
 class HttpSession;
 
-// Represents the shared server state
+// 
+/**
+ * @brief Represents the server state that should be accessible by all
+ *        server's modules
+ */
 class SharedState
 {
+    /// Absolute path to the folder containing static files
     std::string doc_root_;
+    /// List of the active client's connections
     std::unordered_set<HttpSession*> sessions_;
 
 public:

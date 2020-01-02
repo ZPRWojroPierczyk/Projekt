@@ -1,3 +1,14 @@
+/**
+ * @file Listener.cc
+ * @author Wojtek Rokicki & Krzysiek Pierczyk
+ * @brief Listener class' methods definitions
+ * @version 0.1
+ * @date 2020-01-02
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
+
 #include <iostream>
 #include "Listener.h"
 #include "HttpSession.h"
@@ -8,6 +19,14 @@ namespace http = boost::beast::http;
 using tcp = boost::asio::ip::tcp;
 using error_code = boost::system::error_code;
 
+
+/**
+ * @brief Construct a new Listener:: Listener object
+ * 
+ * @param ioc Associated boost::asio::io_context
+ * @param endpoint Endpoint socket to listen on
+ * @param state Shared state of the application
+ */
 Listener::Listener(asio::io_context& ioc,
                    tcp::endpoint endpoint,
                    std::shared_ptr<SharedState> const& state)
@@ -47,6 +66,10 @@ Listener::Listener(asio::io_context& ioc,
     }
 }
 
+/**
+ * @brief Runs async_listen to the port
+ * 
+ */
 void Listener::run(){
     // Start accepting a connection
     acceptor_.async_accept(
@@ -57,7 +80,12 @@ void Listener::run(){
         });
 }
 
-// Report a failure
+/**
+ * @brief Report a failure
+ * 
+ * @param err_code Reported error code
+ * @param what Reason of the failure
+ */
 void Listener::fail(error_code err_code, char const* what){
     // Don't report on canceled operations
     if(err_code == asio::error::operation_aborted)
@@ -65,7 +93,11 @@ void Listener::fail(error_code err_code, char const* what){
     std::cerr << what << ": " << err_code.message() << "\n";
 }
 
-// Handle a connection
+/**
+ * @brief Handle a connection
+ * 
+ * @param err_code Reported error code
+ */
 void Listener::on_accept(error_code err_code){
     if(err_code)
         return fail(err_code, "accept");

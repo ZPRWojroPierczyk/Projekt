@@ -14,8 +14,7 @@
 -->
 
 <body>
-
-    <div id="container">
+    <div id="Container">
         <div class="inner-navbar">
             <a href="#cities" class="tablinks active" onclick="openTab(event, 'Cities')">Miasta</a>
             <a href="#agent" class="tablinks" onclick="openTab(event, 'Agent')">Agent</a>
@@ -24,8 +23,8 @@
             <a href="#other" class="tablinks" onclick="openTab(event, 'Other')">Inne</a>
         </div>
         <div id="Cities" class="inner-body">
-            <form action="/action_page.php" method="post">
-                <table id="form-table">
+            <form id="Cities-Form">
+                <table class="form-table">
                     <tr>
                         <th>Miasto</th>
                         <th>Liczba pojazdów</th>
@@ -42,12 +41,13 @@
                         <td><input type="text" name="crac-drivers-num"></td>
                     </tr>
                 </table>
-                <input type="submit" value="Zatwierdź">
             </form>
+            <button class="accept" onclick="citiesAccept()">Zatwierdź</button>
+            <button class="go-back" onclick="citiesGoBack()">Wróć</button>
         </div>
         <div id="Agent" class="inner-body">
-            <form action="/action_page.php" method="get">
-                <table id="form-table">
+            <form id="Agent-Form">
+                <table class="form-table">
                     <tr>
                         <td>Prawdopodobieństwo awarii: </td>
                         <td><input type="text" name="agent-malfunction-probability"></td>
@@ -65,12 +65,13 @@
                         <td><input type="text" name="agent-truck-speed"></td>
                     </tr>
                 </table>
-                <input type="submit" value="Zatwierdź">
             </form>
+            <button class="accept" onclick="agentAccept()">Zatwierdź</button>
+            <button class="go-back" onclick="agentGoBack()">Wróć</button>
         </div>
         <div id="Map-Params" class="inner-body">
-            <form action="/action_page.php" method="get">
-                <table id="form-table">
+            <form id="Map-Params-Form">
+                <table class="form-table">
                     <tr>
                         <td>Prawdopodobieństwo korków: </td>
                         <td><input type="text" name="map-congestion-probability"></td>
@@ -80,12 +81,13 @@
                         <td><input type="text" name="map-accident-probability"></td>
                     </tr>
                 </table>
-                <input type="submit" value="Zatwierdź">
             </form>
+            <button class="accept" onclick="mapParamsAccept()">Zatwierdź</button>
+            <button class="go-back" onclick="mapParamsGoBack()">Wróć</button>
         </div>
         <div id="Time-Params" class="inner-body">
-            <form action="/action_page.php" method="get">
-                <table id="form-table">
+            <form id="Time-Params-Form">
+                <table class="form-table">
                     <tr>
                         <td>Okno czasowe symulacji: </td>
                         <td><input type="text" name="time-window"></td>
@@ -95,26 +97,39 @@
                         <td><input type="text" name="time-step"></td>
                     </tr>
                 </table>
-                <input type="submit" value="Zatwierdź">
             </form>
+            <button class="accept" onclick="timeParamsAccept()">Zatwierdź</button>
+            <button class="go-back" onclick="timeParamsGoBack()">Wróć</button>
         </div>
         <div id="Other" class="inner-body">
             <h1>Other</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in maximus tortor. Duis elementum nisi in efficitur varius. Mauris elementum tortor urna, ac egestas justo pretium et. Quisque eget maximus mauris. In condimentum lectus quam,
-                id volutpat leo ornare sed. Maecenas malesuada elementum dui, sed venenatis sapien volutpat ac. Vivamus eleifend sem quis ante venenatis congue. Nunc sollicitudin velit quam, a porta diam vestibulum quis.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in maximus tortor. Duis elementum
+                nisi in
+                efficitur varius. Mauris elementum tortor urna, ac egestas justo pretium et. Quisque eget maximus
+                mauris. In
+                condimentum lectus quam,
+                id volutpat leo ornare sed. Maecenas malesuada elementum dui, sed venenatis sapien volutpat ac.
+                Vivamus
+                eleifend sem quis ante venenatis congue. Nunc sollicitudin velit quam, a porta diam vestibulum quis.
+            </p>
 
-            <p>Vestibulum at iaculis lorem. Ut vitae mi condimentum, finibus lorem ac, cursus turpis. In feugiat dolor non mi elementum tristique. Cras at mi nibh. Donec non justo hendrerit, aliquet ante ornare, aliquam velit. Sed sagittis pellentesque nisl
-                eget viverra. In semper velit non eros dapibus, eget commodo lacus efficitur. Aliquam erat volutpat. Quisque nec pretium lorem. Ut elit felis, ornare quis ex ut, efficitur lacinia lacus.</p>
+            <p>Vestibulum at iaculis lorem. Ut vitae mi condimentum, finibus lorem ac, cursus turpis. In feugiat
+                dolor non
+                mi elementum tristique. Cras at mi nibh. Donec non justo hendrerit, aliquet ante ornare, aliquam
+                velit. Sed
+                sagittis pellentesque nisl
+                eget viverra. In semper velit non eros dapibus, eget commodo lacus efficitur. Aliquam erat volutpat.
+                Quisque
+                nec pretium lorem. Ut elit felis, ornare quis ex ut, efficitur lacinia lacus.</p>
         </div>
+        <div id="demo"></div>
     </div>
-
     <div class="navbar">
-        <a href="/sub-sites/simulate.html" class="active">Symuluj</a>
+        <a href="/sub-sites/simulate.html" class="active" onclick="return submitForms()">Symuluj</a>
         <a href="#save-params">Zapisz parametry</a>
         <a href="#load-params">Załaduj parametry</a>
         <a href="/">Wróć</a>
     </div>
-
 </body>
 
 </html>

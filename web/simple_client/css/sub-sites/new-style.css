@@ -4,7 +4,7 @@ body {
   margin: 0;
 }
 
-#container {
+#Container {
   margin: auto;
   margin-top: 10%;
   width: 50%;
@@ -64,26 +64,26 @@ body {
 }
 
 /**************************** Main container form table ****************************/
-#form-table {
+.form-table {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 15px;
 }
 
-#form-table td, #form-table th {
+.form-table td, .form-table th {
   border: 1px solid #ddd;
   padding: 8px;
 }
-#form-table tr {
+.form-table tr {
   transition: 0.3s;
 }
 
-#form-table tr:nth-child(even){background-color: #f2f2f2;}
+.form-table tr:nth-child(even){background-color: #f2f2f2;}
 
-#form-table tr:hover {background-color: #ddd;}
+.form-table tr:hover {background-color: #ddd;}
 
-#form-table th {
+.form-table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
@@ -91,7 +91,13 @@ body {
   color: white;
 }
 
-input[type=submit]{
+fieldset {
+  margin: 0;
+  padding: 0;
+  border-style: none;
+}
+
+.accept {
   background-color: #626588;
   border: none;
   border-radius: 5px;
@@ -100,6 +106,18 @@ input[type=submit]{
   text-align: center;
   font-size: 16px;
   cursor: pointer;
+}
+
+.go-back {
+  background-color: #626588;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  display: none;
 }
 
 /**************************** Bottom navigation bar ****************************/

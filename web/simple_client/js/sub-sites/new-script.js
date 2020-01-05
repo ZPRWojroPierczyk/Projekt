@@ -14,22 +14,42 @@ function openTab(evt, tab) {
     evt.currentTarget.className += " active";
 }
 
-/****************** Cities form *******************/
+/****************** Cities form validation *******************/
 
 var cities_valid = false;
 
 function citiesAccept() {
     var x = document.getElementById("Cities-Form");
+    var checked_count = 0;
     var i;
+
+    //Counting checked cities
     for (i = 0; i < x.length; i++) {
-        x.elements[i].disabled = true;
+        var element = x.elements[i];
+        if (element.type == "checkbox" && element.checked == true) {
+            //Checking if cars and drivers numbers are correct
+            if(x.elements[i+1].value < 0 || x.elements[i+2].value < 0) {
+                alert(element.getAttribute("data-name") + " niepoprawnie uzupełniony. Liczba pojazdów i kierowców musi być nieujemna. Proszę wprowadzić poprawne dane ponownie.");
+                return;
+            }
+            checked_count++;
+        }
     }
-    document.getElementsByClassName("accept")[0].style.display = "none";
-    document.getElementsByClassName("go-back")[0].style.display = "inline";
 
-    //TODO: Check if form is all right then flag cities_valid is true
+    //At least 2 cities must be checked
+    if(checked_count >= 2){
+        for (i = 0; i < x.length; i++) {
+            x.elements[i].disabled = true;
+        }
+        document.getElementsByClassName("accept")[0].style.display = "none";
+        document.getElementsByClassName("go-back")[0].style.display = "inline";
+        cities_valid = true;
+    } else {
+        alert("Proszę wybrać conajmniej 2 miasta.");
+    }
 
-    cities_valid = true;
+    //Debug purposes
+    //document.getElementById("demo").innerHTML = "Ilość zaznaczonych miast: " + checked_count + ". Czy formularz uzupełniony poprawnie: " + cities_valid;
 }
 
 function citiesGoBack() {
@@ -41,9 +61,61 @@ function citiesGoBack() {
     document.getElementsByClassName("accept")[0].style.display = "inline";
     document.getElementsByClassName("go-back")[0].style.display = "none";
     cities_valid = false;
+    
+    //Debug purposes
+    //document.getElementById("demo").innerHTML = "Czy formularz uzupełniony poprawnie: " + cities_valid;
+
 }
 
-/****************** Agent form *******************/
+/****************** Transport tab entry condition and form generator *******************/
+
+function transportEntry(evt, tab) {
+    if(cities_valid == true) {
+        transportGenerator();
+        openTab(evt, tab);
+        return true;
+    } else {
+        alert("Aby przejść do ustawień parametrów transportu należy najpierw uzupełnić miasta.");
+        return false;
+    }
+}
+
+//TODO:
+function transportGenerator() {
+    var html_content = "<input type=\"number\" name=\"wroclaw-cars-num\" value=\"0\" step=\"1\" min=\"0\">";
+    document.getElementById("Transport-Form").innerHTML = html_content;
+}
+
+/****************** Transport form validation *******************/
+
+var transport_valid = false;
+
+function transportAccept() {
+    var x = document.getElementById("Transport-Form");
+    var i;
+    for (i = 0; i < x.length; i++) {
+        x.elements[i].disabled = true;
+    }
+    document.getElementsByClassName("accept")[1].style.display = "none";
+    document.getElementsByClassName("go-back")[1].style.display = "inline";
+
+    //TODO: Check if form is all right then flag transport_valid is true
+
+    transport_valid = true;
+}
+
+function transportGoBack() {
+    var x = document.getElementById("Transport-Form");
+    var i;
+    for (i = 0; i < x.length; i++) {
+        x.elements[i].disabled = false;
+    }
+    document.getElementsByClassName("accept")[1].style.display = "inline";
+    document.getElementsByClassName("go-back")[1].style.display = "none";
+    transport_valid = false;
+}
+
+/****************** Agent form validation *******************/
 
 var agent_valid = false;
 
@@ -72,7 +144,7 @@ function agentGoBack() {
     agent_valid = false;
 }
 
-/****************** Map parameters form *******************/
+/****************** Map parameters form validation *******************/
 
 var map_params_valid = false;
 
@@ -101,7 +173,7 @@ function mapParamsGoBack() {
     map_params_valid = false;
 }
 
-/****************** Time parameters form *******************/
+/****************** Time parameters form validation *******************/
 
 var time_params_valid = false;
 
@@ -135,7 +207,7 @@ function timeParamsGoBack() {
 /****************** Submitting forms *******************/
 //TODO
 function submitForms() {
-    if (cities_valid == true && agent_valid == true && map_params_valid == true && time_params_valid == true) {
+    if (cities_valid == true && transport_valid == true && agent_valid == true && map_params_valid == true && time_params_valid == true) {
 
         var xhttp;
         xhttp = new XMLHttpRequest();

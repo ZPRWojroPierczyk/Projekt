@@ -7,6 +7,7 @@ body {
 #Container {
   margin: auto;
   margin-top: 10%;
+  margin-bottom: 6%;
   width: 50%;
   height: 500px;
   border: 3px solid #333;
@@ -19,6 +20,7 @@ body {
 .inner-navbar {
   background-color: #333;
   overflow: hidden;
+  height: 10%;
 }
 
 /* Style the links inside the navigation bar */
@@ -49,7 +51,14 @@ body {
   color: white;
 }
 
-.inner-body{
+/**************************** Main container tabs ****************************/
+
+#tabs{
+  height: 90%;
+  overflow: auto;
+}
+
+.inner-body {
   display: none;
   color: black;
   transition: 0.3s;
@@ -79,6 +88,14 @@ body {
   transition: 0.3s;
 }
 
+.left-align {
+  text-align: left;
+}
+
+.left-align input{
+  margin-left: 20%;
+}
+
 .form-table tr:nth-child(even){background-color: #f2f2f2;}
 
 .form-table tr:hover {background-color: #ddd;}
@@ -106,6 +123,7 @@ fieldset {
   text-align: center;
   font-size: 16px;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .go-back {
@@ -118,7 +136,12 @@ fieldset {
   font-size: 16px;
   cursor: pointer;
   display: none;
+  margin-bottom: 15px;
 }
+
+/**************************** Transport tab generated content styles ****************************/
+
+/*TODO*/
 
 /**************************** Bottom navigation bar ****************************/
 

@@ -8,10 +8,6 @@
     <script src="/js/sub-sites/new-script.js"></script>
 </head>
 
-<!-- 
-    [TODO] Zakładka Parametry mapy -> jak zrobić aby dla każdej drogi można było wprowadzać parametry? Do przemyślenia.
--->
-
 <body>
     <div id="Container">
         <div class="inner-navbar">
@@ -110,10 +106,14 @@
                 </form>
                 <button class="accept" onclick="citiesAccept()">Zatwierdź</button>
                 <button class="go-back" onclick="citiesGoBack()">Wróć</button>
+                <!-- Debug purposes -->
                 <div id="demo"></div>
             </div>
             <div id="Transport" class="inner-body">
+                <button id="Generate-Transport-Button" onclick="transportGenerateElement()">Dodaj nowy</button>
                 <form id="Transport-Form">
+                    <table class="form-table" id="Transport-Table">
+                    </table>
                 </form>
                 <button class="accept" onclick="transportAccept()">Zatwierdź</button>
                 <button class="go-back" onclick="transportGoBack()">Wróć</button>
@@ -127,15 +127,15 @@
                         </tr>
                         <tr>
                             <td>Maksymalny czas jazdy bez przerwy: </td>
-                            <td class="left-align"><input type="number" name="agent-driving-time" value="0" step="1">  h</td>
+                            <td class="left-align"><input type="number" name="agent-driving-time" value="9" step="1">  h</td>
                         </tr>
                         <tr>
                             <td>Ładowność pojazdu: </td>
-                            <td class="left-align"><input type="number" name="agent-truck-load" value="0" step="1">  kg</td>
+                            <td class="left-align"><input type="number" name="agent-truck-load" value="3500" step="100">  kg</td>
                         </tr>
                         <tr>
                             <td>Maksymalna prędkość: </td>
-                            <td class="left-align"><input type="number" name="agent-truck-speed" value="0" step="1">  km/h</td>
+                            <td class="left-align"><input type="number" name="agent-truck-speed" value="120" step="10">  km/h</td>
                         </tr>
                     </table>
                 </form>
@@ -163,11 +163,11 @@
                     <table class="form-table">
                         <tr>
                             <td>Okno czasowe symulacji: </td>
-                            <td><input type="text" name="time-window"></td>
+                            <td class="left-align"><input type="number" name="time-window" value="28" step="7" min="0">  dni</td>
                         </tr>
                         <tr>
                             <td>Krok symulacji: </td>
-                            <td><input type="text" name="time-step"></td>
+                            <td class="left-align"><input type="number" name="time-step" value="1" step="1" min="1"></td>
                         </tr>
                     </table>
                 </form>

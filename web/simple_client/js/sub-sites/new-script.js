@@ -1,3 +1,8 @@
+//TODO: 
+//Number input validation - decimal, integer
+//JSON data generation and submiting
+//Think time-window and time-step parameters over
+
 /****************** Switching tabs *******************/
 
 function openTab(evt, tab) {
@@ -29,7 +34,9 @@ function citiesAccept() {
         if (element.type == "checkbox" && element.checked == true) {
             //Checking if cars and drivers numbers are correct
             if(x.elements[i+1].value < 0 || x.elements[i+2].value < 0) {
-                alert(element.getAttribute("data-name") + " niepoprawnie uzupełniony. Liczba pojazdów i kierowców musi być nieujemna. Proszę wprowadzić poprawne dane ponownie.");
+                alert(element.getAttribute("data-name")
+                 + " niepoprawnie uzupełniony. Liczba pojazdów i kierowców musi być nieujemna.\
+                  Proszę wprowadzić poprawne dane ponownie.");
                 return;
             }
             checked_count++;
@@ -49,7 +56,8 @@ function citiesAccept() {
     }
 
     //Debug purposes
-    //document.getElementById("demo").innerHTML = "Ilość zaznaczonych miast: " + checked_count + ". Czy formularz uzupełniony poprawnie: " + cities_valid;
+    //document.getElementById("demo").innerHTML = "Ilość zaznaczonych miast: "
+    // + checked_count + ". Czy formularz uzupełniony poprawnie: " + cities_valid;
 }
 
 function citiesGoBack() {
@@ -61,6 +69,9 @@ function citiesGoBack() {
     document.getElementsByClassName("accept")[0].style.display = "inline";
     document.getElementsByClassName("go-back")[0].style.display = "none";
     cities_valid = false;
+
+    //TODO: Cities inconsitency - could be done better, for now it's done this way.
+    document.getElementById("Transport-Table").innerHTML = "";
     
     //Debug purposes
     //document.getElementById("demo").innerHTML = "Czy formularz uzupełniony poprawnie: " + cities_valid;
@@ -69,9 +80,13 @@ function citiesGoBack() {
 
 /****************** Transport tab entry condition and form generator *******************/
 
+var transport_elements_count = 0;
+
 function transportEntry(evt, tab) {
     if(cities_valid == true) {
-        transportGenerator();
+        if(transport_elements_count == 0){
+            document.getElementsByClassName("accept")[1].style.display = "none";
+        }
         openTab(evt, tab);
         return true;
     } else {
@@ -80,26 +95,80 @@ function transportEntry(evt, tab) {
     }
 }
 
-//TODO:
-function transportGenerator() {
-    var html_content = "<input type=\"number\" name=\"wroclaw-cars-num\" value=\"0\" step=\"1\" min=\"0\">";
-    document.getElementById("Transport-Form").innerHTML = html_content;
+function transportGenerateElement() {
+    if(transport_elements_count == 0){
+        document.getElementsByClassName("accept")[1].style.display = "inline";
+    }
+
+    var html_content = "<tr><td>Z miasta: ";
+    var html_select = "<select>";
+    var x = document.getElementById("Cities-Form");
+    
+    for (i = 0; i < x.length; i++) {
+        var element = x.elements[i];
+        if (element.type == "checkbox" && element.checked == true) {
+            html_select += "<option value=\"" + element.value + "\">" + element.getAttribute("data-name") + "</option>";
+        }
+    }
+
+    html_select += "</select>";
+
+    html_content += html_select + "</td><td>Do miasta: " + html_select + "</td><td>"
+    + "<input type=\"number\" value=\"0\" step=\"1\" min=\"0\">  kg</td>"
+    + "<td><button class=\"remove-transport-element-button\" onclick=\"return transportRemoveElement(event);\">\
+    Usuń</button></td></tr>";
+
+    document.getElementById("Transport-Table").innerHTML += html_content;
+    transport_elements_count++;
 }
+
+function transportRemoveElement(evt) {
+    evt.currentTarget.parentElement.parentElement.remove();
+    transport_elements_count--;
+    if(transport_elements_count == 0){
+        document.getElementsByClassName("accept")[1].style.display = "none";
+    }
+    return false;
+}
+
 
 /****************** Transport form validation *******************/
 
 var transport_valid = false;
 
 function transportAccept() {
+    var select_distinction = 0;
     var x = document.getElementById("Transport-Form");
     var i;
+
     for (i = 0; i < x.length; i++) {
+        if(x.elements[i].type == "number" && x.elements[i].value < 0){
+            alert("Ilość towaru musi być dodatnia.");
+            return;
+        }
+        if(x.elements[i].tagName == "SELECT"){
+            if(select_distinction == 0){
+                if(x.elements[i].value == x.elements[i+1].value){
+                    alert("Niepoprawnie uzupełniony transport. Miasta muszą być różne.");
+                    return;
+                }
+                select_distinction++;
+            } else {
+                select_distinction--;
+            }
+        }
+    }
+
+    for (i = 0; i < x.length; i++) {
+        if(x.elements[i].tagName == "BUTTON"){
+            x.elements[i].style.display = "none";
+        }
         x.elements[i].disabled = true;
     }
+    
+    document.getElementById("Generate-Transport-Button").style.display = "none";
     document.getElementsByClassName("accept")[1].style.display = "none";
     document.getElementsByClassName("go-back")[1].style.display = "inline";
-
-    //TODO: Check if form is all right then flag transport_valid is true
 
     transport_valid = true;
 }
@@ -108,8 +177,12 @@ function transportGoBack() {
     var x = document.getElementById("Transport-Form");
     var i;
     for (i = 0; i < x.length; i++) {
+        if(x.elements[i].tagName == "BUTTON"){
+            x.elements[i].style.display = "inline";
+        }
         x.elements[i].disabled = false;
     }
+    document.getElementById("Generate-Transport-Button").style.display = "inline";
     document.getElementsByClassName("accept")[1].style.display = "inline";
     document.getElementsByClassName("go-back")[1].style.display = "none";
     transport_valid = false;
@@ -122,13 +195,21 @@ var agent_valid = false;
 function agentAccept() {
     var x = document.getElementById("Agent-Form");
     var i;
+    if(x.elements[0].value < 0 || x.elements[0].value > 100){
+        alert("Prawdopodobieństwo nie może być ujemne, ani nie może przekraczać 100%.");
+        return;
+    }
+    for (i = 1; i < x.length; i++) {
+        if(x.elements[i].value <= 0){
+            alert("Wszystkie parametry, oprócz prawdopodobieństwa wypadku, muszą być dodatnie.");
+            return;
+        }
+    }
     for (i = 0; i < x.length; i++) {
         x.elements[i].disabled = true;
     }
-    document.getElementsByClassName("accept")[1].style.display = "none";
-    document.getElementsByClassName("go-back")[1].style.display = "inline";
-
-    //TODO: Check if form is all right then flag agent_valid is true
+    document.getElementsByClassName("accept")[2].style.display = "none";
+    document.getElementsByClassName("go-back")[2].style.display = "inline";
 
     agent_valid = true;
 }
@@ -139,8 +220,8 @@ function agentGoBack() {
     for (i = 0; i < x.length; i++) {
         x.elements[i].disabled = false;
     }
-    document.getElementsByClassName("accept")[1].style.display = "inline";
-    document.getElementsByClassName("go-back")[1].style.display = "none";
+    document.getElementsByClassName("accept")[2].style.display = "inline";
+    document.getElementsByClassName("go-back")[2].style.display = "none";
     agent_valid = false;
 }
 
@@ -151,13 +232,19 @@ var map_params_valid = false;
 function mapParamsAccept() {
     var x = document.getElementById("Map-Params-Form");
     var i;
+
+    if(x.elements[0].value < 0 || x.elements[0].value > 100
+        || x.elements[1].value < 0 || x.elements[1].value > 100){
+        alert("Prawdopodobieństwo nie może być ujemne, ani nie może przekraczać 100%.");
+        return;
+    }
+
     for (i = 0; i < x.length; i++) {
         x.elements[i].disabled = true;
     }
-    document.getElementsByClassName("accept")[2].style.display = "none";
-    document.getElementsByClassName("go-back")[2].style.display = "inline";
 
-    //TODO: Check if form is all right then flag map_params_valid is true
+    document.getElementsByClassName("accept")[3].style.display = "none";
+    document.getElementsByClassName("go-back")[3].style.display = "inline";
 
     map_params_valid = true;
 }
@@ -168,8 +255,8 @@ function mapParamsGoBack() {
     for (i = 0; i < x.length; i++) {
         x.elements[i].disabled = false;
     }
-    document.getElementsByClassName("accept")[2].style.display = "inline";
-    document.getElementsByClassName("go-back")[2].style.display = "none";
+    document.getElementsByClassName("accept")[3].style.display = "inline";
+    document.getElementsByClassName("go-back")[3].style.display = "none";
     map_params_valid = false;
 }
 
@@ -183,10 +270,14 @@ function timeParamsAccept() {
     for (i = 0; i < x.length; i++) {
         x.elements[i].disabled = true;
     }
-    document.getElementsByClassName("accept")[3].style.display = "none";
-    document.getElementsByClassName("go-back")[3].style.display = "inline";
 
-    //TODO: Check if form is all right then flag time_params_valid is true
+    if(x.elements[0].value <= 0 || x.elements[1].value <= 0){
+        alert("Parametry muszą być dodatnie.");
+        return;
+    }
+
+    document.getElementsByClassName("accept")[4].style.display = "none";
+    document.getElementsByClassName("go-back")[4].style.display = "inline";
 
     time_params_valid = true;
 }
@@ -197,17 +288,18 @@ function timeParamsGoBack() {
     for (i = 0; i < x.length; i++) {
         x.elements[i].disabled = false;
     }
-    document.getElementsByClassName("accept")[3].style.display = "inline";
-    document.getElementsByClassName("go-back")[3].style.display = "none";
+    document.getElementsByClassName("accept")[4].style.display = "inline";
+    document.getElementsByClassName("go-back")[4].style.display = "none";
     time_params_valid = false;
 }
 
-/****************** AJAX - asynchronous exchange of data with a web server behind the scenes *******************/
+/************** AJAX - asynchronous exchange of data with a web server behind the scenes ***************/
 
 /****************** Submitting forms *******************/
 //TODO
 function submitForms() {
-    if (cities_valid == true && transport_valid == true && agent_valid == true && map_params_valid == true && time_params_valid == true) {
+    if (cities_valid == true && transport_valid == true && agent_valid == true 
+        && map_params_valid == true && time_params_valid == true) {
 
         var xhttp;
         xhttp = new XMLHttpRequest();

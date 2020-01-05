@@ -19,7 +19,7 @@ body {
 
 .inner-navbar {
   background-color: #333;
-  overflow: hidden;
+  overflow: auto;
   height: 10%;
 }
 
@@ -139,9 +139,31 @@ fieldset {
   margin-bottom: 15px;
 }
 
-/**************************** Transport tab generated content styles ****************************/
+#Generate-Transport-Button {
+  background-color: #626588;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 
-/*TODO*/
+.remove-transport-element-button{
+  background-color: #626588;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 2px 3px;
+  text-align: center;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 
 /**************************** Bottom navigation bar ****************************/
 

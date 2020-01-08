@@ -1,58 +1,71 @@
-import platform, os
+import platform
+import os
 
+# Import variables from parent
 Import('env', 'DEBUG')
-Import('LINUX_BOOST_LIB_PATH')
-Import('obj_list')
-DEBUG = int(DEBUG)
-env_test = env.Clone()
+Import('srcObjects')
 
-#----------------------------------------------------------
-#---------------------- env_testironment -----------------------
-#----------------------------------------------------------
+# Parse DEBUG as it is imported as string
+DEBUG = int(DEBUG)
+
+# Clone env to not make a mess for 'test' building env
+envTest = env.Clone()
+
+#---------------------------------------------------------
+#--------------- Linux Tests Environment -----------------
+#---------------------------------------------------------
 
 if(platform.system() == "Linux"):
-    env_test.Append( CPPPATH = [ ] )
-    env_test.Append( LIBPATH = [ ] )
-    env_test.Append( LIBS = ['boost_thread', 'boost_program_options', 'boost_unit_test_framework'] )
+    envTest.Append( CPPPATH = [ ] )
+    envTest.Append( LIBPATH = [ ] )
+    envTest.Append( LIBS = ['boost_thread', 'boost_program_options', 'boost_unit_test_framework'] )
     # Custom compiller flags
-    env_test.Append( CPPFLAGS = ' -pthread' )
+    envTest.Append( CPPFLAGS = '' )
     # Custom linker flags
-    # -- -Wl,-rpath defines default search path to the 
-    #    shared libraries for the result test
-    #    (thanks to using it, user has not to define
-    #    LD_LIBRARY_PATH while running test)
-    env_test.Append( LINKFLAGS = ' -pthread -Wl,-rpath=' + LINUX_BOOST_LIB_PATH)
+    envTest.Append( LINKFLAGS = '-pthread ' )
 
     # Debug-dependant configuration
-    if DEBUG == 0:
+    if DEBUG == 1:
         pass
-    elif DEBUG == 1:
-        pass
+
+#---------------------------------------------------------
+#-------------- Windows Tests Environment ----------------
+#---------------------------------------------------------
 
 elif(platform.system() == "Windows"):
-    env_test.Append( CPPPATH = [ ] )
-    env_test.Append( LIBPATH = [ ] )
+    envTest.Append( CPPPATH = [ ] )
+    envTest.Append( LIBPATH = [ ] )
     
     # Custom compiller flags
-    env_test.Append( CPPFLAGS = '' )
+    envTest.Append( CPPFLAGS = '' )
     # Custom linker flags
-    env_test.Append( LINKFLAGS = '')
+    envTest.Append( LINKFLAGS = '')
 
     # Debug-dependant configuration
-    if DEBUG == 0:
+    if DEBUG == 1:
         pass
-    elif DEBUG == 1:
-        pass
+
+#----------------------------------------------------------
+#------------- Collect list of source files ---------------
+#----------------------------------------------------------
+
+# List all *.cc sources rcursively
+testSources = []
+for root, dirnames, filenames in os.walk(Dir('.').abspath):
+    # If not folder conatining 'main.cc'
+    if root != Dir('.').abspath:
+        # Append Glob formula to the list
+        testSources.append(Glob(os.path.join(root, '*.cc')))
 
 #----------------------------------------------------------
 #-------------------- Build and Install -------------------
 #----------------------------------------------------------
 
-test = env_test.Program( source = ['test.cc', obj_list], target = 'test' )
+test = envTest.Program( source = ['mainTest.cc', testSources, srcObjects], target = 'test' )
 
 if DEBUG == 0:
-    env_test.Install('#bin/release/test', test)
-    env_test.Alias('install', '#bin/release/test')
+    envTest.Install('#bin/release/test', test)
+    envTest.Alias('install', '#bin/release/test')
 elif DEBUG == 1:
-    env_test.Install('#bin/debug/test', test)
-    env_test.Alias('install', '#bin/debug/test')
+    envTest.Install('#bin/debug/test', test)
+    envTest.Alias('install', '#bin/debug/test')

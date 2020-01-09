@@ -1,23 +1,26 @@
-#define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MODULE AppTest
+#define BOOST_TEST_DYN_LINK
 #include <boost/test/unit_test.hpp>
-#include <iostream>
-#include "Model.h"
 
-BOOST_AUTO_TEST_CASE(ModelStatesTest){
-    
-    Model model;    
+namespace ut = boost::unit_test;
 
-    model.openCredits();
-    BOOST_CHECK(model.getState() == Model::State::Credits);
-    model.openLoad();
-    BOOST_CHECK(model.getState() == Model::State::Load);
-    model.openMenu();
-    BOOST_CHECK(model.getState() == Model::State::Menu);
-    model.openSettings();
-    BOOST_CHECK(model.getState() == Model::State::Settings);
-    model.openSimulationCreator();
-    BOOST_CHECK(model.getState() == Model::State::SimulationCreator);
-    model.openSimulation();
-    BOOST_CHECK(model.getState() == Model::State::SimulationCreator);
+/* --- Model unit tests --- */
+extern void modelStatesTest();
+
+
+ut::test_suite* init_unit_test_suite( int, char*[] )
+{
+    // Check if test initialized properly
+    if(ut::framework::master_test_suite().argc > 1 )
+        return 0;
+
+    /* Model tests */
+    ut::test_suite* modelSuite = BOOST_TEST_SUITE("Model suite");
+    modelSuite->add(BOOST_TEST_CASE(&modelStatesTest));
+
+    return 0;
 }
+
+
+
+

@@ -57,6 +57,7 @@ for root, dirnames, filenames in os.walk(Dir('.').abspath):
         # Append Glob formula to the list
         testSources.append(Glob(os.path.join(root, '*.cc')))
 
+
 #----------------------------------------------------------
 #-------------------- Build and Install -------------------
 #----------------------------------------------------------

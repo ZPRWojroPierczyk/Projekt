@@ -46,7 +46,7 @@ public:
 public:
     void run();
     bool join (const boost::asio::ip::tcp::endpoint& client);
-    void leave (const boost::asio::ip::tcp::endpoint& client);
+    bool leave (const boost::asio::ip::tcp::endpoint& client);
     void loadConfig(const std::string& configFile);
     std::string getDocRoot();
 

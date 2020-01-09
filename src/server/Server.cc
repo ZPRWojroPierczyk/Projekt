@@ -13,9 +13,11 @@
 #include <fstream>
 #include <ios>
 #include <memory>
+#include <stdexcept>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <boost/program_options.hpp>
 #include <boost/asio/signal_set.hpp>
-
 #include "Server.h"
 #include "Listener.h"
 
@@ -40,15 +42,20 @@ namespace po = boost::program_options;
 Server::Server(const std::chrono::minutes& timeout,
                const std::string& configFile) :
     __context(),
-    __clients(),
-    __timeout(timeout)
+    __clients()
 {
     // Initial configuration loading
     try{
         loadConfig(configFile);
-    } catch (std::exception& e){
-        throw po::invalid_option_value(e.what());
+    } catch (...){
+        throw;
     }
+    
+    // Check duaration corectness
+    if (timeout > std::chrono::minutes(0))
+        __timeout = timeout;
+    else
+        throw std::invalid_argument("Timeout cannot be negative!");
 }
 
 
@@ -151,8 +158,8 @@ bool Server::join(const asio::ip::tcp::endpoint& client){
  * 
  * @param client : Client to unregister
  */
-void Server::leave(const asio::ip::tcp::endpoint& client){
-    __clients.erase(client);
+bool Server::leave(const asio::ip::tcp::endpoint& client){
+    return __clients.erase(client);
 }
 
 
@@ -201,14 +208,22 @@ void Server::loadConfig(const std::string& configFile){
         auto address = asio::ip::make_address(vm["ip"].as<std::string>().c_str());
         auto port = vm["port"].as<unsigned short>();
         
+        // Port correctness
         if(port <1024 || port > 65535)
             throw po::invalid_option_value("");
+        
+        // Doc root existance
+        struct stat info;
+        if(stat(vm["doc_root"].as<std::string>().c_str(), &info) !=0)
+            throw std::runtime_error("");
         
         __endpoint = asio::ip::tcp::endpoint(address, port);
         __docRoot = vm["doc_root"].as<std::string>();
 
     } catch (po::invalid_option_value &ex){
         throw po::invalid_option_value(std::string("Server configuration: Invalid port number!"));
+    } catch(std::runtime_error &ex){
+        throw po::invalid_option_value(std::string("Pointed doc root does not exists!"));
     } catch (std::exception &ex){
         throw po::invalid_option_value(std::string("Server configuration: Invalid ip address!"));
     }

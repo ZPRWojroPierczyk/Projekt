@@ -30,8 +30,8 @@ int main(int argc, char* argv[]){
     po::options_description desc("Server options");
     desc.add_options()
         ("timeout", po::value<unsigned short>()->default_value(30), "Client's timeout [min].")
-        ("web_root", po::value<std::string>()->default_value(std::string(ROOT) + "/config/http_server.conf"),
-                    "Path to the web content root folder.");
+        ("config", po::value<std::string>()->default_value(std::string(ROOT) + "/config/http_server.conf"),
+                    "Path to the config file.");
 
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -41,7 +41,7 @@ int main(int argc, char* argv[]){
     
     Server server(
         std::chrono::minutes(vm["timeout"].as<unsigned short>()),
-        vm["web_root"].as<std::string>()
+        vm["config"].as<std::string>()
     );
     
     // Returns on SIGINT (ctrl+C) or SIGTERM (kill)

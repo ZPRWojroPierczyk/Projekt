@@ -31,7 +31,7 @@ class HttpSession : public std::enable_shared_from_this<HttpSession>
 // Constructors
 public:
     HttpSession(boost::asio::ip::tcp::socket&& socket,
-                const std::shared_ptr<Server>& server);
+                Server& server);
 
 // Interface
 public:
@@ -43,8 +43,8 @@ private:
     boost::asio::ip::tcp::socket __socket;
     /// Buffer used in async_read() and async_write() operations
     boost::beast::flat_buffer __buffer;
-    /// Shared state of the application conatining crucial informations about app
-    std::shared_ptr<Server> __server;
+    /// Reference to the Server pbject conatining crucial informations about app
+    Server& __server;
     /// HTTP request from the client
     boost::beast::http::request<boost::beast::http::string_body> __req;
 

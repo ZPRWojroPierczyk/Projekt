@@ -30,7 +30,7 @@ namespace http = boost::beast::http;
  * @param req : HTTP request
  * @param send : Generic lambda used to send response
  */
- template<class Body,
+template<class Body,
           class Allocator,
           class Send>
 void HttpSession::__handleRequest(

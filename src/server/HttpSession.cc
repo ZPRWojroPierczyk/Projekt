@@ -29,7 +29,7 @@ using error_code = boost::system::error_code;
  * @param state : State shared between sessions
  */
 HttpSession::HttpSession(boost::asio::ip::tcp::socket&& socket,
-                         const std::shared_ptr<Server>& server) :
+                         Server& server) :
     __socket(std::move(socket)),
     __server(server)
 {}
@@ -179,7 +179,7 @@ void HttpSession::__on_read(error_code err_code, std::size_t){
     /* --- Send response --- */
     
     __handleRequest(
-        __server->getDocRoot(),
+        __server.getDocRoot(),
         std::move(__req),
          // Generic lambda as a response handler (type of the response
          // cannot be predicated apriori)

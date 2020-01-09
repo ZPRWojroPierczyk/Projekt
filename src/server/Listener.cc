@@ -31,7 +31,7 @@ using error_code = boost::system::error_code;
  */
 Listener::Listener(boost::asio::io_context& context,
                    const tcp::endpoint& endpoint,
-                   const std::shared_ptr<Server>& server) :
+                   Server& server) :
     __acceptor(context),
     __socket(context),
     __server(server)
@@ -118,7 +118,7 @@ void Listener::__on_accept(const error_code& err_code){
     }
     else {
         // Register client to the if they are new
-        __server->join(__socket.remote_endpoint());
+        __server.join(__socket.remote_endpoint());
 
         // Launch a new session for this connection
         std::make_shared<HttpSession>(

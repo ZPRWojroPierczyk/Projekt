@@ -29,7 +29,7 @@ class Listener : public std::enable_shared_from_this<Listener>
 public:
     Listener(boost::asio::io_context& context,
              const boost::asio::ip::tcp::endpoint& endpoint,
-             const std::shared_ptr<Server>& server);
+             Server& server);
 
 // Interface
 public:
@@ -42,7 +42,7 @@ private:
     /// Socket to listen on
     boost::asio::ip::tcp::socket __socket;
     /// Server that created Listener
-    std::shared_ptr<Server> __server;
+    Server& __server;
 
 // Private member methods
 private:

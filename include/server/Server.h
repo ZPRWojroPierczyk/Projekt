@@ -41,7 +41,6 @@ class Server
 public:
     explicit Server(const std::chrono::minutes& timeout,
                     const std::string& configFile);
-    ~Server();
 
 // Interface
 public:
@@ -54,11 +53,11 @@ public:
 // Private types
 private:
     /// Application's instance
-    using app = std::pair<Controller*, View*>;
+    using app = std::pair<std::unique_ptr<Controller>, std::unique_ptr<View>>;
     /// Client's identificator (socket)
     using clientID = boost::asio::ip::tcp::endpoint;
     /// Type representing a single client
-    using session = std::pair<boost::asio::steady_timer*, app>;
+    using session = std::pair<std::unique_ptr<boost::asio::steady_timer>, app>;
     /// Set of clients
     using clientsList = std::unordered_map<clientID, session, ClientHash>;
 

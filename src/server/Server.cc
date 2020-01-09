@@ -53,23 +53,6 @@ Server::Server(const std::chrono::minutes& timeout,
 
 
 
-/**
- * @brief Destroy the Server and all instances of the app
- *        that have been created with 'new'.
- */
-Server::~Server(){
-    //Call destructors
-    for(auto iter = __clients.begin(); iter != __clients.end(); iter++){
-        // Timer instances
-          delete iter->second.first;
-        // Applitaction instanced
-        delete iter->second.second.first;
-        delete iter->second.second.second;
-    }
-}
-
-
-
 /*--------------------------------------------------------------------------------*/
 /*----------------------------- Public member methods ----------------------------*/
 /*--------------------------------------------------------------------------------*/
@@ -89,7 +72,7 @@ void Server::run(){
     std::make_shared<Listener>(
         __context,
         __endpoint,
-        std::shared_ptr<Server>(this)
+        *this
     )->run();
 
     /* --- Capture SIGINT and SIGTERM to perform a clean shutdown --- */
@@ -169,12 +152,6 @@ bool Server::join(const asio::ip::tcp::endpoint& client){
  * @param client : Client to unregister
  */
 void Server::leave(const asio::ip::tcp::endpoint& client){
-    // Delete client's timeout timer
-    delete __clients[client].first;
-    // Deallocate instance of the app
-    delete __clients[client].second.first;
-    delete __clients[client].second.second;
-    // Remove client's record from the list
     __clients.erase(client);
 }
 

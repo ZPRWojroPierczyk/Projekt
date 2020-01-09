@@ -8,64 +8,44 @@
  * @copyright Copyright (c) 2020
  */
 
-#include <iostream>
 #include <string>
-#include <boost/asio/signal_set.hpp>
+#include <chrono>
+#include <boost/program_options.hpp>
 
-#include "Listener.h"
-#include "SharedState.h"
-#include "ServerOptions.h"
+#include "Server.h"
+
+namespace po = boost::program_options;
 
 /**
- * main() purpose is to load HTTP server's configurationand run
- * it. After that main thread is delegated to server asynchonous
- * operations related to boost::beast actions 
- * (boost::asio::io_context::run())
- * 
- * @param argc 
- * @param argv 
- * @return int 
+ * main() purpose is to parse command-line arguments (if present) 
+ * and run HTTP server that manages app.
+ *
+ * @note ROOT constant is defined by g++ call. It is absolute path to the
+ *       projects root folder (calculated via SConstruct script)
  */
 int main(int argc, char* argv[]){
 
-    // Load options from config file
-    ServerOptions options;
-    options.loadOptions();
+    /* --- Load command-line parameters --- */
 
-    // Create asio server parameters from loaded options
-    auto address = asio::ip::make_address(options.getAddress().c_str());
-    auto port = static_cast<unsigned short>(options.getPort());
-    auto docRoot = options.getDocRoot();    
+    po::options_description desc("Server options");
+    desc.add_options()
+        ("timeout", po::value<unsigned short>()->default_value(30), "Client's timeout [min].")
+        ("web_root", po::value<std::string>()->default_value(std::string(ROOT) + "/config/http_server.conf"),
+                    "Path to the web content root folder.");
 
-    // The io_context is required for all I/O
-    asio::io_context ioc;
+    po::variables_map vm;
+    po::store(po::parse_command_line(argc, argv, desc), vm);
+    po::notify(vm); 
 
-    // Create and launch a listening port
-    // NOTE : Shared pointer lives in such cases up to the
-    //        end of the scope. It is run() method's
-    //        respoinsibility to create it's coppy and
-    //        prolong Listener lifetime. 
-    std::make_shared<Listener>(
-        ioc,
-        tcp::endpoint{address, port},
-        std::make_shared<SharedState>(docRoot)
-    )->run();
-
-    // Capture SIGINT and SIGTERM to perform a clean shutdown
-    asio::signal_set signals(ioc, SIGINT, SIGTERM);
-    signals.async_wait(
-        [&ioc](boost::system::error_code const&, int)
-        {
-            // Stop the io_context. This will cause run()
-            // to return immediately, eventually destroying the
-            // io_context and any remaining handlers in it.
-            ioc.stop();
-        }
+    /* --- Initialize HTTP server --- */
+    
+    Server server(
+        std::chrono::minutes(vm["timeout"].as<unsigned short>()),
+        vm["web_root"].as<std::string>()
     );
-
-    // Run the I/O service on the main thread
-    ioc.run();
-
-    // Return on SIGINT (ctrl+C) or SIGTERM (kill)
+    
+    // Returns on SIGINT (ctrl+C) or SIGTERM (kill)
+    server.run();
+    
     return EXIT_SUCCESS;
 }

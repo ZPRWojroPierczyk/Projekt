@@ -1,60 +1,73 @@
-import platform, os
+import platform
+import os
 
+# Import variables from parent
 Import('env', 'DEBUG')
-Import('LINUX_BOOST_LIB_PATH')
+
+# Parse DEBUG as it is imported as string
 DEBUG = int(DEBUG)
-env_app = env.Clone()
+
+# Clone env to not make a mess for 'test' building env
+envApp = env.Clone()
 
 #----------------------------------------------------------
-#---------------------- env_appironment -----------------------
+#--------------- Linux Source Environment -----------------
 #----------------------------------------------------------
 
 if(platform.system() == "Linux"):
-    env_app.Append( CPPPATH = [ ] )
-    env_app.Append( LIBPATH = [ ] )
-    env_app.Append( LIBS = ['boost_thread', 'boost_program_options'] )
+    envApp.Append( CPPPATH = [ ] )
+    envApp.Append( LIBPATH = [ ] )
+    envApp.Append( LIBS = ['boost_thread', 'boost_program_options'] )
     # Custom compiller flags
-    env_app.Append( CPPFLAGS = ' -pthread' )
+    envApp.Append( CPPFLAGS = '' )
     # Custom linker flags
-    # -- -Wl,-rpath defines default search path to the 
-    #    shared libraries for the result app
-    #    (thanks to using it, user has not to define
-    #    LD_LIBRARY_PATH while running app)
-    env_app.Append( LINKFLAGS = ' -pthread -Wl,-rpath=' + LINUX_BOOST_LIB_PATH)
+    envApp.Append( LINKFLAGS = '-pthread ' )
 
     # Debug-dependant configuration
-    if DEBUG == 0:
+    if DEBUG == 1:
         pass
-    elif DEBUG == 1:
-        pass
+
+#----------------------------------------------------------
+#-------------- Windows Source Environment ----------------
+#----------------------------------------------------------
 
 elif(platform.system() == "Windows"):
-    env_app.Append( CPPPATH = [ ] )
-    env_app.Append( LIBPATH = [ ] )
+    envApp.Append( CPPPATH = [ ] )
+    envApp.Append( LIBPATH = [ ] )
     
     # Custom compiller flags
-    env_app.Append( CPPFLAGS = '' )
+    envApp.Append( CPPFLAGS = '' )
     # Custom linker flags
-    env_app.Append( LINKFLAGS = '')
+    envApp.Append( LINKFLAGS = '')
 
     # Debug-dependant configuration
-    if DEBUG == 0:
-        pass
-    elif DEBUG == 1:
+    if DEBUG == 1:
         pass
 
+#----------------------------------------------------------
+#------------- Collect list of source files ---------------
+#----------------------------------------------------------
+
+# List all *.cc sources rcursively
+srcSrouces = []
+for root, dirnames, filenames in os.walk(Dir('.').abspath):
+    # If not folder conatining 'main.cc'
+    if root != Dir('.').abspath:
+        # Append Glob formula to the list
+        srcSrouces.append(Glob(os.path.join(root, '*.cc')))
+    
 #----------------------------------------------------------
 #-------------------- Build and Install -------------------
 #----------------------------------------------------------
 
-obj_list = env_app.StaticObject(source = [Glob('*/*.cc'), Glob('*/*/*.cc'), Glob('*/*/*/*.cc')])
-app = env_app.Program( source = ['main.cc', obj_list], target = 'app' )
+srcObjects = envApp.StaticObject(source = srcSrouces)
+app = envApp.Program( source = ['main.cc', srcObjects], target = 'app' )
 
 if DEBUG == 0:
-    env_app.Install('#bin/release/app', app)
-    env_app.Alias('install', '#bin/release/app')
+    envApp.Install('#bin/release/app', app)
+    envApp.Alias('install', '#bin/release/app')
 elif DEBUG == 1:
-    env_app.Install('#bin/debug/app', app)
-    env_app.Alias('install', '#bin/debug/app')
+    envApp.Install('#bin/debug/app', app)
+    envApp.Alias('install', '#bin/debug/app')
 
-Return('obj_list')
+Return('srcObjects')

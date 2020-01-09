@@ -1,76 +1,84 @@
-import platform, os
+import platform
+import os
+
+#----------------------------------------------------------
+#---------------------- Preparation -----------------------
+#----------------------------------------------------------
 
 # Build constants
 LINUX_BOOST_INCLUDE_PATH = '/usr/local/include/boost'
 LINUX_BOOST_LIB_PATH = '/usr/local/lib'
-
 LINUX_CPPPATH = [ \
     Dir(LINUX_BOOST_INCLUDE_PATH),
-    Dir('#include/'), \
-    Dir('#include/server/'), \
-    Dir('#include/model/'), \
-    Dir('#include/model/managers/'), \
-    Dir('#include/model/managers/simulation/'), \
-    Dir('#include/view/'), \
-    Dir('#include/controller/') \
 ]
-
 LINUX_LIBPATH = [ \
 	Dir(LINUX_BOOST_LIB_PATH), \
 ]
 
 #----------------------------------------------------------
-#---------------- Command-line arguments ------------------
+#------------- Get include directories list ---------------
+#----------------------------------------------------------
+
+# Get path to src folder
+includePath = str(Dir('include').srcnode().abspath)
+# List all subdirectories in include/
+for root, dirnames, filenames in os.walk(includePath):
+	LINUX_CPPPATH.append(Dir(root))
+
+#----------------------------------------------------------
+#---------------------- Preparation -----------------------
 #----------------------------------------------------------
 
 # Check if debug build (command-line argument 'debug=1')
 # Default value for debug: 0
 debug = int(ARGUMENTS.get('debug', 0))
 
-#----------------------------------------------------------
-#------------------ Common Environment --------------------
-#----------------------------------------------------------
+# Export debug to submodules
+Export({'DEBUG': debug})
 
+# Empty environment
 env = Environment()
+
+#----------------------------------------------------------
+#--------------- Linux Common Environment -----------------
+#----------------------------------------------------------
 
 if(platform.system() == "Linux"):
 	env.Append( CPPPATH = LINUX_CPPPATH )
 	env.Append( LIBPATH = LINUX_LIBPATH )
 	env.Append( LIBS = [] )
 	# Custom compiller flags
-	env.Append( CPPFLAGS = '-Wall -pedantic ' +  \
-						   '-D ROOT=\\\"' + Dir('.').srcnode().abspath + '\\\"' )
+	env.Append( CPPFLAGS = '-Wall -pedantic ' )
 	# Custom linker flags
-	env.Append( LINKFLAGS = '-Wall')
+	env.Append( LINKFLAGS = '-Wall -Wl,-rpath={} '.format(LINUX_BOOST_LIB_PATH) )
+
+	# Compile-time ROOT constant is used by the programm
+	# to be aware about it's structure's localization
+	env.Append( CPPFLAGS = '-D ROOT=\\\"{}\\\" '.format(Dir('.').abspath) )
 	
 	# Debug-dependant configuration
-	if debug == 0:
-		pass
-	elif debug == 1:
-		pass
-    
+	if debug == 1:
+		env.Append( CPPFLAGS = '-g ')
+
+	# Export required variables to submodules
+	Export('env')
+
+#----------------------------------------------------------
+#-------------- Windows Common Environment ----------------
+#----------------------------------------------------------
+
 elif(platform.system() == "Windows"):
-	env.Append( CPPPATH = [ Dir(LINUX_BOOST_INCLUDE_PATH) ] )
-	env.Append( LIBPATH = [ Dir(LINUX_BOOST_LIB_PATH) ] )
+	env.Append( CPPPATH = [ Dir( ) ] )
+	env.Append( LIBPATH = [ Dir( ) ] )
 	
 	# Custom compiller flags
 	env.Append( CPPFLAGS = ' /EHsc /MD /D "WIN32" /D "_CONSOLE" /W4' )
 	# Custom linker flags
-	env.Append( LINKFLAGS = '')
+	env.Append( LINKFLAGS = [ ] )
 
 	# Debug-dependant configuration
-	if debug == 0:
+	if debug == 1:
 		pass
-	elif debug == 1:
-		env.Append( CPPFLAGS = ' -g' )
-
-#----------------------------------------------------------
-#----------------------- Exports --------------------------
-#----------------------------------------------------------
-
-# Export build constants for the nested SCconscript
-Export({'DEBUG': debug})
-Export('env', 'LINUX_BOOST_LIB_PATH')
 
 #----------------------------------------------------------
 #------------------------- Build --------------------------
@@ -84,10 +92,11 @@ def version(debug):
 
 # Build app
 VariantDir('obj/' + version(debug) + '/app', 'src', duplicate = 0)
-obj_list = SConscript('obj/' + version(debug) + '/app/SConscript.py')
+srcObjects = SConscript('obj/' + version(debug) + '/app/SConscript.py')
+
 # Build test
 VariantDir('obj/' + version(debug) + '/test', 'test', duplicate = 0)
-SConscript('obj/' + version(debug) + '/test/SConscript.py', exports = 'obj_list')
+SConscript('obj/' + version(debug) + '/test/SConscript.py', exports = 'srcObjects')
 
 #----------------------------------------------------------
 #----------------------- Utilities ------------------------
@@ -95,6 +104,6 @@ SConscript('obj/' + version(debug) + '/test/SConscript.py', exports = 'obj_list'
 
 # Help printed to the terminal after typing 'scons -h'
 Help("""
-Type: 'scons [targets]' to build the production program,
-      'scons [targets] debug=1' to build the debug version.
+Type: 'scons ' to build the production program,
+      'scons debug=1' to build the debug version.
 """)

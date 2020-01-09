@@ -12,56 +12,69 @@
 #ifndef SHARED_STATE_H
 #define SHARED_STATE_H
 
+#include <chrono>
 #include <memory>
 #include <string>
-#include <unordered_set>
+#include <unordered_map>
 #include <utility>
-#include <boost/functional/hash.hpp>
 #include <boost/asio.hpp>
-#include "ServerConfig.h"
+
+#include "View.h"
+#include "Controller.h"
+#include "Utilities.h"
 
 class HttpSession;
 
 /**
- *
+ * @brief HTTP Server responsible for managing client's sessions,
+ *        application instances and port listeners.
+ * 
+ * @see   Listener.h
+ * 
+ * @note boost::hash in __clients member is used, since gcc 
+ *       doesn't compile unordered_set with asio entopoint as
+ *       a key
  */
-class Server{
-
-// Constructors
+class Server
+{
+// Constructors & Destructors
 public:
-    explicit Server(boost::asio::io_context* context,
-                    boost::posix_time::ptime timeout,
-                    const std::string configFile);
+    explicit Server(const std::chrono::minutes& timeout,
+                    const std::string& configFile);
+    ~Server();
 
 // Interface
 public:
     void run();
     bool join (const boost::asio::ip::tcp::endpoint& client);
     void leave (const boost::asio::ip::tcp::endpoint& client);
-    bool loadConfig(const std::string& configFile);
+    void loadConfig(const std::string& configFile);
+    std::string getDocRoot();
+
+// Private types
+private:
+    /// Application's instance
+    using app = std::pair<Controller*, View*>;
+    /// Client's identificator (socket)
+    using clientID = boost::asio::ip::tcp::endpoint;
+    /// Type representing a single client
+    using session = std::pair<boost::asio::steady_timer*, app>;
+    /// Set of clients
+    using clientsList = std::unordered_map<clientID, session, ClientHash>;
 
 // Private members
 private:
-    /// Type representing a single client
-    using session = std::pair<boost::asio::ip::tcp::endpoint, boost::asio::steady_timer>;
-
     /// Context of the server
-    boost::asio::io_context* __context;
-
-    /// IP address of the server
-    boost::asio::ip::tcp::endpoint __socket;
+    boost::asio::io_context __context;
+    /// Server's socket endpoint
+    boost::asio::ip::tcp::endpoint __endpoint;
     /// Absolute path to the folder containing static files
     std::string __docRoot;
-    
-    /* 
-    * NOTE: boost::hash is used, since on the gcc unordered_set
-    *       cannot contain std::pair
-    */
 
-    /// List of the active client's connections
-    std::unordered_set<session, boost::hash<session>> __sessions;
+    /// Map of the active client's connections
+    clientsList __clients;
     /// Server's timeout
-    boost::posix_time::ptime __timeout;
+    std::chrono::minutes __timeout;
 };
 
 #endif

@@ -13,105 +13,146 @@
 #include "Listener.h"
 #include "HttpSession.h"
 
-namespace asio = boost::asio;
-namespace beast = boost::beast;
-namespace http = boost::beast::http;
 using tcp = boost::asio::ip::tcp;
 using error_code = boost::system::error_code;
 
+/*--------------------------------------------------------------------------------*/
+/*-------------------------------- Constructors ----------------------------------*/
+/*--------------------------------------------------------------------------------*/
 
 /**
  * @brief Construct a new Listener:: Listener object
  * 
- * @param ioc Associated boost::asio::io_context
- * @param endpoint Endpoint socket to listen on
- * @param state Shared state of the application
+ * @param ioc : Associated io_context (usually the one used hold by server)
+ * @param endpoint : Endpoint socket to listen on (usually server's socket)
+ * @param server : Server to interact with 
+ * 
+ * @see Server.h
  */
-Listener::Listener(asio::io_context& ioc,
-                   tcp::endpoint endpoint,
-                   std::shared_ptr<SharedState> const& state)
-    : acceptor_(ioc)
-    , socket_(ioc)
-    , state_(state)
+Listener::Listener(boost::asio::io_context& context,
+                   const tcp::endpoint& endpoint,
+                   const std::shared_ptr<Server>& server) :
+    __acceptor(context),
+    __socket(context),
+    __server(server)
 {
     error_code err_code;
 
     // Open the acceptor
-    acceptor_.open(endpoint.protocol(), err_code);
+    __acceptor.open(endpoint.protocol(), err_code);
     if(err_code){
-        fail(err_code, "open");
+        __fail(err_code, "Cannot open listener.");
         return;
     }
 
-    // Allow address reuse
-    acceptor_.set_option(asio::socket_base::reuse_address(true));
+    // Allow server's address reuse
+    __acceptor.set_option(boost::asio::socket_base::reuse_address(true));
     if(err_code){
-        fail(err_code, "set_option");
+        __fail(err_code, "Cannot set listener's options.");
         return;
     }
 
     // Bind to the server address
-    acceptor_.bind(endpoint, err_code);
+    __acceptor.bind(endpoint, err_code);
     if(err_code){
-        fail(err_code, "bind");
+        __fail(err_code, "Cannot bind listener to the server's socket.");
         return;
     }
 
-    // Start listening for connections
-    acceptor_.listen(
-        asio::socket_base::max_listen_connections, err_code);
+    // Initialize listening for connections
+    __acceptor.listen(
+        boost::asio::socket_base::max_listen_connections, err_code);
     if(err_code){
-        fail(err_code, "listen");
+        __fail(err_code, "Cannot initialize listening.");
         return;
     }
 }
 
+
+/*--------------------------------------------------------------------------------*/
+/*----------------------------- Public member methods ----------------------------*/
+/*--------------------------------------------------------------------------------*/
+
 /**
- * @brief Runs async_listen to the port
+ * @brief Starts listening to the port
  * 
+ * @note run() method creates another shared_ptr on the Listener 
+ *       (first was created by Server::run) which, in turn, is again
+ *       removed at the end of the scope.
+ * 
+ *       At this time it's __on_accept() method's responsibility to prolong
+ *       object's lifetime. Method's call decides if object's should be
+ *       maintained or deleted.
+ * 
+ * @see Server::run() (Server.cc)
  */
 void Listener::run(){
-    // Start accepting a connection
-    acceptor_.async_accept(
-        socket_,
+    __acceptor.async_accept(
+        __socket,
         [self = shared_from_this()](error_code err_code)
         {
-            self->on_accept(err_code);
+            self->__on_accept(err_code);
         });
 }
 
-/**
- * @brief Report a failure
- * 
- * @param err_code Reported error code
- * @param what Reason of the failure
- */
-void Listener::fail(error_code err_code, char const* what){
-    // Don't report on canceled operations
-    if(err_code == asio::error::operation_aborted)
-        return;
-    std::cerr << what << ": " << err_code.message() << "\n";
-}
+
+/*--------------------------------------------------------------------------------*/
+/*----------------------------- Private member methods ---------------------------*/
+/*--------------------------------------------------------------------------------*/
 
 /**
  * @brief Handle a connection
+ * @param err_code : Reported error code
  * 
- * @param err_code Reported error code
+ * @note HttpSession objects are create with shared_ptr in the same
+ *       way Listener object was created. For details about the concept
+ *       look at Server::run(), Listener::run()
+ * 
+ * @see Listener::run()
+ * @see Server::run()
  */
-void Listener::on_accept(error_code err_code){
-    if(err_code)
-        return fail(err_code, "accept");
-    else
+void Listener::__on_accept(const error_code& err_code){
+    if(err_code){
+        if(__fail(err_code, "accept"))
+            return;
+    }
+    else {
+        // Register client to the if they are new
+        __server->join(__socket.remote_endpoint());
+
         // Launch a new session for this connection
         std::make_shared<HttpSession>(
-            std::move(socket_),
-            state_)->run();
+            std::move(__socket),
+            __server
+        )->run();
+    }
 
     // Accept another connection
-    acceptor_.async_accept(
-        socket_,
+    __acceptor.async_accept(
+        __socket,
         [self = shared_from_this()](error_code err_code)
         {
-            self->on_accept(err_code);
-        });
+            self->__on_accept(err_code);
+        }
+    );
+}
+
+/**
+ * @brief Reporta a failure
+ * 
+ * @param : err_code Reported error code
+ * @param : what Reason of the failure
+ * 
+ * @returns true : If error was critical and Listener should be destroyed
+ *          (e.g. closing server by ctrl+C, or calling close() on the __socket)
+ * @returns false : If error was not critical
+ */
+bool Listener::__fail(const error_code& err_code, char const* what){
+    
+    // Don't report on canceled operations
+    if(err_code == boost::asio::error::operation_aborted)
+        return true;
+
+    std::cerr << what << ": " << err_code.message() << "\n";
+    return false;
 }

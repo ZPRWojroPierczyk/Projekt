@@ -15,13 +15,9 @@
 #include <memory>
 #include <string>
 #include <boost/system/error_code.hpp>
-#include <boost/asio/ip/tcp.hpp>
 #include <boost/asio.hpp>
-#include "SharedState.h"
 
-namespace asio = boost::asio;
-using tcp = boost::asio::ip::tcp;
-using error_code = boost::system::error_code;
+#include "Server.h"
 
 /**
  * @brief Listener is designed to listen on the pointed socket and create new
@@ -29,24 +25,29 @@ using error_code = boost::system::error_code;
  */
 class Listener : public std::enable_shared_from_this<Listener>
 {
-    /// Acceptor of the connection
-    tcp::acceptor acceptor_;
-    /// Socket to listen on
-    tcp::socket socket_;
-    /// Shared state of the application conatining crucial informations about app
-    std::shared_ptr<SharedState> state_;
-
-    void fail(error_code err_code, char const* what);
-    void on_accept(error_code err_code);
-
+// Constructors
 public:
-    Listener(
-        asio::io_context& io_context,
-        tcp::endpoint endpoint,
-        std::shared_ptr<SharedState> const& state);
+    Listener(boost::asio::io_context& context,
+             const boost::asio::ip::tcp::endpoint& endpoint,
+             const std::shared_ptr<Server>& server);
 
-    // Start accepting incoming connections
+// Interface
+public:
     void run();
+
+// Private members
+private:
+    /// Acceptor of the connection
+    boost::asio::ip::tcp::acceptor __acceptor;
+    /// Socket to listen on
+    boost::asio::ip::tcp::socket __socket;
+    /// Server that created Listener
+    std::shared_ptr<Server> __server;
+
+// Private member methods
+private:
+    void __on_accept(const boost::system::error_code& err_code);
+    bool __fail(const boost::system::error_code& err_code, char const* what);
 };
 
 #endif

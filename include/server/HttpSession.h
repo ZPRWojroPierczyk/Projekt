@@ -17,13 +17,8 @@
 #include <boost/system/error_code.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/beast.hpp>
-#include "SharedState.h"
 
-namespace asio = boost::asio;
-namespace beast = boost::beast;
-namespace http = boost::beast::http;
-using tcp = boost::asio::ip::tcp;
-using error_code = boost::system::error_code;
+#include "Server.h"
 
 /**
  * @brief Class representing a single HTTP session
@@ -33,27 +28,42 @@ using error_code = boost::system::error_code;
  */
 class HttpSession : public std::enable_shared_from_this<HttpSession>
 {
+// Constructors
+public:
+    HttpSession(boost::asio::ip::tcp::socket&& socket,
+                const std::shared_ptr<Server>& server);
+
+// Interface
+public:
+    void run();
+
+// Private members
 private:
     /// Socket associated with the connection
-    tcp::socket socket_;
+    boost::asio::ip::tcp::socket __socket;
     /// Buffer used in async_read() and async_write() operations
-    beast::flat_buffer buffer_;
+    boost::beast::flat_buffer __buffer;
     /// Shared state of the application conatining crucial informations about app
-    std::shared_ptr<SharedState> state_;
+    std::shared_ptr<Server> __server;
     /// HTTP request from the client
-    http::request<http::string_body> req_;
+    boost::beast::http::request<boost::beast::http::string_body> __req;
 
-    void fail(error_code err_code, char const* what);
-    void on_read(error_code err_code, std::size_t);
-    void on_write(
-        error_code err_code, std::size_t, bool close);
+// Private member methods
+private:
+    
+    boost::beast::string_view __mimeType(const boost::beast::string_view& path);
+    std::string __pathCat(const boost::beast::string_view& base, const boost::beast::string_view& path);
 
-public:
-    HttpSession(
-        tcp::socket socket,
-        std::shared_ptr<SharedState> const& state);
+    template<class Body, class Allocator, class Send>
+    void __handleRequest(
+        const boost::beast::string_view& docRoot,
+        boost::beast::http::request<Body, boost::beast::http::basic_fields<Allocator>>&& req,
+        Send&& send
+    );
 
-    void run();
+    void __on_read(boost::system::error_code err_code, std::size_t);
+    void __on_write(boost::system::error_code err_code, std::size_t, bool close);
+    void __fail(const boost::system::error_code& err_code, char const* what);
 };
 
 #endif

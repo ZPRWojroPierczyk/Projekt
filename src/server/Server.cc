@@ -116,13 +116,13 @@ void Server::run(){
  */
 bool Server::join(const asio::ip::tcp::endpoint& client){
     
-    bool isOnList = false;
+    bool clientAdded = true;
 
     /* -- Specified client's session exists -- */
     if(__clients.count(client) != 0){
         // Reset timeout for the client
         __clients[client].first->expires_after(__timeout);
-        isOnList = true;
+        clientAdded = false;
     } 
     /* -- New client to register -- */
     else{
@@ -130,6 +130,16 @@ bool Server::join(const asio::ip::tcp::endpoint& client){
         // timer and creating it's own (Controlle, View) pair
         __clients[client] = session(
             new boost::asio::steady_timer(__context, __timeout),
+            // TODO#CPP: We should initializa MVC Triplet at now
+            //           and pass pointers to the Model to View
+            //           Controller, and Model and View pointers
+            //           to Controller
+            //
+            // View should hold path to the actual web-stuff folder
+            //
+            // Model should hold client's ID, (e.g. socket converted to string)
+            // to be able to distinguish loading between creating
+            // new app's instance and loading old, save content
             app(new Controller, new View)
         );
     }
@@ -147,7 +157,7 @@ bool Server::join(const asio::ip::tcp::endpoint& client){
         }
     );
 
-    return isOnList;
+    return clientAdded;
 }
 
 
@@ -227,4 +237,7 @@ void Server::loadConfig(const std::string& configFile){
     } catch (std::exception &ex){
         throw po::invalid_option_value(std::string("Server configuration: Invalid ip address!"));
     }
+
+    // TODO#CPP: If parameters was succesfully loaded we should inform every View()
+    //           instance about a new web-stuff's folder localization
 }

@@ -1,7 +1,21 @@
+/**
+ * @file HttpSessionTest.cc
+ * @author Wojtek Rokicki & Krzysiek Pierczyk
+ * @brief Set of tests for HttpSession class
+ * @version 0.1
+ * @date 2020-01-10
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
 #include <boost/test/unit_test.hpp>
 #include "HttpSession.h"
 
-void httpSessionConstructorTest(){
+BOOST_AUTO_TEST_SUITE( ServerSuite )
+BOOST_AUTO_TEST_SUITE( HttpSessionClassSuite )
+
+BOOST_AUTO_TEST_CASE( httpSessionConstructorTest )
+{
     // Create context
     boost::asio::io_context context;
     // Create socket
@@ -14,7 +28,7 @@ void httpSessionConstructorTest(){
 
     // Constructor test
     BOOST_REQUIRE_NO_THROW(
-        HttpSession(
+        HttpSession httpSession(
             std::move(socket),
             server
         )
@@ -30,7 +44,13 @@ void httpSessionConstructorTest(){
 
     // run() method test
     BOOST_CHECK_NO_THROW(
-        httpSession.run()
+        std::make_shared<HttpSession>(
+            std::move(anotherSocket),
+            server
+        )->run()
     );
     
 }
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

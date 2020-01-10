@@ -40,6 +40,26 @@ Export({'DEBUG': debug})
 env = Environment()
 
 #----------------------------------------------------------
+#---------- Src/test folder depths calculation ------------
+#----------------------------------------------------------
+
+# Depths are used to establish number of Glob() objects
+# passed to the builders, where every Glob represents
+# */*/.../*.cc pattern for an appropriate depth in src/test
+# folder's structure
+
+def getDepth(path, depth=0):
+    if not os.path.isdir(path): return depth
+    maxdepth = depth
+    for entry in os.listdir(path):
+        fullpath = os.path.join(path, entry)
+        maxdepth = max(maxdepth, getDepth(fullpath, depth + 1))
+    return maxdepth
+
+srcDepth = getDepth('src')
+testDepth = getDepth('test')
+
+#----------------------------------------------------------
 #--------------- Linux Common Environment -----------------
 #----------------------------------------------------------
 
@@ -55,7 +75,7 @@ if(platform.system() == "Linux"):
 	# Compile-time ROOT constant is used by the programm
 	# to be aware about it's structure's localization
 	env.Append( CPPFLAGS = '-D ROOT=\\\"{}\\\" '.format(Dir('.').abspath) )
-	
+
 	# Debug-dependant configuration
 	if debug == 1:
 		env.Append( CPPFLAGS = '-g ')
@@ -92,11 +112,11 @@ def version(debug):
 
 # Build app
 VariantDir('obj/' + version(debug) + '/app', 'src', duplicate = 0)
-srcObjects = SConscript('obj/' + version(debug) + '/app/SConscript.py')
+srcObjects = SConscript('obj/' + version(debug) + '/app/SConscript.py', exports='srcDepth')
 
 # Build test
 VariantDir('obj/' + version(debug) + '/test', 'test', duplicate = 0)
-SConscript('obj/' + version(debug) + '/test/SConscript.py', exports = 'srcObjects')
+SConscript('obj/' + version(debug) + '/test/SConscript.py', exports = ['srcObjects', 'testDepth'])
 
 #----------------------------------------------------------
 #----------------------- Utilities ------------------------

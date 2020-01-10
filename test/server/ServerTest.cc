@@ -1,12 +1,23 @@
+/**
+ * @file ServerTest.cc
+ * @author Wojtek Rokicki & Krzysiek Pierczyk
+ * @brief Set of tests for Server class
+ * @version 0.1
+ * @date 2020-01-10
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
 #include <ios>
 #include <stdexcept>
 #include <boost/program_options.hpp>
 #include <boost/test/unit_test.hpp>
 #include "Server.h"
 
-
 namespace po = boost::program_options;
 
+BOOST_AUTO_TEST_SUITE( ServerSuite )
+BOOST_AUTO_TEST_SUITE( ServerClassSuite )
 
 /*--------------------------------------------------------------------------------*/
 /*------------------------ Constructors and destructors --------------------------*/
@@ -15,7 +26,8 @@ namespace po = boost::program_options;
 /**
  * @brief The only constructor test-case.
  */
-void serverConstructorTest(){
+BOOST_AUTO_TEST_CASE( serverConstructorTest )
+{
     // Construct valid Server
     BOOST_CHECK_NO_THROW(
         Server(
@@ -37,7 +49,7 @@ void serverConstructorTest(){
     BOOST_CHECK_THROW(
         Server(
             std::chrono::minutes(-3),
-            std::string() + "/config/http_server.conf"
+            std::string(ROOT) + "/config/http_server.conf"
         ),
         std::invalid_argument
     );
@@ -46,7 +58,7 @@ void serverConstructorTest(){
     BOOST_CHECK_THROW(
         Server(
             std::chrono::minutes(3),
-            std::string() + "test/server/bad-configs/bad_ip.conf"
+            std::string(ROOT) + "/test/server/bad-configs/bad_ip.conf"
         ),
         po::invalid_option_value
     );
@@ -55,7 +67,7 @@ void serverConstructorTest(){
     BOOST_CHECK_THROW(
         Server(
             std::chrono::minutes(3),
-            std::string() + "test/server/bad-configs/bad_port.conf"
+            std::string(ROOT) + "/test/server/bad-configs/bad_port.conf"
         ),
         po::invalid_option_value
     );
@@ -64,7 +76,7 @@ void serverConstructorTest(){
     BOOST_CHECK_THROW(
         Server(
             std::chrono::minutes(3),
-            std::string() + "test/server/bad-configs/bad_root.conf"
+            std::string(ROOT) + "/test/server/bad-configs/bad_root.conf"
         ),
         po::invalid_option_value
     );
@@ -79,7 +91,8 @@ void serverConstructorTest(){
 /**
  * @brief Run server test-case
  */
-void serverRunTest(){
+BOOST_AUTO_TEST_CASE( serverRunTest )
+{
     
     Server server(
         std::chrono::minutes(3),
@@ -92,8 +105,8 @@ void serverRunTest(){
 /**
  * @brief New client joins and leaves test-case
  */
-void serverJoinLeaveTest(){
-    
+BOOST_AUTO_TEST_CASE( serverJoinLeaveTest )
+{    
     // Create server
     Server server(
         std::chrono::minutes(3),
@@ -107,11 +120,11 @@ void serverJoinLeaveTest(){
     // Create new client 2
     boost::asio::ip::tcp::endpoint client_2(address, 8001);
 
-    // Join client
+    // Join client - check if client was added
     BOOST_CHECK(server.join(client_1));
-    // Join another client
+    // Join another client - check if client was added
     BOOST_CHECK(server.join(client_2));
-    // Try to join client one more time
+    // Try to join client one more time - check if client was NOT added
     BOOST_CHECK(server.join(client_1) == false);
 
     // Client 1 leaves
@@ -128,8 +141,8 @@ void serverJoinLeaveTest(){
  *        from serverConstructorTest(), as construcor uses this method
  *        internally.
  */
-void serverLoadConfigTest(){
-
+BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
+{
     // Construct server
     Server server(
         std::chrono::minutes(3),
@@ -175,3 +188,6 @@ void serverLoadConfigTest(){
         po::invalid_option_value
     );
 }
+
+BOOST_AUTO_TEST_SUITE_END()
+BOOST_AUTO_TEST_SUITE_END()

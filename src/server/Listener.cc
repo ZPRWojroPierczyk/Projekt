@@ -27,6 +27,11 @@ using error_code = boost::system::error_code;
  * @param endpoint : Endpoint socket to listen on (usually server's socket)
  * @param server : Server to interact with 
  * 
+ * @note Listener instance should be created by the shared pointer and run()
+ *       method should be called before the end of the creating scope. This
+ *       approach to creation delegates listener's life-time responsibility
+ *       to the object itself, which is desired behaviour.
+ * 
  * @see Server.h
  */
 Listener::Listener(boost::asio::io_context& context,

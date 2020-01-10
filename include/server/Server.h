@@ -63,6 +63,15 @@ private:
 
 // Private members
 private:
+    // TODO#CPP: Server should hold an additional __isRunning parameter
+    //           as well as stop() method. 
+    //
+    //           loadConfig() method should be executed only, when server
+    //           is not running
+    //
+    //           While stopping, all MVC instances should be deleted, but their
+    //           state should be SAVED to the data base (that should be executed
+    //           by the model's destructor)   
     /// Context of the server
     boost::asio::io_context __context;
     /// Server's socket endpoint

@@ -3,6 +3,7 @@ import os
 
 # Import variables from parent
 Import('env', 'DEBUG')
+Import('srcDepth')
 
 # Parse DEBUG as it is imported as string
 DEBUG = int(DEBUG)
@@ -49,18 +50,15 @@ elif(platform.system() == "Windows"):
 #----------------------------------------------------------
 
 # List all *.cc sources rcursively
-srcSrouces = []
-for root, dirnames, filenames in os.walk(Dir('.').srcnode().abspath):
-    # If not folder conatining 'main.cc'
-    if root != Dir('.').srcnode().abspath:
-        # Append Glob formula to the list
-        srcSrouces.append(Glob(os.path.join(root, '*.cc')))
+srcSources = []
+for level in range(1, srcDepth):
+    srcSources.append(Glob('*/' * level + '*.cc'))
     
 #----------------------------------------------------------
 #-------------------- Build and Install -------------------
 #----------------------------------------------------------
 
-srcObjects = envApp.StaticObject(source = srcSrouces)
+srcObjects = envApp.StaticObject(source = srcSources)
 app = envApp.Program( source = ['main.cc', srcObjects], target = 'app' )
 
 if DEBUG == 0:

@@ -4,6 +4,7 @@ import os
 # Import variables from parent
 Import('env', 'DEBUG')
 Import('srcObjects')
+Import('testDepth')
 
 # Parse DEBUG as it is imported as string
 DEBUG = int(DEBUG)
@@ -51,12 +52,8 @@ elif(platform.system() == "Windows"):
 
 # List all *.cc sources rcursively
 testSources = []
-for root, dirnames, filenames in os.walk(Dir('.').srcnode().abspath):
-    # If not folder conatining 'main.cc'
-    if root != Dir('.').srcnode().abspath:
-        # Append Glob formula to the list
-        testSources.append(Glob(os.path.join(root, '*.cc')))
-
+for level in range(1, testDepth):
+    testSources.append(Glob('*/' * level + '*.cc'))
 
 #----------------------------------------------------------
 #-------------------- Build and Install -------------------

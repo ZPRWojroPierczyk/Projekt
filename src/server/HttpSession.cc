@@ -27,6 +27,11 @@ using error_code = boost::system::error_code;
  * 
  * @param socket : boost:asio::ip::tcp::socket associated with the session
  * @param state : State shared between sessions
+ * 
+ * @note HttpSession instance should be created by the shared pointer and run()
+ *       method should be called before the end of the creating scope. This
+ *       approach to creation delegates session's life-time responsibility
+ *       to the object itself, which is desired behaviour.
  */
 HttpSession::HttpSession(boost::asio::ip::tcp::socket&& socket,
                          Server& server) :

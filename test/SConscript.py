@@ -51,9 +51,9 @@ elif(platform.system() == "Windows"):
 
 # List all *.cc sources rcursively
 testSources = []
-for root, dirnames, filenames in os.walk(Dir('.').abspath):
+for root, dirnames, filenames in os.walk(Dir('.').srcnode().abspath):
     # If not folder conatining 'main.cc'
-    if root != Dir('.').abspath:
+    if root != Dir('.').srcnode().abspath:
         # Append Glob formula to the list
         testSources.append(Glob(os.path.join(root, '*.cc')))
 

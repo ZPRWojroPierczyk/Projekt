@@ -49,3 +49,37 @@ function moveMarker() {
         setTimeout(moveMarker, delay);
     }
 }
+
+setInterval(querying, 5000);
+
+function querying(){
+    
+}
+
+//Request with Response communication and service
+/*
+//Example of use in HTML
+//<button type="button" onclick="loadDoc('ajax_info.txt', myFunction)">Change Content</button>
+function loadDoc(url, cFunction) {
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            cFunction(this);
+        }
+    };
+
+    xhttp.open("POST", url, true);
+    var headerName = "Content-type";
+    var headerValue = "application/x-www-form-urlencoded";
+    var sendString = "fname=Henry&lname=Ford";
+    xhttp.setRequestHeader(headerName, headerValue);
+    xhttp.send(sendString);
+}
+
+function myFunction1(xhttp) {
+    var textFromServer = xhttp.responseText;
+    var data = JSON.parse(textFromServer);
+}
+*/

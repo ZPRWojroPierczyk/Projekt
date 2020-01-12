@@ -297,17 +297,17 @@ function submitForms() {
     if (cities_valid == true && transport_valid == true && agent_valid == true 
         && map_params_valid == true && time_params_valid == true) {
 
-        var json_string = createJSON();
+        var json_form_data = createJSON();
 
         var xhttp;
         xhttp = new XMLHttpRequest();
 
         //TODO: Using url parameter to deciade which action should be executed on server-side
         xhttp.open("POST", url, true);
-        if (url == "form_sent.php") {
+        if (url == "form_data.php") {
             var headerName = "Content-type";
             var headerValue = "application/x-www-form-json";
-            var sendString = json_string;
+            var sendString = json_form_data;
             xhttp.setRequestHeader(headerName, headerValue);
             xhttp.send(sendString);
         }
@@ -376,9 +376,9 @@ function createJSON(){
     time_params += "\"simulationWindow\":" + x.elements[0].value + ",";
     time_params += "\"simulationStep\":" + x.elements[1].value + "}}";
     
-    var json_out = departments + transports + agent + map_params + time_params;
+    var json_form_data_input = departments + transports + agent + map_params + time_params;
 
-    return json_out;
+    return json_form_data_input;
 }
 
 /************** Checking if a number is an integral ***************/

@@ -33,9 +33,11 @@ body {
     transition: 0.3s;
   }
   
+  /*
   .inner-navbar a:last-child {
     float: right;
   }
+  */
   
   /* Change the color of links on hover */
   .inner-navbar a:hover {
@@ -54,7 +56,7 @@ body {
     color: black;
   }
   
-  #Default-Folder{
+  #Graphics{
     display: block;
   }
   

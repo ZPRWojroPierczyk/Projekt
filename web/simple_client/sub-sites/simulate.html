@@ -6,31 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjAs8A6v5EcrU6ccJ-W0WPe3mbdNS9Uik"></script>
     <link rel="stylesheet" type="text/css" href="/css/sub-sites/simulate-style.css">
-    <script src="/js/sub-sites/simulate-script.js"></script>
-
+    <script src="/js/sub-sites/simulate-before-load-script.js"></script>
 </head>
 
-<body>
+<body onload="start()">
     <div id="mapCanvas"></div>
 
     <div id="content">
         <p>This text is in frontend</p>
-        <form action="/action_page.php" oninput="x.value=parseInt(a.value)+parseInt(b.value)">
-            0
-            <input type="range" id="a" name="a" value="50">
-            100 +
-            <input type="number" id="b" name="b" value="50" step="1" min="0" max="1000">
-            =
-            <output name="x" for="a b"></output>
-            <br><br>
-            <input type="text" placeholder="Last name">
-            <input type="text" value="ReadOnly" readonly>
-            <input type="text" value="xxx">
-            <input type="submit">
-            <input type="reset">
-            <input type="color">
-            <input type="image">
+        <form> <!-- simulate.php -->
+            <div class="slidecontainer">
+                <p>Custom range slider:</p>
+                <input type="range" min="1" max="100" value="1" step="1" class="slider" id="myRange" list="tickmarks" oninput="sliderChanged()">
+                <datalist id="tickmarks">
+                    <option value="0"></option>
+                    <option value="10"></option>
+                    <option value="20"></option>
+                    <option value="30"></option>
+                    <option value="40"></option>
+                    <option value="50"></option>
+                    <option value="60"></option>
+                    <option value="70"></option>
+                    <option value="80"></option>
+                    <option value="90"></option>
+                    <option value="100"></option>
+                </datalist>
+            </div>
+            <div id="output">1</div>
         </form>
+        <button onclick="stopSimulation()">Stop Simulation</button>
+        <button onclick="resumeSimulation()">Resume Simulation</button>
     </div>
 
     <div class="navbar">
@@ -39,7 +44,7 @@
         <a href="#load-simulation">Załaduj symulacje</a>
         <a href="/">Wróć</a>
     </div>
-
+    <script src="/js/sub-sites/simulate-after-load-script.js"></script>
 </body>
 
 </html>

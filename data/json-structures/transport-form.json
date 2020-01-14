@@ -1,0 +1,5 @@
+{
+    "transports": [
+        { "from": "", "to": "", "amount": 0 }
+    ]
+}

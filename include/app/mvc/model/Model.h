@@ -62,13 +62,13 @@ public:
 // Public member fields
 public:
     /// Module responsible for simulation creation (parameters introcuction)
-    SimulationCreatorManager simulationCreatorManager_;
+    SimulationCreatorManager simulationCreatorManager;
     /// Module managing simulation process
-    SimulationManager simulationManager_;
+    SimulationManager simulationManager;
     /// Module responsible for loading saved simulations
-    LoadSimulationManager loadSimulationManager_;
+    LoadSimulationManager loadSimulationManager;
     /// Module responsible for app's settings
-    SettingsManager settingsManager_;
+    SettingsManager settingsManager;
 
 // Private member fields
 private:
@@ -76,7 +76,7 @@ private:
     std::string __clientID;
 
     /// Application's state
-    State state_;
+    State __state;
 
 // Private methods:
 private:

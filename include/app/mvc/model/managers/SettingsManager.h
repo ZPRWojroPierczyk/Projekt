@@ -10,9 +10,15 @@
  */
 #ifndef SETTINGS_MANAGER_H 
 #define SETTINGS_MANAGER_H
-
 #include <string>
 
+
+/**
+ * @brief Class responsible for keeping track of application instance's
+ *        global settings involving graphic and auto settings.
+ *        It facilitates interface to load and save client's settings
+ *        to the database when the client is logginig in and logging out.
+ */
 class SettingsManager
 {
 // Public types
@@ -24,7 +30,7 @@ public:
     /// Soundtracks
     enum class Soundtrack{
         Default
-    }
+    };
 
 // Constructors & Destructors
 public:

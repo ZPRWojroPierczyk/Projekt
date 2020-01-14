@@ -18,8 +18,9 @@
 /*--------------------------------------------------------------------------------*/
 
 Model::Model(const std::string& clientID) :
+    settingsManager(clientID),
     __clientID(clientID),
-    state_(State::Menu)
+    __state(State::Menu)
 {}
 
 /*--------------------------------------------------------------------------------*/
@@ -29,10 +30,10 @@ Model::Model(const std::string& clientID) :
 /**
  * @brief Set's a new application's state
  * 
- * @param newState_t State to set
+ * @param newState State to set
  */
-void Model::setState(Model::State newState_t){
-    state_ = newState_t;
+void Model::setState(Model::State newState){
+    __state = newState;
 }
 
 /**
@@ -41,7 +42,7 @@ void Model::setState(Model::State newState_t){
  * @returns Model::State 
  */
 Model::State Model::getState(){
-    return state_;
+    return __state;
 }
 
 /**
@@ -80,7 +81,7 @@ bool Model::openSimulationCreator(){
  * @returns false Failed to open simulation
  */
 bool Model::openSimulation(){
-    if(simulationManager_.isSimulationRunning()){
+    if(simulationManager.isSimulationRunning()){
         setState(State::Simulation);
         return true;
     } else {

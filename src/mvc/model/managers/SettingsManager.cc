@@ -20,9 +20,7 @@
  * @param clientID 
  */
 SettingsManager::SettingsManager(const std::string& clientID) :
-    __clientID(clientID),
-    __theme(Theme::Default),
-    __soundtrack(Soundtrack::Default)
+    __clientID(clientID)
 {
     __loadSettings();
 }
@@ -77,13 +75,16 @@ void SettingsManager::setSoundtrack(SettingsManager::Soundtrack soundtrack){
 /*--------------------------------------------------------------------------------*/
 
 /**
+ * @todo Implement settings' loading
  * @brief Loads client's settings from the data base
  */
 void SettingsManager::__loadSettings(){
-
+    __theme = Theme::Default;
+    __soundtrack = Soundtrack::Default;
 }
 
 /**
+ * @todo Implement settings' saving
  * @brief Saves client's settings to the data base
  */
 void SettingsManager::__saveSettings(){

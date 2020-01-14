@@ -4,7 +4,8 @@
 #include <boost/beast.hpp>
 #include "View.h"
 #include "Controller.h"
-#include "RequestHandlerTest.h"
+
+class RequestHandlerTest;
 
 class RequestHandler{
 // Constructors

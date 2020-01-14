@@ -33,3 +33,7 @@ bool ServerTest::__leave (const std::string& clientID){
 void ServerTest::__clean(const boost::system::error_code& errCode){
     server.__clean(errCode);
 }
+
+ServerTest::clientsMap& ServerTest::getClients(){
+    return server.__clients;
+}

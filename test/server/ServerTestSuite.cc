@@ -103,36 +103,11 @@ BOOST_AUTO_TEST_CASE( serverRunTest )
     BOOST_CHECK_NO_THROW(server.run());
 }
 
-/**
- * @brief New client joins and leaves test-case
- */
-BOOST_AUTO_TEST_CASE( serverJoinLeaveTest )
-{    
-    // Create server
-    ServerTest serverTest(
-        std::string(ROOT) + "/config/http_server.conf"
-    );
 
-    // Create new client 1
-    std::string client_1("0.0.0.1");
-    // Create new client 2
-    std::string client_2("0.0.0.2");
 
-    // Join client - check if client was added
-    BOOST_CHECK(serverTest.__join(client_1));
-    // Join another client - check if client was added
-    BOOST_CHECK(serverTest.__join(client_2));
-    // Try to join client one more time - check if client was NOT added
-    BOOST_CHECK(serverTest.__join(client_1) == false);
-
-    // Client 1 leaves
-    BOOST_CHECK(serverTest.__leave(client_1));
-    // Client 2 leaves
-    BOOST_CHECK(serverTest.__leave(client_2));
-    // Client 1 leaves one more time
-    BOOST_CHECK(serverTest.__leave(client_1) == 0);
-}
-
+/*--------------------------------------------------------------------------------*/
+/*---------------------------- Private member methods ----------------------------*/
+/*--------------------------------------------------------------------------------*/
 
 /**
  * @brief Redundant test for loadConfig() method. Redundancy comes
@@ -185,6 +160,68 @@ BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
         po::invalid_option_value
     );
 }
+
+
+
+/**
+ * @brief New client joins and leaves test-case
+ */
+BOOST_AUTO_TEST_CASE( serverJoinLeaveTest )
+{    
+    // Create server
+    ServerTest serverTest(
+        std::string(ROOT) + "/config/http_server.conf"
+    );
+
+    // Create new client 1
+    std::string client_1("0.0.0.1");
+    // Create new client 2
+    std::string client_2("0.0.0.2");
+
+    // Join client - check if client was added
+    BOOST_CHECK(serverTest.__join(client_1));
+    // Join another client - check if client was added
+    BOOST_CHECK(serverTest.__join(client_2));
+    // Try to join client one more time - check if client was NOT added
+    BOOST_CHECK(serverTest.__join(client_1) == false);
+
+    // Client 1 leaves
+    BOOST_CHECK(serverTest.__leave(client_1));
+    // Client 2 leaves
+    BOOST_CHECK(serverTest.__leave(client_2));
+    // Client 1 leaves one more time
+    BOOST_CHECK(serverTest.__leave(client_1) == 0);
+}
+
+
+/**
+ * @brief Test clean() method that is periodically called to clean
+ *        inactive clients from the clients table
+ */
+BOOST_AUTO_TEST_CASE( serverCleanTest )
+{
+    // Create server
+    ServerTest serverTest(
+        std::string(ROOT) + "/config/http_server.conf"
+    );
+
+    // Client joins
+    serverTest.__join("0.0.0.0");
+    
+    // Simulate client's timeout
+    serverTest.__leave("0.0.0.0");
+
+    // Test if leave function works properly
+    BOOST_CHECK( serverTest.getClients().count("None") == 1);
+
+    // Clean deleted client
+    boost::system::error_code errCode;
+    serverTest.__clean(errCode);
+
+    // Check if client is cleaned properly
+    BOOST_CHECK( serverTest.getClients().empty() == true);
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

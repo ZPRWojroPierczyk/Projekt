@@ -12,7 +12,20 @@
 #include <string>
 #include "Server.h"
 
-class ServerTest{
+class ServerTest
+{
+// Public types
+public:
+    /// Application's instance
+    using instance = std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>;
+
+    /// Type representing a single client
+    using client = std::pair<std::unique_ptr<boost::asio::steady_timer>,
+                              instance>;
+
+    /// Set of clients
+    using clientsMap = std::unordered_map<std::string, client>;
+
 // Constructor
 public:
     ServerTest(const std::string& configFile);
@@ -33,6 +46,9 @@ public:
 
     /// Internal clients management
     void __clean(const boost::system::error_code& errCode);
+
+    /// Get reference to the clients table
+    clientsMap& getClients();
 
 // Private members
 private:

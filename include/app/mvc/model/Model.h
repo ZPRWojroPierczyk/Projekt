@@ -40,11 +40,11 @@ public:
 public:
     /// Actual state of the application seen by the user
     enum class State {Menu,
-                        SimulationCreator,
-                        Simulation,
-                        Load,
-                        Settings,
-                        Credits};
+                      SimulationCreator,
+                      Simulation,
+                      Load,
+                      Settings,
+                      Credits};
 
 // Public methods                          
 public:
@@ -59,12 +59,8 @@ public:
     /// Get actual state of the application (called by the View object)
     State getState();
 
-// Private member fields
-private:
-    std::string __clientID;
-    /// Application's state
-    State state_;
-
+// Public member fields
+public:
     /// Module responsible for simulation creation (parameters introcuction)
     SimulationCreatorManager simulationCreatorManager_;
     /// Module managing simulation process
@@ -73,6 +69,14 @@ private:
     LoadSimulationManager loadSimulationManager_;
     /// Module responsible for app's settings
     SettingsManager settingsManager_;
+
+// Private member fields
+private:
+    /// ID of the client owning instance of the app
+    std::string __clientID;
+
+    /// Application's state
+    State state_;
 
 // Private methods:
 private:

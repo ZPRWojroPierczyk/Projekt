@@ -13,16 +13,14 @@ body {
 }
 
 #content {
-  position: relative;
+  position: absolute;
+  bottom: 80px;
   z-index: auto;
   /* The z-index should be higher than Google Maps */
-  width: 300px;
-  margin: 60px auto 0;
+  width: 80%;
+  margin: 0 10% 0;
   padding: 10px;
-  background: black;
-  height: auto;
-  opacity: 1;
-  /* Set the opacity for a slightly transparent Google Form */
+  background: transparent;
   color: white;
 }
 
@@ -67,4 +65,16 @@ body {
 .navbar a.active {
   background-color: #626588;
   color: white;
+}
+
+/**************************** Slider ****************************/
+
+.slidecontainer {
+  width: 100%;
+  background-color: #333;
+}
+
+.slider {
+  width: 100%;
+  height: 15px;
 }

@@ -19,28 +19,34 @@
 
 #include "Server.h"
 
+class ListenerTest;
+
 /**
  * @brief Listener is designed to listen on the pointed socket and create new
  *        sessions when a new request aproaches
  */
-class Listener : public std::enable_shared_from_this<Listener>
+class Server::Listener : public std::enable_shared_from_this<Listener>
 {
 // Constructors
 public:
-    Listener(boost::asio::io_context& context,
-             const boost::asio::ip::tcp::endpoint& endpoint,
-             Server& server);
+    Listener(Server& server);
 
 // Interface
 public:
     void run();
 
+// Private Friends
+private:
+    friend class ListenerTest;
+
 // Private members
 private:
     /// Acceptor of the connection
     boost::asio::ip::tcp::acceptor __acceptor;
-    /// Socket to listen on
+
+    /// Socket used by acceptor to connect to a new client
     boost::asio::ip::tcp::socket __socket;
+    
     /// Server that created Listener
     Server& __server;
 

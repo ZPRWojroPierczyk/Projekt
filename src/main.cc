@@ -9,7 +9,6 @@
  */
 
 #include <string>
-#include <chrono>
 #include <boost/program_options.hpp>
 
 #include "Server.h"
@@ -26,10 +25,8 @@ namespace po = boost::program_options;
 int main(int argc, char* argv[]){
 
     /* --- Load command-line parameters --- */
-
     po::options_description desc("Server options");
     desc.add_options()
-        ("timeout", po::value<unsigned short>()->default_value(30), "Client's timeout [min].")
         ("config", po::value<std::string>()->default_value(std::string(ROOT) + "/config/http_server.conf"),
                     "Path to the config file.");
 
@@ -38,13 +35,9 @@ int main(int argc, char* argv[]){
     po::notify(vm); 
 
     /* --- Initialize HTTP server --- */
+    Server server(vm["config"].as<std::string>());
     
-    Server server(
-        std::chrono::minutes(vm["timeout"].as<unsigned short>()),
-        vm["config"].as<std::string>()
-    );
-    
-    // Returns on SIGINT (ctrl+C) or SIGTERM (kill)
+    /* --- Returns on SIGINT (ctrl+C) or SIGTERM (kill) --- */
     server.run();
     
     return EXIT_SUCCESS;

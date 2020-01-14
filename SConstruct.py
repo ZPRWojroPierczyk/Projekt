@@ -68,7 +68,7 @@ if(platform.system() == "Linux"):
 	env.Append( LIBPATH = LINUX_LIBPATH )
 	env.Append( LIBS = [] )
 	# Custom compiller flags
-	env.Append( CPPFLAGS = '-Wall -pedantic ' )
+	env.Append( CPPFLAGS = '-Wall -pedantic -std=c++17 ' )
 	# Custom linker flags
 	env.Append( LINKFLAGS = '-Wall -Wl,-rpath={} '.format(LINUX_BOOST_LIB_PATH) )
 
@@ -79,6 +79,7 @@ if(platform.system() == "Linux"):
 	# Debug-dependant configuration
 	if debug == 1:
 		env.Append( CPPFLAGS = '-g ')
+		env.Append( CPPFLAGS = '-D DEBUG ')
 
 	# Export required variables to submodules
 	Export('env')

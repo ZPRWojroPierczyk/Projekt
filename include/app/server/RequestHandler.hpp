@@ -1,5 +1,5 @@
 /**
- * @file HttpSession.hpp
+ * @file RequestHandler.hpp
  * @author Wojtek Rokicki & Krzysiek Pierczyk
  * @brief HTTP responses handler
  * @version 0.1
@@ -11,7 +11,7 @@
 
 #include <string>
 #include <boost/beast.hpp>
-#include "HttpSession.h"
+#include "RequestHandler.h"
 
 namespace http = boost::beast::http;
 
@@ -26,15 +26,11 @@ namespace http = boost::beast::http;
  *         the type of the data member of the resulting message object
  * @tparam Allocator Allocator used for a beast::http::basic_fields
  * @tparam Send Generic lambda type used to send response
- * @param docRoot : Path to the root folder containing static files
  * @param req : HTTP request
  * @param send : Generic lambda used to send response
  */
-template<class Body,
-          class Allocator,
-          class Send>
-void HttpSession::__handleRequest(
-    const boost::beast::string_view& docRoot,
+template<class Body, class Allocator, class Send>
+void RequestHandler::operator()(
     http::request<Body, http::basic_fields<Allocator>>&& req,
     Send&& send)
 {
@@ -89,7 +85,7 @@ void HttpSession::__handleRequest(
         return send(bad_request("Illegal request-target"));
 
     // Build the path to the requested file
-    std::string path = __pathCat(docRoot, req.target());
+    std::string path = __pathCat(__view->getDocRoot(), req.target());
     if(req.target().back() == '/')
         path.append("index.html");
 

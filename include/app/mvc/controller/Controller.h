@@ -11,10 +11,17 @@
 
 #ifndef CONTROLLER_H 
 #define CONTROLLER_H
+#include <memory>
+#include "Model.h"
 
 class Controller{
-    public:
-        Controller();
+// Constructors
+public:
+    Controller(std::shared_ptr<Model>& model);
+
+// Private members
+private:
+    std::shared_ptr<Model> __model;
 };
 
 #endif

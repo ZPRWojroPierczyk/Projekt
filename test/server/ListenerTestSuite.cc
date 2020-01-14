@@ -9,7 +9,7 @@
  * 
  */
 #include <boost/test/unit_test.hpp>
-#include "Listener.h"
+#include "ListenerTest.h"
 
 namespace ut = boost::unit_test;
 
@@ -27,15 +27,12 @@ BOOST_AUTO_TEST_CASE( listenerConstructorTest )
 
     // Create server
     Server server(
-        std::chrono::minutes(3),
         std::string(ROOT) + "/config/http_server.conf"
     );
 
     // Constructor test
     BOOST_REQUIRE_NO_THROW(
-        Listener listener(
-            context,
-            endpoint,
+        ListenerTest listenerTest(
             server
         )
     );
@@ -55,17 +52,14 @@ BOOST_AUTO_TEST_CASE ( listenerRunTest, * ut::depends_on(
 
     // Create server
     Server server(
-        std::chrono::minutes(3),
         std::string(ROOT) + "/config/http_server.conf"
     );
 
     // run() method test
     BOOST_CHECK_NO_THROW(
-        std::make_shared<Listener>(
-            context,
-            endpoint,
+        std::make_shared<ListenerTest>(
             server
-        )->run()
+        )->listener->run()
     );
 }
 

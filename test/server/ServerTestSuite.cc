@@ -12,7 +12,7 @@
 #include <stdexcept>
 #include <boost/program_options.hpp>
 #include <boost/test/unit_test.hpp>
-#include "Server.h"
+#include "ServerTest.h"
 
 namespace po = boost::program_options;
 
@@ -31,7 +31,6 @@ BOOST_AUTO_TEST_CASE( serverConstructorTest )
     // Construct valid Server
     BOOST_CHECK_NO_THROW(
         Server(
-            std::chrono::minutes(3),
             std::string(ROOT) + "/config/http_server.conf"
         )
     );
@@ -39,25 +38,14 @@ BOOST_AUTO_TEST_CASE( serverConstructorTest )
     // Construct Server with invalid configuration file path
     BOOST_CHECK_THROW(
         Server(
-            std::chrono::minutes(3),
             ""
         ),
         std::ios_base::failure
     );
 
-    // Construct Server with invalid timeout
-    BOOST_CHECK_THROW(
-        Server(
-            std::chrono::minutes(-3),
-            std::string(ROOT) + "/config/http_server.conf"
-        ),
-        std::invalid_argument
-    );
-
     // Construct server with config file containing wrong ip
     BOOST_CHECK_THROW(
         Server(
-            std::chrono::minutes(3),
             std::string(ROOT) + "/test/server/bad-configs/bad_ip.conf"
         ),
         po::invalid_option_value
@@ -66,7 +54,6 @@ BOOST_AUTO_TEST_CASE( serverConstructorTest )
     // Construct server with config file containing invalid port
     BOOST_CHECK_THROW(
         Server(
-            std::chrono::minutes(3),
             std::string(ROOT) + "/test/server/bad-configs/bad_port.conf"
         ),
         po::invalid_option_value
@@ -75,8 +62,23 @@ BOOST_AUTO_TEST_CASE( serverConstructorTest )
     // Construct server with config file containing invalid doc root path
     BOOST_CHECK_THROW(
         Server(
-            std::chrono::minutes(3),
             std::string(ROOT) + "/test/server/bad-configs/bad_root.conf"
+        ),
+        po::invalid_option_value
+    );
+
+    // Construct Server with invalid client timeout
+    BOOST_CHECK_THROW(
+        Server(
+            std::string(ROOT) + "/test/server/bad-configs/bad_client_timeout.conf"
+        ),
+        po::invalid_option_value
+    );
+
+    // Construct Server with invalid session timeout
+    BOOST_CHECK_THROW(
+        Server(
+            std::string(ROOT) + "/test/server/bad-configs/bad_session_timeout.conf"
         ),
         po::invalid_option_value
     );
@@ -95,7 +97,6 @@ BOOST_AUTO_TEST_CASE( serverRunTest )
 {
     
     Server server(
-        std::chrono::minutes(3),
         std::string(ROOT) + "/config/http_server.conf"
     );
 
@@ -108,31 +109,28 @@ BOOST_AUTO_TEST_CASE( serverRunTest )
 BOOST_AUTO_TEST_CASE( serverJoinLeaveTest )
 {    
     // Create server
-    Server server(
-        std::chrono::minutes(3),
+    ServerTest serverTest(
         std::string(ROOT) + "/config/http_server.conf"
     );
 
-    //Create IP address 
-    auto address = boost::asio::ip::make_address("0.0.0.0");
     // Create new client 1
-    boost::asio::ip::tcp::endpoint client_1(address, 8000);
+    std::string client_1("0.0.0.1");
     // Create new client 2
-    boost::asio::ip::tcp::endpoint client_2(address, 8001);
+    std::string client_2("0.0.0.2");
 
     // Join client - check if client was added
-    BOOST_CHECK(server.join(client_1));
+    BOOST_CHECK(serverTest.__join(client_1));
     // Join another client - check if client was added
-    BOOST_CHECK(server.join(client_2));
+    BOOST_CHECK(serverTest.__join(client_2));
     // Try to join client one more time - check if client was NOT added
-    BOOST_CHECK(server.join(client_1) == false);
+    BOOST_CHECK(serverTest.__join(client_1) == false);
 
     // Client 1 leaves
-    BOOST_CHECK(server.leave(client_1));
+    BOOST_CHECK(serverTest.__leave(client_1));
     // Client 2 leaves
-    BOOST_CHECK(server.leave(client_2));
+    BOOST_CHECK(serverTest.__leave(client_2));
     // Client 1 leaves one more time
-    BOOST_CHECK(server.leave(client_1) == 0);
+    BOOST_CHECK(serverTest.__leave(client_1) == 0);
 }
 
 
@@ -144,21 +142,20 @@ BOOST_AUTO_TEST_CASE( serverJoinLeaveTest )
 BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
 {
     // Construct server
-    Server server(
-        std::chrono::minutes(3),
+    ServerTest serverTest(
         std::string(ROOT) + "/config/http_server.conf"
     );
 
     // Load valid config
     BOOST_CHECK_NO_THROW(
-        server.loadConfig(
+        serverTest.__loadConfig(
             std::string(ROOT) + "/config/http_server.conf"
         )
     );
 
     // Load config with invalid configuration file path
     BOOST_CHECK_THROW(
-        server.loadConfig(
+        serverTest.__loadConfig(
             ""
         ),
         std::ios_base::failure
@@ -166,7 +163,7 @@ BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
 
     // Load config with config file containing wrong ip
     BOOST_CHECK_THROW(
-        server.loadConfig(
+        serverTest.__loadConfig(
             std::string() + "test/server/bad-configs/bad_ip.conf"
         ),
         po::invalid_option_value
@@ -174,7 +171,7 @@ BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
 
     // Load config with config file containing invalid port
     BOOST_CHECK_THROW(
-        server.loadConfig(
+        serverTest.__loadConfig(
             std::string() + "test/server/bad-configs/bad_port.conf"
         ),
         po::invalid_option_value
@@ -182,7 +179,7 @@ BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
 
     // Load config with config file containing invalid doc root path
     BOOST_CHECK_THROW(
-        server.loadConfig(
+        serverTest.__loadConfig(
             std::string() + "test/server/bad-configs/bad_root.conf"
         ),
         po::invalid_option_value

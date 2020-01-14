@@ -12,13 +12,18 @@
 #ifndef HTTP_SESSION_H
 #define HTTP_SESSION_H
 
+#include <chrono>
 #include <cstdlib>
 #include <memory>
 #include <boost/system/error_code.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/beast.hpp>
 
-#include "Server.h"
+#include "RequestHandler.h"
+#include "View.h"
+#include "Controller.h"
+
+class HttpSessionTest;
 
 /**
  * @brief Class representing a single HTTP session
@@ -31,39 +36,41 @@ class HttpSession : public std::enable_shared_from_this<HttpSession>
 // Constructors
 public:
     HttpSession(boost::asio::ip::tcp::socket&& socket,
-                Server& server);
+                const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>> & instance,
+                std::chrono::seconds timeout,
+                boost::asio::io_context& context);
 
 // Interface
 public:
     void run();
+
+// Private Friends
+private:
+    friend class HttpServerTest;
 
 // Private members
 private:
     /// Socket associated with the connection
     boost::asio::ip::tcp::socket __socket;
     /// Buffer used in async_read() and async_write() operations
-    boost::beast::flat_buffer __buffer;
-    /// Reference to the Server pbject conatining crucial informations about app
-    Server& __server;
+    boost::beast::flat_buffer __buffer;    
     /// HTTP request from the client
     boost::beast::http::request<boost::beast::http::string_body> __req;
 
+    /// Handler responsible for communication with MVC instance
+    RequestHandler __handler;
+
+    /// Session's timeout
+    std::chrono::seconds __timeout;
+    /// Timeout timer
+    boost::asio::steady_timer __timer;
+
 // Private member methods
 private:
-    
-    boost::beast::string_view __mimeType(const boost::beast::string_view& path);
-    std::string __pathCat(const boost::beast::string_view& base, const boost::beast::string_view& path);
-
-    template<class Body, class Allocator, class Send>
-    void __handleRequest(
-        const boost::beast::string_view& docRoot,
-        boost::beast::http::request<Body, boost::beast::http::basic_fields<Allocator>>&& req,
-        Send&& send
-    );
-
-    void __on_read(boost::system::error_code err_code, std::size_t);
-    void __on_write(boost::system::error_code err_code, std::size_t, bool close);
+    void __onRead(boost::system::error_code err_code, std::size_t);
+    void __onWrite(boost::system::error_code err_code, std::size_t, bool close);
     void __fail(const boost::system::error_code& err_code, char const* what);
+    void __closeConnection();
 };
 
 #endif

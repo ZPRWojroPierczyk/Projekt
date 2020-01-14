@@ -16,7 +16,7 @@ BOOST_AUTO_TEST_SUITE( ModelClassSuite )
 
 BOOST_AUTO_TEST_CASE( modelStatesTest )
 {
-    Model model;    
+    Model model("");    
     // Check credits transition
     model.openCredits();
     BOOST_CHECK(model.getState() == Model::State::Credits);

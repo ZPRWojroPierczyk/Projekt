@@ -9,7 +9,7 @@
  * 
  */
 #include <boost/test/unit_test.hpp>
-#include "HttpSession.h"
+#include "HttpSessionTest.h"
 
 BOOST_AUTO_TEST_SUITE( ServerSuite )
 BOOST_AUTO_TEST_SUITE( HttpSessionClassSuite )
@@ -20,34 +20,39 @@ BOOST_AUTO_TEST_CASE( httpSessionConstructorTest )
     boost::asio::io_context context;
     // Create socket
     boost::asio::ip::tcp::socket socket(context);
-    // Create server
-    Server server(
-        std::chrono::minutes(3),
-        std::string(ROOT) + "/config/http_server.conf"
+    // Create app instance
+    auto model = std::make_shared<Model>("");
+    auto instance = std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>(
+        std::make_shared<Controller>(model),
+        std::make_shared<View>(
+            model,
+            std::string(ROOT) + "/web/simple-client"
+        )
     );
 
     // Constructor test
     BOOST_REQUIRE_NO_THROW(
         HttpSession httpSession(
             std::move(socket),
-            server
+            instance,
+            std::chrono::seconds(30),
+            context
         )
     );
 
     // Create another socket ...
     boost::asio::ip::tcp::socket anotherSocket(context);
-    // ... and another http session
-    HttpSession httpSession(
-            std::move(anotherSocket),
-            server
-    );
 
-    // run() method test
-    BOOST_CHECK_NO_THROW(
-        std::make_shared<HttpSession>(
+    // run() method test - should throw exception, as
+    // socket is not connected
+    BOOST_CHECK_THROW(
+        std::make_shared<HttpSessionTest>(
             std::move(anotherSocket),
-            server
-        )->run()
+            instance,
+            std::chrono::seconds(30),
+            context
+        )->httpSession.run(),
+        std::exception
     );
     
 }

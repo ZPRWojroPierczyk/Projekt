@@ -18,7 +18,7 @@
 class View{
 // Constructors
 public:
-    View(std::shared_ptr<Model>& model,
+    View(const std::shared_ptr<Model>& model,
          const std::string& docRoot);
 
 // Interface

@@ -15,7 +15,7 @@
 /*------------------------ Constructors and destructors --------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-View::View(std::shared_ptr<Model>& model,
+View::View(const std::shared_ptr<Model>& model,
            const std::string& docRoot) :
     __model(model),
     __docRoot(docRoot)

@@ -77,10 +77,6 @@ void Server::run(){
         *this
     )->run();
 
-    /* --- Run cleaning timer --- */
-    __cleanTimer.expires_after(__sessionTimeout);
-    __cleanTimer.async_wait(boost::bind(&Server::__clean, this, boost::asio::placeholders::error));
-
     /* --- Capture SIGINT and SIGTERM to perform a clean shutdown --- */
     asio::signal_set signals(__context, SIGINT, SIGTERM);
     signals.async_wait(
@@ -114,7 +110,7 @@ void Server::__stop(){
     /**
      *  @note Erease all clients from the map. This action destroys:
      * 
-     *        - unique_ptr to the steady_timer measuring timeout
+     *        - shared_ptr to the steady_timer measuring timeout
      *          which results in controlled timer object's destruction
      * 
      *        - shared_ptr to View and Controller instances. Another
@@ -146,17 +142,14 @@ bool Server::__join(const std::string& clientID){
     /* -- Specified client's session exists -- */
     if(__clients.count(clientID) != 0){
 
-        // Reset timeout for the client
-        __clients[clientID].first->expires_after(__clientTimeout);
-
         clientAdded = false;
     } 
     /* -- New client to register -- */
     else{
 
         /* --- Create record's elements --- */
-        auto timer = std::make_unique<boost::asio::steady_timer>(__context, __clientTimeout);
-        auto model = std::make_shared<Model>(Model(clientID));
+        auto timer = std::make_shared<boost::asio::steady_timer>(__context, __clientTimeout);
+        auto model = std::make_shared<Model>(clientID);
         auto view = std::make_shared<View>(model, __docRoot);
         auto controller = std::make_shared<Controller>(model);
         
@@ -167,25 +160,7 @@ bool Server::__join(const std::string& clientID){
         );
     }
 
-    /* -- Set handler to the timeout timer -- */
-    __clients[clientID].first->async_wait(
-        [this, clientID](const boost::system::error_code& ec)
-        {
-            
-            // If timer was just refreshed return without unregistering client
-            if(ec == boost::asio::error::operation_aborted)
-                return;
-                
-            // If timer expired unregister client by leave()
-            else{
-                __leave(clientID);
-                return;
-            } 
-        }
-    );
-
     return clientAdded;
-
 }
 
 
@@ -303,20 +278,40 @@ void Server::__loadConfig(const std::string& configFile){
 
 
 /**
- * @brief Removes expired records from the clients table
- * @param errCode : Error code delivered when timer expires
+ * @brief Removes expired record from the clients table
  */
-void Server::__clean(const boost::system::error_code& errCode){
+void Server::__clean(){
+    __clients.erase("None");
+    return;
+}
 
-    // If timer was just refreshed return without unregistering client
-    if(errCode == boost::asio::error::operation_aborted)
-        return;
-        
-    // If timer expired unregister client by leave()
-    else{
-        __clients.erase("None");
-        __cleanTimer.expires_from_now(__sessionTimeout);
-        __cleanTimer.async_wait(boost::bind(&Server::__clean, this, boost::asio::placeholders::error));
-        return;
-    }
+
+
+/** 
+ * @param clientID 
+ * @return Instance of the app assigned to the specified client
+ */
+const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&
+Server::__getInstance(const std::string& clientID){
+    return __clients[clientID].second;
+}
+
+
+
+/**
+ * @param clientID 
+ * @return Pointer to the client's timeout timer
+ */
+const std::shared_ptr<boost::asio::steady_timer>&
+Server::__getTimeoutTimer(const std::string& clientID){
+    return __clients[clientID].first;
+}
+
+
+/**
+ * @return Reference to the io_context used by the server
+ */
+boost::asio::io_context&
+Server::__getContext(){
+    return __context;
 }

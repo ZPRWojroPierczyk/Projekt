@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE( requestHandlerConstructorTest )
     // Constructor test
     BOOST_REQUIRE_NO_THROW(
         RequestHandler requestHandlerTest(
-            controller, view
+            std::pair(controller, view)
         )
     );
 }
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE ( requestHandlerMimeTypeTest, * ut::depends_on(
                     model,
                     std::string(ROOT) + "/web/simple-client"
                 );
-    RequestHandlerTest requestHandler(controller, view);
+    RequestHandlerTest requestHandler(std::pair(controller, view));
   
     // Test different mime types
     BOOST_CHECK( requestHandler.__mimeType("file.htm") == "text/html" );
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE ( requestHandlerPathCat, * ut::depends_on(
                     model,
                     std::string(ROOT) + "/web/simple-client"
                 );
-    RequestHandlerTest requestHandler(controller, view);
+    RequestHandlerTest requestHandler(std::pair(controller, view));
 
     BOOST_CHECK( requestHandler.__pathCat("/base", "/css/file.css") == "/base/css/file.css" );
 }

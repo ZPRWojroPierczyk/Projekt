@@ -14,11 +14,14 @@
 
 #include <chrono>
 #include <cstdlib>
+#include <functional>
 #include <memory>
 #include <boost/system/error_code.hpp>
 #include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/beast.hpp>
 
+#include "Server.h"
 #include "RequestHandler.h"
 #include "View.h"
 #include "Controller.h"
@@ -35,10 +38,9 @@ class HttpSession : public std::enable_shared_from_this<HttpSession>
 {
 // Constructors
 public:
-    HttpSession(boost::asio::ip::tcp::socket&& socket,
-                const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>> & instance,
-                std::chrono::seconds timeout,
-                boost::asio::io_context& context);
+    HttpSession(Server& server,
+                const std::string& clientID,
+                boost::asio::ip::tcp::socket&& socket);
 
 // Interface
 public:
@@ -50,6 +52,12 @@ private:
 
 // Private members
 private:
+    /// Client's ID
+    const std::string __clientID;
+
+    /// Reference to the Server object
+    Server& __server;
+
     /// Socket associated with the connection
     boost::asio::ip::tcp::socket __socket;
     /// Buffer used in async_read() and async_write() operations
@@ -57,13 +65,11 @@ private:
     /// HTTP request from the client
     boost::beast::http::request<boost::beast::http::string_body> __req;
 
+    /// Timeout measuring session's timeout
+    boost::asio::steady_timer __sessionTimeoutTimer;
+
     /// Handler responsible for communication with MVC instance
     RequestHandler __handler;
-
-    /// Session's timeout
-    std::chrono::seconds __timeout;
-    /// Timeout timer
-    boost::asio::steady_timer __timer;
 
 // Private member methods
 private:

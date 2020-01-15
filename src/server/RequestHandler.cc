@@ -21,9 +21,9 @@
  * @param controller 
  * @param view 
  */
-RequestHandler::RequestHandler(std::shared_ptr<Controller> controller, std::shared_ptr<View> view) :
-    __controller(controller),
-    __view(view)
+RequestHandler::RequestHandler(const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance) :
+    __controller(instance.first),
+    __view(instance.second)
 {}
 
 

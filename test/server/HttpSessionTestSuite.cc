@@ -10,49 +10,45 @@
  */
 #include <boost/test/unit_test.hpp>
 #include "HttpSessionTest.h"
+#include "ServerTest.h"
 
 BOOST_AUTO_TEST_SUITE( ServerSuite )
 BOOST_AUTO_TEST_SUITE( HttpSessionClassSuite )
 
 BOOST_AUTO_TEST_CASE( httpSessionConstructorTest )
 {
-    // Create context
-    boost::asio::io_context context;
-    // Create socket
-    boost::asio::ip::tcp::socket socket(context);
-    // Create app instance
-    auto model = std::make_shared<Model>("");
-    auto instance = std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>(
-        std::make_shared<Controller>(model),
-        std::make_shared<View>(
-            model,
-            std::string(ROOT) + "/web/simple-client"
-        )
+    // Create server
+    ServerTest serverTest(
+        std::string(ROOT) + "/config/http_server.conf"
     );
+
+    // Client's ID
+    std::string clientID("0.0.0.0");
+    // Create app instance
+    serverTest.__join(clientID);
+
+    // Create socket
+    boost::asio::ip::tcp::socket socket(serverTest.__getContext());
 
     // Constructor test
     BOOST_REQUIRE_NO_THROW(
         HttpSession httpSession(
-            std::move(socket),
-            instance,
-            std::chrono::seconds(30),
-            context
+            serverTest.__server,
+            clientID,
+            std::move(socket)
         )
     );
 
     // Create another socket ...
-    boost::asio::ip::tcp::socket anotherSocket(context);
+    boost::asio::ip::tcp::socket anotherSocket(serverTest.__getContext());
 
-    // run() method test - should throw exception, as
-    // socket is not connected
-    BOOST_CHECK_THROW(
-        std::make_shared<HttpSessionTest>(
-            std::move(anotherSocket),
-            instance,
-            std::chrono::seconds(30),
-            context
-        )->httpSession.run(),
-        std::exception
+    // run() method test should throw an exception, as socket is not connected
+    BOOST_CHECK_NO_THROW(
+        std::make_shared<HttpSession>(
+            serverTest.__server,
+            clientID,
+            std::move(anotherSocket)
+        )->run()
     );
     
 }

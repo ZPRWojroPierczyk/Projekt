@@ -18,10 +18,9 @@
 class HttpSessionTest{
 // Constructor
 public:
-    HttpSessionTest(boost::asio::ip::tcp::socket&& socket,
-                    const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>> & instance,
-                    std::chrono::seconds timeout,
-                    boost::asio::io_context& context);
+    HttpSessionTest(Server& server,
+                    const std::string& clientID,
+                    boost::asio::ip::tcp::socket&& socket);
 
 // Public members
 public:

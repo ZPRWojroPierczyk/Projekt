@@ -10,9 +10,8 @@
  */
 #include "HttpSessionTest.h"
 
-HttpSessionTest::HttpSessionTest(boost::asio::ip::tcp::socket&& socket,
-                                 const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>> & instance,
-                                 std::chrono::seconds timeout,
-                                 boost::asio::io_context& context):
-    httpSession(std::move(socket), instance, timeout, context)
+HttpSessionTest::HttpSessionTest(Server& server,
+                                 const std::string& clientID,
+                                 boost::asio::ip::tcp::socket&& socket):
+    httpSession(server, clientID, std::move(socket))
 {}

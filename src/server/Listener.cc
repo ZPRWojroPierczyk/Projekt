@@ -9,6 +9,7 @@
  * 
  */
 
+#include <functional>
 #include <iostream>
 #include <thread>
 #include "Listener.h"
@@ -134,12 +135,13 @@ void Server::Listener::__on_accept(const error_code& err_code){
         // Register client to the if they are new
         __server.__join(clientID);
         
+
+
         // Create a new session for this client basing on the record in clients table
         std::make_shared<HttpSession>(
-                std::move(__socket),
-                __server.__clients[clientID].second,
-                __server.__sessionTimeout,
-                __server.__context
+                __server,
+                clientID,
+                std::move(__socket)
         )->run();
     }
 

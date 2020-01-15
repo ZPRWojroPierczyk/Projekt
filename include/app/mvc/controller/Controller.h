@@ -17,7 +17,7 @@
 class Controller{
 // Constructors
 public:
-    Controller(std::shared_ptr<Model>& model);
+    Controller(const std::shared_ptr<Model>& model);
 
 // Private members
 private:

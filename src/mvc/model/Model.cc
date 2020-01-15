@@ -18,6 +18,7 @@
 /*--------------------------------------------------------------------------------*/
 
 Model::Model(const std::string& clientID) :
+    simulationCreatorManager(clientID, simulationManager),
     settingsManager(clientID),
     __clientID(clientID),
     __state(State::Menu)

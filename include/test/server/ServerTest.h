@@ -20,7 +20,7 @@ public:
     using instance = std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>;
 
     /// Type representing a single client
-    using client = std::pair<std::unique_ptr<boost::asio::steady_timer>,
+    using client = std::pair<std::shared_ptr<boost::asio::steady_timer>,
                               instance>;
 
     /// Set of clients
@@ -44,14 +44,18 @@ public:
     bool __join (const std::string& clientID);
     bool __leave (const std::string& clientID);
 
-    /// Internal clients management
-    void __clean(const boost::system::error_code& errCode);
+    // Internal clients management
+    void __clean();
 
-    /// Get reference to the clients table
+    // Get reference to the clients table
     clientsMap& getClients();
 
-// Private members
-private:
-    Server server;
+    // Utilities to get Server's private fields
+    boost::asio::io_context&
+    __getContext();
+
+// Public members
+public:
+    Server __server;
 
 };

@@ -25,6 +25,7 @@
 #include "Controller.h"
 
 class Listener;
+class HttpSession;
 class ServerTest;
 class ListenerTest;
 
@@ -56,6 +57,7 @@ public:
 private:
     friend class ServerTest;
     friend class ListenerTest;
+    friend class HttpSession;
 
 // Private types
 private:
@@ -63,7 +65,7 @@ private:
     using instance = std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>;
 
     /// Type representing a single client
-    using client = std::pair<std::unique_ptr<boost::asio::steady_timer>,
+    using client = std::pair<std::shared_ptr<boost::asio::steady_timer>,
                               instance>;
 
     /// Set of clients
@@ -86,7 +88,7 @@ private:
     /// Session's timeout
     std::chrono::seconds __sessionTimeout;
     /// Timer responsible for cleaning "None" records in __clients table
-    boost::asio::steady_timer   __cleanTimer;
+    boost::asio::steady_timer __cleanTimer;
 
     /// Absolute path to the folder containing static files
     std::string __docRoot;
@@ -105,8 +107,16 @@ private:
     bool __join (const std::string& clientID);
     bool __leave (const std::string& clientID);
 
-    /// Internal clients management
-    void __clean(const boost::system::error_code& errCode);
+    // Internal clients management
+    void __clean();
+
+    // Utilities for friend classes
+    boost::asio::io_context&
+    __getContext();
+    const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&
+    __getInstance(const std::string& clientID);
+    const std::shared_ptr<boost::asio::steady_timer>&
+    __getTimeoutTimer(const std::string& clientID);
 };
 
 #endif

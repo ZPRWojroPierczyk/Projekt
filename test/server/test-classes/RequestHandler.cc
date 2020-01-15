@@ -10,9 +10,8 @@
  */
 #include "RequestHandlerTest.h"
 
-RequestHandlerTest::RequestHandlerTest(std::shared_ptr<Controller> controller,
-                                       std::shared_ptr<View> view) :
-    requestHandler(controller, view)
+RequestHandlerTest::RequestHandlerTest(const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance) :
+    requestHandler(instance)
 {}
 
 boost::beast::string_view RequestHandlerTest::__mimeType(const boost::beast::string_view& path){

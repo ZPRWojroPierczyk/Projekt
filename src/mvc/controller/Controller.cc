@@ -15,6 +15,6 @@
 /*------------------------ Constructors and destructors --------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-Controller::Controller(std::shared_ptr<Model>& model):
+Controller::Controller(const std::shared_ptr<Model>& model):
     __model(model)
 {}

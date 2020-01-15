@@ -14,7 +14,7 @@ class RequestHandlerTest
 {
 // Constructor
 public:
-    RequestHandlerTest(std::shared_ptr<Controller> controller, std::shared_ptr<View> view);
+    RequestHandlerTest(const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance);
 
 //Interface
 public:

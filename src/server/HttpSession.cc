@@ -37,14 +37,14 @@ using error_code = boost::system::error_code;
  *       approach to creation delegates session's life-time responsibility
  *       to the object itself, which is desired behaviour.
  */
-HttpSession::HttpSession(boost::asio::ip::tcp::socket&& socket,
-                         const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>> & instance,
-                         std::chrono::seconds timeout,
-                         boost::asio::io_context& context) :
+HttpSession::HttpSession(Server& server,
+                         const std::string& clientID,
+                         boost::asio::ip::tcp::socket&& socket) :
+    __clientID(clientID),
+    __server(server),
     __socket(std::move(socket)),
-    __handler(instance.first, instance.second),
-    __timeout(timeout),
-    __timer(context)
+    __sessionTimeoutTimer(__server.__context),
+    __handler(__server.__getInstance(clientID))
 {}
 
 
@@ -81,10 +81,10 @@ void HttpSession::run(){
     );
 
     /* --- Refresh timer --- */
-    __timer.expires_after(__timeout);
+    __sessionTimeoutTimer.expires_after(__server.__sessionTimeout);
 
     /* -- Set handler to the timeout timer -- */
-    __timer.async_wait(
+    __sessionTimeoutTimer.async_wait(
         [this](const boost::system::error_code& ec)
         {
             // If timer was just refreshed return without unregistering client
@@ -109,9 +109,6 @@ void HttpSession::run(){
  * @param errCode : Error code from the async_read()
  */
 void HttpSession::__onRead(error_code errCode, std::size_t){
-
-    /* --- Refresh timer --- */
-    __timer.expires_after(__timeout);
 
     /* --- Check error code --- */
     if(errCode){
@@ -171,8 +168,11 @@ void HttpSession::__onRead(error_code errCode, std::size_t){
     );
 
 
-    /* -- Set handler to the timeout timer -- */
-    __timer.async_wait(
+    /* --- Refresh session timer --- */
+    __sessionTimeoutTimer.expires_after(__server.__sessionTimeout);
+
+    /* -- Set handler to the session timeout timer -- */
+    __sessionTimeoutTimer.async_wait(
         [this](const boost::system::error_code& ec)
         {
             // If timer was just refreshed return without unregistering client
@@ -185,6 +185,31 @@ void HttpSession::__onRead(error_code errCode, std::size_t){
         }
     );
 
+
+    /* --- Refresh client's timer --- */
+    __server.__getTimeoutTimer(__clientID)->expires_after(__server.__clientTimeout);
+
+    /* -- Set handler to the client timeout timer -- */
+    __server.__getTimeoutTimer(__clientID)->async_wait(
+        [this](const boost::system::error_code& ec)
+        {
+            
+            // If timer was just refreshed return without unregistering client
+            if(ec == boost::asio::error::operation_aborted)
+                return;
+                
+            // If timer expired unregister client by leave()
+            else{
+                __server.__leave(__clientID);
+                __server.__context.post(
+                    [this](){
+                        __server.__clean();
+                    }
+                );
+                return;
+            } 
+        }
+    );
 }
 
 

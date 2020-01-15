@@ -215,8 +215,7 @@ BOOST_AUTO_TEST_CASE( serverCleanTest )
     BOOST_CHECK( serverTest.getClients().count("None") == 1);
 
     // Clean deleted client
-    boost::system::error_code errCode;
-    serverTest.__clean(errCode);
+    serverTest.__clean();
 
     // Check if client is cleaned properly
     BOOST_CHECK( serverTest.getClients().empty() == true);

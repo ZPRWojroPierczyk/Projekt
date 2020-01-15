@@ -11,29 +11,33 @@
 #include "ServerTest.h"
 
 ServerTest::ServerTest(const std::string& configFile) :
-    server(configFile)
+    __server(configFile)
 {}
 
 void ServerTest::__stop(){
-    server.__stop();
+    __server.__stop();
 }
 
 void ServerTest::__loadConfig(const std::string& configFile){
-    server.__loadConfig(configFile);
+    __server.__loadConfig(configFile);
 }
 
 bool ServerTest::__join (const std::string& clientID){
-    return server.__join(clientID);
+    return __server.__join(clientID);
 }
 
 bool ServerTest::__leave (const std::string& clientID){
-    return server.__leave (clientID);
+    return __server.__leave (clientID);
 }
 
-void ServerTest::__clean(const boost::system::error_code& errCode){
-    server.__clean(errCode);
+void ServerTest::__clean(){
+    __server.__clean();
 }
 
 ServerTest::clientsMap& ServerTest::getClients(){
-    return server.__clients;
+    return __server.__clients;
+}
+
+boost::asio::io_context& ServerTest::__getContext(){
+    return __server.__getContext();
 }

@@ -129,7 +129,7 @@ void HttpSession::__onRead(error_code errCode, std::size_t){
 
     /* --- Create generic lambda to serve response sending --- */
     auto sendHandler = 
-            [this](auto&& response) -> void
+        [this](auto&& response) -> void
         {
             // Deduce message type
             using response_type = typename std::decay<decltype(response)>::type;

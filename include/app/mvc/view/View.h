@@ -16,6 +16,18 @@
 #include "Model.h"
 
 class View{
+// Public Types
+public:
+    enum class DataType{
+        None,
+        // Data send to simulation creator
+        CreatorCities,
+        CreatorTransports,
+        CreatorAgents,
+        CreatorMap,
+        CreatorTime
+    };
+
 // Constructors
 public:
     View(const std::shared_ptr<Model>& model,
@@ -23,12 +35,9 @@ public:
 
 // Interface
 public:
-    std::string getDocRoot(); // TODO#CPP Delete getDocRoot() (it is used by the RequestHandler, but 
-                              // the aim is to use getResource() and getData() )
     void setDocRoot(const std::string& docRoot);
-
-    std::string getResource();
-    std::string getData();
+    std::string getResource(const std::string& target);
+    std::string getData(const DataType& requestedData);
 
 // Private members
 private:
@@ -36,6 +45,10 @@ private:
     const std::shared_ptr<Model>& __model;
     /// Path to the folder containing web static files
     std::string __docRoot;
+
+// Private member methods
+private:
+    std::string __pathCat(const std::string& base, const std::string& path);
 };
 
 #endif

@@ -17,7 +17,3 @@ RequestHandlerTest::RequestHandlerTest(const std::pair<std::shared_ptr<Controlle
 boost::beast::string_view RequestHandlerTest::__mimeType(const boost::beast::string_view& path){
     return requestHandler.__mimeType(path);
 }
-
-std::string RequestHandlerTest::__pathCat(const boost::beast::string_view& base, const boost::beast::string_view& path){
-    return requestHandler.__pathCat(base, path);
-}

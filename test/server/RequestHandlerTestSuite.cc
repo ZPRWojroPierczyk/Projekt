@@ -75,27 +75,5 @@ BOOST_AUTO_TEST_CASE ( requestHandlerMimeTypeTest, * ut::depends_on(
     BOOST_CHECK( requestHandler.__mimeType("file.svgz") == "image/svg+xml" );
 }
 
-
-
-/**
- * @brief Test method responsible for combining requested resource path with the local
- *        web-content root path
- */
-BOOST_AUTO_TEST_CASE ( requestHandlerPathCat, * ut::depends_on(
-"ServerSuite/RequestHandlerClassSuite/requestHandlerConstructorTest"
-))
-{
-    // Create handler
-    auto model = std::make_shared<Model>("");
-    auto controller = std::make_shared<Controller>(model);
-    auto view = std::make_shared<View>(
-                    model,
-                    std::string(ROOT) + "/web/simple-client"
-                );
-    RequestHandlerTest requestHandler(std::pair(controller, view));
-
-    BOOST_CHECK( requestHandler.__pathCat("/base", "/css/file.css") == "/base/css/file.css" );
-}
-
 BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()

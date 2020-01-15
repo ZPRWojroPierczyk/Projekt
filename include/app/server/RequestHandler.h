@@ -33,7 +33,6 @@ private:
 // Private member methods
 private:
     boost::beast::string_view __mimeType(const boost::beast::string_view& path);
-    std::string __pathCat(const boost::beast::string_view& base, const boost::beast::string_view& path);
 };
 
 #endif

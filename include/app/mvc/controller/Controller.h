@@ -13,6 +13,7 @@
 #define CONTROLLER_H
 #include <memory>
 #include "Model.h"
+#include "View.h"
 
 class Controller{
 // Constructors
@@ -21,7 +22,7 @@ public:
 
 // Interface
 public:
-    bool action(const std::string& actionType, const std::string& actionBody);
+    View::DataType action(const std::string& actionType, const std::string& body);
 
 // Private members
 private:

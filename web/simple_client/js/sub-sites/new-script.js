@@ -1,5 +1,4 @@
-//TODO: 
-//Think time-window and time-step parameters over
+// JavaScript tabs, forms and AJAX for new.html
 
 /****************** Switching tabs *******************/
 
@@ -31,10 +30,10 @@ function citiesAccept() {
         var element = x.elements[i];
         if (element.type == "checkbox" && element.checked == true) {
             //Checking if cars and drivers numbers are correct
-            if(x.elements[i+1].value < 0 || x.elements[i+2].value < 0
-                 || !isIntegral(x.elements[i+1].value) || !isIntegral(x.elements[i+2].value)) {
+            if (x.elements[i + 1].value < 0 || x.elements[i + 2].value < 0
+                || !isIntegral(x.elements[i + 1].value) || !isIntegral(x.elements[i + 2].value)) {
                 alert(element.getAttribute("data-name")
-                 + " niepoprawnie uzupełniony. Liczba pojazdów i kierowców musi być nieujemna oraz całkowita.\
+                    + " niepoprawnie uzupełniony. Liczba pojazdów i kierowców musi być nieujemna oraz całkowita.\
                   Proszę wprowadzić poprawne dane ponownie.");
                 return;
             }
@@ -42,13 +41,18 @@ function citiesAccept() {
         }
     }
 
+    //TODO: Sequence of validation could be reversed for better performance ^
+    //      (first check if at least 2 are selected)
+
     //At least 2 cities must be checked
-    if(checked_count >= 2){
+    if (checked_count >= 2) {
         for (i = 0; i < x.length; i++) {
             x.elements[i].disabled = true;
         }
         document.getElementsByClassName("accept")[0].style.display = "none";
         document.getElementsByClassName("go-back")[0].style.display = "inline";
+        var jsonCities = createCitiesJSON();
+        sendJSON(jsonCities, "cities");
         cities_valid = true;
     } else {
         alert("Proszę wybrać conajmniej 2 miasta.");
@@ -69,13 +73,31 @@ function citiesGoBack() {
     document.getElementById("Transport-Table").innerHTML = "";
 }
 
+function createCitiesJSON() {
+    var departments = "{";
+    var x = document.getElementById("Cities-Form");
+    for (i = 0; i < x.length; i++) {
+        var element = x.elements[i];
+        if (element.type == "checkbox" && element.checked == true) {
+            departments += "\"" + element.value + "\":{";
+            departments += "\"carsNumber\":" + x.elements[i + 1].value + ",";
+            departments += "\"driversNumber\":" + x.elements[i + 2].value + "},"
+
+        }
+    }
+
+    departments = departments.substr(0, departments.length - 1);
+    departments += "}";
+    return departments;
+}
+
 /****************** Transport tab entry condition and form generator *******************/
 
 var transport_elements_count = 0;
 
 function transportEntry(evt, tab) {
-    if(cities_valid == true) {
-        if(transport_elements_count == 0){
+    if (cities_valid == true) {
+        if (transport_elements_count == 0) {
             document.getElementsByClassName("accept")[1].style.display = "none";
         }
         openTab(evt, tab);
@@ -87,27 +109,27 @@ function transportEntry(evt, tab) {
 }
 
 function transportGenerateElement() {
-    if(transport_elements_count == 0){
+    if (transport_elements_count == 0) {
         document.getElementsByClassName("accept")[1].style.display = "inline";
     }
 
     var html_content = "<tr><td>Z miasta: ";
     var html_select = "<select>";
     var x = document.getElementById("Cities-Form");
-    
+
     for (i = 0; i < x.length; i++) {
         var element = x.elements[i];
         if (element.type == "checkbox" && element.checked == true) {
             html_select += "<option value=\"" + element.value + "\">" + element.getAttribute("data-name")
-             + "</option>";
+                + "</option>";
         }
     }
 
     html_select += "</select>";
 
     html_content += html_select + "</td><td>Do miasta: " + html_select + "</td><td>"
-    + "<input type=\"number\" value=\"0\" step=\"100\" min=\"0\">  kg</td>"
-    + "<td><button class=\"remove-transport-element-button\" onclick=\"return transportRemoveElement(event);\">\
+        + "<input type=\"number\" value=\"0\" step=\"100\" min=\"0\">  kg</td>"
+        + "<td><button class=\"remove-transport-element-button\" onclick=\"return transportRemoveElement(event);\">\
     Usuń</button></td></tr>";
 
     document.getElementById("Transport-Table").innerHTML += html_content;
@@ -117,7 +139,7 @@ function transportGenerateElement() {
 function transportRemoveElement(evt) {
     evt.currentTarget.parentElement.parentElement.remove();
     transport_elements_count--;
-    if(transport_elements_count == 0){
+    if (transport_elements_count == 0) {
         document.getElementsByClassName("accept")[1].style.display = "none";
     }
     return false;
@@ -134,13 +156,13 @@ function transportAccept() {
     var i;
 
     for (i = 0; i < x.length; i++) {
-        if(x.elements[i].type == "number" && (x.elements[i].value < 0 || !isFloat(x.elements[i].value))){
+        if (x.elements[i].type == "number" && (x.elements[i].value < 0 || !isFloat(x.elements[i].value))) {
             alert("Ilość towaru musi być dodatnia, typu całkowitego lub ułamka dziesiętnego.");
             return;
         }
-        if(x.elements[i].tagName == "SELECT"){
-            if(select_distinction == 0){
-                if(x.elements[i].value == x.elements[i+1].value){
+        if (x.elements[i].tagName == "SELECT") {
+            if (select_distinction == 0) {
+                if (x.elements[i].value == x.elements[i + 1].value) {
                     alert("Niepoprawnie uzupełniony transport. Miasta muszą być różne.");
                     return;
                 }
@@ -152,15 +174,17 @@ function transportAccept() {
     }
 
     for (i = 0; i < x.length; i++) {
-        if(x.elements[i].tagName == "BUTTON"){
+        if (x.elements[i].tagName == "BUTTON") {
             x.elements[i].style.display = "none";
         }
         x.elements[i].disabled = true;
     }
-    
+
     document.getElementById("Generate-Transport-Button").style.display = "none";
     document.getElementsByClassName("accept")[1].style.display = "none";
     document.getElementsByClassName("go-back")[1].style.display = "inline";
+    var jsonTransports = createTransportsJSON();
+    sendJSON(jsonTransports, "transports");
     transport_valid = true;
 }
 
@@ -168,7 +192,7 @@ function transportGoBack() {
     var x = document.getElementById("Transport-Form");
     var i;
     for (i = 0; i < x.length; i++) {
-        if(x.elements[i].tagName == "BUTTON"){
+        if (x.elements[i].tagName == "BUTTON") {
             x.elements[i].style.display = "inline";
         }
         x.elements[i].disabled = false;
@@ -179,6 +203,30 @@ function transportGoBack() {
     transport_valid = false;
 }
 
+function createTransportsJSON() {
+    var transports = "{\"transports\":[";
+    var select_distinction = 0;
+    var x = document.getElementById("Transport-Form");
+    for (i = 0; i < x.length; i++) {
+        if (x.elements[i].tagName == "SELECT") {
+            if (select_distinction == 0) {
+                transports += "{\"from\":\"" + x.elements[i].value + "\",";
+                transports += "\"to\":\"" + x.elements[i + 1].value + "\",";
+                select_distinction++;
+            } else {
+                select_distinction--;
+            }
+        }
+        if (x.elements[i].type == "number") {
+            transports += "\"load\":" + x.elements[i].value + "},";
+        }
+    }
+
+    transports = transports.substr(0, transports.length - 1);
+    transports += "]}";
+    return transports;
+}
+
 /****************** Agent form validation *******************/
 
 var agent_valid = false;
@@ -186,13 +234,13 @@ var agent_valid = false;
 function agentAccept() {
     var x = document.getElementById("Agent-Form");
     var i;
-    if(x.elements[0].value < 0 || x.elements[0].value > 100 || !isFloat(x.elements[0].value)){
+    if (x.elements[0].value < 0 || x.elements[0].value > 100 || !isFloat(x.elements[0].value)) {
         alert("Prawdopodobieństwo nie może być ujemne, ani nie może przekraczać 100%. \
         Musi być typu całkowitego lub ułamka dziesiętnego.");
         return;
     }
     for (i = 1; i < x.length; i++) {
-        if(x.elements[i].value <= 0 || !isFloat(x.elements[i].value)){
+        if (x.elements[i].value <= 0 || !isFloat(x.elements[i].value)) {
             alert("Wszystkie parametry, oprócz prawdopodobieństwa wypadku, muszą być dodatnie. \
             Muszą być typu całkowitego lub ułamka dziesiętnego.");
             return;
@@ -203,7 +251,8 @@ function agentAccept() {
     }
     document.getElementsByClassName("accept")[2].style.display = "none";
     document.getElementsByClassName("go-back")[2].style.display = "inline";
-
+    var jsonAgent = createAgentJSON();
+    sendJSON(jsonAgent, "agent");
     agent_valid = true;
 }
 
@@ -218,6 +267,17 @@ function agentGoBack() {
     agent_valid = false;
 }
 
+function createAgentJSON() {
+    var agent = "{\"agent\":{"
+    var x = document.getElementById("Agent-Form");
+
+    agent += "\"maxfunctionProbability\":" + x.elements[0].value + ",";
+    agent += "\"maxDrivingTime\":" + x.elements[1].value + ",";
+    agent += "\"maxLoad\":" + x.elements[2].value + ",";
+    agent += "\"maxSpeed\":" + x.elements[3].value + "}}";
+    return agent;
+}
+
 /****************** Map parameters form validation *******************/
 
 var map_params_valid = false;
@@ -226,9 +286,9 @@ function mapParamsAccept() {
     var x = document.getElementById("Map-Params-Form");
     var i;
 
-    if(x.elements[0].value < 0 || x.elements[0].value > 100
-        || x.elements[1].value < 0 || x.elements[1].value > 100 
-        || !isFloat(x.elements[0].value) || !isFloat(x.elements[1].value)){
+    if (x.elements[0].value < 0 || x.elements[0].value > 100
+        || x.elements[1].value < 0 || x.elements[1].value > 100
+        || !isFloat(x.elements[0].value) || !isFloat(x.elements[1].value)) {
         alert("Prawdopodobieństwo nie może być ujemne, ani nie może przekraczać 100%. \
         Musi być typu całkowitego lub ułamka dziesiętnego.");
         return;
@@ -240,7 +300,8 @@ function mapParamsAccept() {
 
     document.getElementsByClassName("accept")[3].style.display = "none";
     document.getElementsByClassName("go-back")[3].style.display = "inline";
-
+    var jsonMapParams = createMapParamsJSON();
+    sendJSON(jsonMapParams, "map-params");
     map_params_valid = true;
 }
 
@@ -255,6 +316,15 @@ function mapParamsGoBack() {
     map_params_valid = false;
 }
 
+function createMapParamsJSON() {
+    var map_params = "{\"mapParams\":{"
+    var x = document.getElementById("Map-Params-Form");
+
+    map_params += "\"congestionProbability\":" + x.elements[0].value + ",";
+    map_params += "\"accidentProbability\":" + x.elements[1].value + "}}";
+    return map_params;
+}
+
 /****************** Time parameters form validation *******************/
 
 var time_params_valid = false;
@@ -263,8 +333,8 @@ function timeParamsAccept() {
     var x = document.getElementById("Time-Params-Form");
     var i;
 
-    if(x.elements[0].value <= 0 || x.elements[1].value <= 0
-        || !isIntegral(x.elements[0].value) || !isIntegral(x.elements[1].value)){   
+    if (x.elements[0].value <= 0 || x.elements[1].value <= 0
+        || !isIntegral(x.elements[0].value) || !isIntegral(x.elements[1].value)) {
         alert("Parametry muszą być dodatnie, typu całkowitego.");
         return;
     }
@@ -275,7 +345,8 @@ function timeParamsAccept() {
 
     document.getElementsByClassName("accept")[4].style.display = "none";
     document.getElementsByClassName("go-back")[4].style.display = "inline";
-
+    var jsonTimeParams = createTimeParamsJSON();
+    sendJSON(jsonTimeParams, "time-params");
     time_params_valid = true;
 }
 
@@ -290,13 +361,23 @@ function timeParamsGoBack() {
     time_params_valid = false;
 }
 
+function createTimeParamsJSON() {
+    var time_params = "{\"timeParams\":{"
+    var x = document.getElementById("Time-Params-Form");
+
+    time_params += "\"simulationWindow\":" + x.elements[0].value + ",";
+    time_params += "\"simulationStep\":" + x.elements[1].value + "}}";
+    return time_params;
+}
+
 /************** AJAX - asynchronous exchange of data with a web server behind the scenes ***************/
 /******************                          Submitting forms                        *******************/
 
 function submitForms() {
-    if (cities_valid == true && transport_valid == true && agent_valid == true 
+    if (cities_valid == true && transport_valid == true && agent_valid == true
         && map_params_valid == true && time_params_valid == true) {
 
+        /*
         var json_form_data = createJSON();
 
         var xhttp;
@@ -311,14 +392,35 @@ function submitForms() {
             xhttp.setRequestHeader(headerName, headerValue);
             xhttp.send(sendString);
         }
+        */
+
+        return true;
     } else {
         alert("Nie zatwierdzono wszystkich formularzy!");
         return false;
     }
 }
 
+/************** Sending JSON string in AJAX communication from particular forms ***************/
+
+function sendJSON(jsonData, suffix) {
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+
+    //TODO: Using url parameter to deciade which action should be executed on server-side
+    xhttp.open("POST", url, true);
+    if (url == "form_data.php") {
+        var headerName = "Content-type";
+        var headerValue = "application/x-www-" + suffix + "-json-form";
+        var sendString = jsonData;
+        xhttp.setRequestHeader(headerName, headerValue);
+        xhttp.send(sendString);
+    }
+}
+
 /************** Generating JSON string to be sent in AJAX communication ***************/
 
+/*
 function createJSON(){
     var departments = "{\"departments\":{";
     var x = document.getElementById("Cities-Form");
@@ -380,49 +482,50 @@ function createJSON(){
 
     return json_form_data_input;
 }
+*/
 
 /************** Checking if a number is an integral ***************/
 
-function isIntegral(number){
+function isIntegral(number) {
     var pattern = /[.,]/g;
     var snumber = number.toString();
 
-    if(snumber.search(pattern)==-1 && snumber!=""){
+    if (snumber.search(pattern) == -1 && snumber != "") {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
 /************** Checking if a number is a float ***************/
 
-function isFloat(number){
+function isFloat(number) {
     var snumber = number.toString();
     var dot_pattern = /[.]/g;
     var comma_pattern = /[,]/g;
     var dot_match = snumber.match(dot_pattern);
     var comma_match = snumber.match(comma_pattern);
 
-    if(snumber == ""){
+    if (snumber == "") {
         return false;
     }
 
-    if (dot_match == null && comma_match == null){
+    if (dot_match == null && comma_match == null) {
         return true;
     }
 
-    if(dot_match == null){
-        if(comma_match.length <= 1){
+    if (dot_match == null) {
+        if (comma_match.length <= 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    if(comma_match == null){
-        if(dot_match.length <= 1){
+    if (comma_match == null) {
+        if (dot_match.length <= 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

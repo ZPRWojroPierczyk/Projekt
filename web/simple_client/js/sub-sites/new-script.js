@@ -406,16 +406,14 @@ function submitForms() {
 function sendJSON(jsonData, suffix) {
     var xhttp;
     xhttp = new XMLHttpRequest();
-
+    var url = "";
     //TODO: Using url parameter to deciade which action should be executed on server-side
     xhttp.open("POST", url, true);
-    if (url == "form_data.php") {
-        var headerName = "Content-type";
-        var headerValue = "application/x-www-" + suffix + "-json-form";
-        var sendString = jsonData;
-        xhttp.setRequestHeader(headerName, headerValue);
-        xhttp.send(sendString);
-    }
+    var headerName = "Content-type";
+    var headerValue = "application/x-www-" + suffix + "-json-form";
+    var sendString = jsonData;
+    xhttp.setRequestHeader(headerName, headerValue);
+    xhttp.send(sendString);
 }
 
 /************** Generating JSON string to be sent in AJAX communication ***************/

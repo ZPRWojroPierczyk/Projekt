@@ -394,6 +394,14 @@ function submitForms() {
         }
         */
 
+       var xhttp;
+       xhttp = new XMLHttpRequest();
+       var url = "";
+       xhttp.open("POST", url, true);
+       var headerName = "Content-type";
+       var headerValue = "creator/start";
+       xhttp.setRequestHeader(headerName, headerValue);
+
         return true;
     } else {
         alert("Nie zatwierdzono wszystkich formularzy!");
@@ -407,10 +415,9 @@ function sendJSON(jsonData, suffix) {
     var xhttp;
     xhttp = new XMLHttpRequest();
     var url = "";
-    //TODO: Using url parameter to deciade which action should be executed on server-side
     xhttp.open("POST", url, true);
     var headerName = "Content-type";
-    var headerValue = "application/x-www-" + suffix + "-json-form";
+    var headerValue = "creator/" + suffix;
     var sendString = jsonData;
     xhttp.setRequestHeader(headerName, headerValue);
     xhttp.send(sendString);

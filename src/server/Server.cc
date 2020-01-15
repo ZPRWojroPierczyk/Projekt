@@ -239,19 +239,19 @@ void Server::__loadConfig(const std::string& configFile){
 
         // Port correctness
         if(port <1024 || port > 65535)
-            throw po::invalid_option_value("Server configuration: Invalid port number");
+            throw po::invalid_option_value("port number");
 
         // Check duaration corectness
         if (clientTimeout > 0)
             __clientTimeout = std::chrono::minutes(clientTimeout);
         else
-            throw po::invalid_option_value("Server configuration: Timeout cannot be negative!");
+            throw po::invalid_option_value("client imeout");
 
         // Check duaration corectness
         if (sessionTimeout > 0)
             __sessionTimeout = std::chrono::seconds(sessionTimeout);
         else
-            throw po::invalid_option_value("Server configuration: Timeout cannot be negative!");
+            throw po::invalid_option_value("session timeout");
 
         // Doc root existance
         struct stat info;
@@ -264,9 +264,9 @@ void Server::__loadConfig(const std::string& configFile){
     } catch (po::invalid_option_value &ex){
         throw;
     } catch(std::runtime_error &ex){
-        throw po::invalid_option_value(std::string("Pointed doc root does not exists!"));
+        throw po::invalid_option_value(std::string("documents root!"));
     } catch (std::exception &ex){
-        throw po::invalid_option_value(std::string("Server configuration: Invalid ip address!"));
+        throw po::invalid_option_value(std::string("ip address"));
     }
 
     // Inform every View in active clients set that __docRoot changed

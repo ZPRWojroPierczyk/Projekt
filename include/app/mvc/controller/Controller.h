@@ -19,6 +19,10 @@ class Controller{
 public:
     Controller(const std::shared_ptr<Model>& model);
 
+// Interface
+public:
+    bool action(const std::string& actionType, const std::string& actionBody);
+
 // Private members
 private:
     std::shared_ptr<Model> __model;

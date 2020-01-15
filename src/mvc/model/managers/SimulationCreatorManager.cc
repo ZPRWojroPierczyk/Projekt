@@ -41,6 +41,27 @@ SimulationCreatorManager::~SimulationCreatorManager(){
 /*----------------------------- Public member methods ----------------------------*/
 /*--------------------------------------------------------------------------------*/
 
+/**
+ * @brief Runs simulation with set parameters
+ */
+void runSimulation(){
+
+}
+
+/*------------------------------------ Getters -----------------------------------*/
+
+std::string SimulationCreatorManager::getCities(){
+    std::stringstream stream;
+    pt::json_parser::write_json(stream, __cities);
+    std::string cities;
+    stream >> cities;
+    return cities;
+}
+
+std::string getTransports();
+std::string getAgentsParam();
+std::string getMapParams();
+std::string getTimeParams(); 
 
 
 /*--------------------------------------------------------------------------------*/
@@ -75,7 +96,7 @@ void SimulationCreatorManager::__loadDefaultCreator(){
  * @brief Saves client's creator's state to the database
  */
 void SimulationCreatorManager::__saveCreator(){
-    pt::write_json("spike/ptree_json_save/spikescities.json", __cities);
+    pt::write_json("spike/ptree_json_save/cities.json", __cities);
     pt::write_json("spike/ptree_json_save/transports.json", __transports);
     pt::write_json("spike/ptree_json_save/agents.json", __agentsParams);
     pt::write_json("spike/ptree_json_save/map.json", __mapParams);

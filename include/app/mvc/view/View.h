@@ -23,8 +23,12 @@ public:
 
 // Interface
 public:
-    std::string getDocRoot();
+    std::string getDocRoot(); // TODO#CPP Delete getDocRoot() (it is used by the RequestHandler, but 
+                              // the aim is to use getResource() and getData() )
     void setDocRoot(const std::string& docRoot);
+
+    std::string getResource();
+    std::string getData();
 
 // Private members
 private:

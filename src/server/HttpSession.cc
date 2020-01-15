@@ -26,11 +26,9 @@ using error_code = boost::system::error_code;
 /**
  * @brief Construct a new Http Session:: Http Session object
  * 
+ * @param server Reference to the Server object owning session
+ * @param clientID Identifier of the client initializing session
  * @param socket Boost:asio::ip::tcp::socket associated with the session
- * @param instance Pair containing pointers to a Controller and a View
- *                   associated with a client
- * @param timeout Session's timeout
- * @param context io_context to serve the session 
  * 
  * @note HttpSession instance should be created by the shared pointer and run()
  *       method should be called before the end of the creating scope. This

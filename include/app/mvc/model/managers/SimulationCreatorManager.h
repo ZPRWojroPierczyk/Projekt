@@ -29,6 +29,23 @@ public:
 
 // Interface
 public:
+    /// Runs simulation with set parameters
+    void runSimulation();
+
+    /// Getters used to transform simulation attributes into JSON format
+    std::string getCities();
+    std::string getTransports();
+    std::string getAgentsParam();
+    std::string getMapParams();
+    std::string getTimeParams(); 
+
+    /// Setters used to load attributes from the JSON format
+    void getCities(const std::string& cities);
+    void getTransports(const std::string& transports);
+    void getAgentsParams(const std::string& agetnsParams);
+    void getMapParams(const std::string& mapParams);
+    void getTimeParams(const std::string& timeParams); 
+
 
 // Private member fields
 private:
@@ -42,16 +59,12 @@ private:
 
     /// Tree of cities with their attributes
     boost::property_tree::ptree __cities;
-
     /// Tre of planned transports
     boost::property_tree::ptree __transports;
-
     /// Agent's attributes
     boost::property_tree::ptree __agentsParams;
-
     /// Map's parameters
     boost::property_tree::ptree __mapParams;
-
     /// Simulation's time parameters
     boost::property_tree::ptree __timeParams;
 

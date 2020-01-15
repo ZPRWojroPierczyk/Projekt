@@ -1,0 +1,79 @@
+{
+    "cities": {
+        "Białystok": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Bydgoszcz": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Gdańsk": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Gdynia": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Katowice": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Kielce": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Kraków": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Lublin": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Łódź": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Olsztyn": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Poznań": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Rzeszów": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Szczecin": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Warszawa": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        },
+        "Wrocław": {
+            "check": "false",
+            "vehicles": "0",
+            "drivers": "0"
+        }
+    }
+}

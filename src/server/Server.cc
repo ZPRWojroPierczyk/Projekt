@@ -30,21 +30,9 @@ namespace po = boost::program_options;
 /*------------------------ Constructors and destructors --------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief Construct a new HTTP Server. Initializes it with
- *        a given config file.
- * @param context : io_context of the server
- * @param timeout : client's connection timeout. If client doesn't
- *                interact with server within this time, application's
- *                instance is deleted.
- * @param configFile : path to the configuration file
- * @throw boost::program_options::invalid_option_value : If failed to load
- *        configuration from a given file.
- */
 Server::Server(const std::string& configFile) :
-    __context(),
-    __cleanTimer(__context),
-    __clients()
+    __clients(),
+    __context()
 {
     // Initial configuration loading
     try{
@@ -60,16 +48,6 @@ Server::Server(const std::string& configFile) :
 /*----------------------------- Public member methods ----------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief Initializes tcp listener to listen on the server's port.
- *        Methods blocks the thread up to the moment of sending
- *        SIGINT or SIGTERM signal to it.
- * 
- * @note Listener's initializations is executed via shared_ptr which
- *       is deleted at the end of the scope. It's Listener's run()
- *       function responsibility to create another shared_ptr to prolong
- *       object's lifetime.
- */
 void Server::run(){
     
     /* --- Make listener listen on the port --- */
@@ -99,12 +77,6 @@ void Server::run(){
 /*----------------------------- Private member methods ---------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief Stops server (if running). Perform all actions required to
- *        perform clean server's close. Informs io_contexts associated
- *        with clients about server's termination. Clears clients'
- *        table.
- */
 void Server::__stop(){
 
     /**
@@ -123,18 +95,6 @@ void Server::__stop(){
     __context.stop();
 }
 
-
-
-/**
- * @brief Looks for client in the actual clients table. If client found
- *        method resets timeout for this client. Otherwise it creates
- *        app instance for the client
- * 
- * @param clientID : Client's ID (IP address)
- * 
- * @return true : Client was added to the table. 
- * @return false : Client was in the table. Timeout was reset.
- */
 bool Server::__join(const std::string& clientID){
 
     bool clientAdded = true;
@@ -163,17 +123,6 @@ bool Server::__join(const std::string& clientID){
     return clientAdded;
 }
 
-
-
-/**
- * @brief Unregisters clients session from the table. Deallocates
- *        instance of the app assigned to the client
- * 
- * @param clientID : Client's ID (IP address)
- * 
- * @returns true : Client was ereased
- * @returns false : Client with the given ID doesn't exist
- */
 bool Server::__leave(const std::string& clientID){
   
     if(__clients.count(clientID) == 0)
@@ -188,15 +137,6 @@ bool Server::__leave(const std::string& clientID){
     }  
 }
 
-
-
-/**
- * @brief Loads configuration from the file given with a path
- *        passed in argument. To load parameters server have to be
- *        stopped. Otherwise methods returns imediately.
- * 
- * @param configFile : Path to the config file
- */
 void Server::__loadConfig(const std::string& configFile){
 
     // Prepare options set
@@ -275,43 +215,17 @@ void Server::__loadConfig(const std::string& configFile){
     }
 }
 
-
-
-/**
- * @brief Removes expired record from the clients table
- */
 void Server::__clean(){
     __clients.erase("None");
     return;
 }
 
-
-
-/** 
- * @param clientID 
- * @return Instance of the app assigned to the specified client
- */
 const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&
 Server::__getInstance(const std::string& clientID){
     return __clients[clientID].second;
 }
 
-
-
-/**
- * @param clientID 
- * @return Pointer to the client's timeout timer
- */
 const std::shared_ptr<boost::asio::steady_timer>&
 Server::__getTimeoutTimer(const std::string& clientID){
     return __clients[clientID].first;
-}
-
-
-/**
- * @return Reference to the io_context used by the server
- */
-boost::asio::io_context&
-Server::__getContext(){
-    return __context;
 }

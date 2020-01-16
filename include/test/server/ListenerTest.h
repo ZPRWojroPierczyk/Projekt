@@ -12,12 +12,23 @@
 #include <string>
 #include "Listener.h"
 
-class ListenerTest{
-// Constructor
+class ListenerTest
+{
+// Constructor & Destructors
 public:
+
     ListenerTest(Server& server);
 
 // Public members
 public:
-    std::shared_ptr<Server::Listener> listener;
+
+    Server::Listener listener;
+
+// Interface
+public:
+
+    void run();
+    void __on_accept(const boost::system::error_code& err_code);
+    bool __fail(const boost::system::error_code& err_code, char const* what);
+
 };

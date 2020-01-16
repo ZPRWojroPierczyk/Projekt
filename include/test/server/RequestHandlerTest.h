@@ -12,15 +12,24 @@
 
 class RequestHandlerTest
 {
-// Constructor
+// Constructor & Destructors
 public:
+
     RequestHandlerTest(const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance);
+
+// Public members
+public:
+
+    RequestHandler requestHandler;
 
 //Interface
 public:
+
+    template<class Body, class Allocator, class Send>
+    void operator()(
+        boost::beast::http::request<Body, boost::beast::http::basic_fields<Allocator>>&& req,
+        Send&& send
+    );
     boost::beast::string_view __mimeType(const boost::beast::string_view& path);
 
-// Private members
-private:
-    RequestHandler requestHandler;
 };

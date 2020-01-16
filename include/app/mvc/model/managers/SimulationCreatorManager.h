@@ -17,19 +17,47 @@
 #include "SimulationManager.h"
 
 /**
- * @brief 
+ * @brief Class responsible for app's behaviour in the simulation creator
+ * 
+ * Class holds all parameters required by the creator in a shape
+ * of parameters tress. It facilitates methods responsible for serializing
+ * and deserializing parameters (within JSON format) tress as well as methods
+ * performing loading and saving parameters to the database tables assiociated
+ * with a client.
+ * 
+ * @note SimulationCreatorManager is the only one object that simulation can be
+ *       started from in a valid way.
+ * 
+ * @see SimulationManager.h
  * 
  */
 class SimulationCreatorManager
 {
 // Constructors & Destructors
 public:
+
+    /**
+     * @brief Creates a new settings menager for the app's instance and
+     *        loads client's settings from the data base
+     * @param clientID 
+     */
     SimulationCreatorManager(const std::string& clientID, SimulationManager& simulationManager);
+
+    /**
+     * @brief Destroy the Simulatoion Creator Manager and saves actual creator to the database
+     */
     ~SimulationCreatorManager();
 
 // Interface
 public:
-    /// Runs simulation with set parameters
+
+    /**
+     * @todo SimulationCreatorManager should be a friend class of the
+     *       Simulation manager to be the only one able to run the simulation
+     *       (except LoadSimulationManager in the future).
+     * 
+     * @brief Runs simulation with set parameters
+     */
     void runSimulation();
 
     /// Getters used to transform simulation attributes into JSON format
@@ -49,11 +77,13 @@ public:
 
 // Private member fields
 private:
+
     /// Identifier of the client's owning app instance 
     const std::string __clientID;
 
     /// Reference to the Simulation Manager
     SimulationManager& __simulationManager;
+
 
     /* --- Simulation's parameters --- */
 
@@ -70,9 +100,24 @@ private:
 
 // Private member methods
 private:
+
+    /**
+     * @todo Implement creator's loading
+     * @brief Loads client's creator's state from the database 
+     */
     void __loadCreator();
+    
+    /**
+     * @brief Loads a default creator 
+     */
     void __loadDefaultCreator();
-    void __saveCreator();        
+    
+    /**
+     * @todo Implement creator's saving
+     * @brief Saves client's creator's state to the database
+     */
+    void __saveCreator(); 
+           
 };
 
 #endif

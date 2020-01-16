@@ -14,13 +14,6 @@
 /*-------------------------------- Constructors ----------------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief Construct a new RequestHandler with given pointers to Controller and View modules
- *        of the MVC instance 
- * 
- * @param controller 
- * @param view 
- */
 RequestHandler::RequestHandler(const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance) :
     __controller(instance.first),
     __view(instance.second)
@@ -32,12 +25,6 @@ RequestHandler::RequestHandler(const std::pair<std::shared_ptr<Controller>, std:
 /*----------------------------- Private member methods ---------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief Return a reasonable mime type based on the extension of a file.
- * 
- * @param path : Path to the requested resource
- * @returns Mime type
- */
 boost::beast::string_view 
 RequestHandler::__mimeType(const boost::beast::string_view& path)
 {

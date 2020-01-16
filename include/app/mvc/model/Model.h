@@ -26,61 +26,44 @@
  * Model class represents a single instance of the application that can interact with
  * a user. It manages states of the application and legal transitions between them.
  * It contains modules responsible for particular functionalities like:
- *  - simulation creation
- *  - simulation processing
- *  - saved simulation loading
- *  - adjusting app's settings
+ *  
+ *    - simulation creation
+ *    - simulation processing
+ *    - saved simulation loading
+ *    - adjusting app's settings
+ * 
  */
-class Model{
+class Model
+{
 // Constructors
 public:
+
+    /**
+     * @param clientID Client's ID used to interact with and appropriate
+     *                 set of data from database, associated with the client.
+     */
     Model(const std::string& clientID);
 
-// Public member classes
+// Interface                 
 public:
-    /// Actual state of the application seen by the user
-    enum class State {Menu,
-                      SimulationCreator,
-                      Simulation,
-                      Load,
-                      Settings,
-                      Credits};
-
-// Public methods                          
-public:
-    /// Methods changing displayed view of the application
-    bool openMenu();
-    bool openSimulationCreator();
-    bool openSimulation();
-    bool openLoad();
-    bool openSettings();
-    bool openCredits();
-
-    /// Get actual state of the application (called by the View object)
-    State getState();
 
 // Public member fields
 public:
-    /// Module responsible for simulation creation (parameters introcuction)
-    SimulationCreatorManager simulationCreatorManager;
-    /// Module managing simulation process
-    SimulationManager simulationManager;
-    /// Module responsible for loading saved simulations
-    LoadSimulationManager loadSimulationManager;
     /// Module responsible for app's settings
     SettingsManager settingsManager;
+    /// Module managing simulation process
+    SimulationManager simulationManager;
+    /// Module responsible for simulation creation (parameters introcuction)
+    SimulationCreatorManager simulationCreatorManager;
+    /// Module responsible for loading saved simulations
+    LoadSimulationManager loadSimulationManager;
 
 // Private member fields
 private:
-    /// ID of the client owning instance of the app
-    std::string __clientID;
-
-    /// Application's state
-    State __state;
 
 // Private methods:
 private:
-    void setState(Model::State);
+
 };
 
 #endif

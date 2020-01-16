@@ -10,7 +10,18 @@
  */
 #include "ListenerTest.h"
 
-ListenerTest::ListenerTest(Server& server)
-{
-    listener = std::make_shared<Server::Listener>(server);
+ListenerTest::ListenerTest(Server& server) :
+    listener(server)
+{}
+
+void ListenerTest::run(){
+    return listener.run();
+}
+
+void ListenerTest::__on_accept(const boost::system::error_code& err_code){
+    return listener.__on_accept(err_code);
+}
+
+bool ListenerTest::__fail(const boost::system::error_code& err_code, char const* what){
+    return listener.__fail(err_code, what);
 }

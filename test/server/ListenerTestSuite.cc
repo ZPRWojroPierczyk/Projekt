@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE ( listenerRunTest, * ut::depends_on(
     BOOST_CHECK_NO_THROW(
         std::make_shared<ListenerTest>(
             server
-        )->listener->run()
+        )->run()
     );
 }
 

@@ -22,22 +22,10 @@ using error_code = boost::system::error_code;
 /*-------------------------------- Constructors ----------------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief Construct a new Server::Listener:: Listener object
- * 
- * @param server : Reference to the server 
- * 
- * @note Listener instance should be created by the shared pointer and run()
- *       method should be called before the end of the creating scope. This
- *       approach to creation delegates listener's life-time responsibility
- *       to the object itself, which is desired behaviour.
- * 
- * @see Server.h
- */
 Server::Listener::Listener(Server& server) :
+    __server(server),
     __acceptor(server.__context),
-    __socket(server.__context),
-    __server(server)
+    __socket(server.__context)
 {
     error_code err_code;
 
@@ -77,19 +65,6 @@ Server::Listener::Listener(Server& server) :
 /*----------------------------- Public member methods ----------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief Starts listening to the port
- * 
- * @note run() method creates another shared_ptr on the Listener 
- *       (first was created by Server::run) which, in turn, is again
- *       removed at the end of the scope.
- * 
- *       At this time it's __on_accept() method's responsibility to prolong
- *       object's lifetime. Method's call decides if object's should be
- *       maintained or deleted.
- * 
- * @see Server::run() (Server.cc)
- */
 void Server::Listener::run(){
     __acceptor.async_accept(
         __socket,
@@ -106,21 +81,6 @@ void Server::Listener::run(){
 /*----------------------------- Private member methods ---------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief Handle a connection. Initializes new HttpSession and runs it
- *        in a new thread. Thread is detached, so it's lifetime depends
- *        on the session demands.
- *
- * @note HttpSession objects are create with shared_ptr in the same
- *       way Listener object was created. For details about the concept
- *       look at Server::run(), Server::Listener::run()
- *
- * @param err_code : Reported error code
- * 
- * @see HttpSession
- * @see Server::Listener::run()
- * @see Server::run()
- */
 void Server::Listener::__on_accept(const error_code& err_code){
 
     /* --- If critical error occured (e.g. SIGINT), return --- */
@@ -155,18 +115,6 @@ void Server::Listener::__on_accept(const error_code& err_code){
     );
 }
 
-
-
-/**
- * @brief Reporta a failure
- * 
- * @param : err_code Reported error code
- * @param : what Reason of the failure
- * 
- * @returns true : If error was critical and Listener should be destroyed
- *          (e.g. closing server by ctrl+C, or calling close() on the __socket)
- * @returns false : If error was not critical
- */
 bool Server::Listener::__fail(const error_code& err_code, char const* what){
     
     // Don't report on canceled operations

@@ -212,13 +212,13 @@ BOOST_AUTO_TEST_CASE( serverCleanTest )
     serverTest.__leave("0.0.0.0");
 
     // Test if leave function works properly
-    BOOST_CHECK( serverTest.getClients().count("None") == 1);
+    BOOST_CHECK( serverTest.__clients.count("None") == 1);
 
     // Clean deleted client
     serverTest.__clean();
 
     // Check if client is cleaned properly
-    BOOST_CHECK( serverTest.getClients().empty() == true);
+    BOOST_CHECK( serverTest.__clients.empty() == true);
 }
 
 

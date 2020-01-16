@@ -29,26 +29,30 @@ enum SimulationState{
  * @todo Think data structures over
  * @see SimulationData, SimulationParameters, SimulationState
  */
-class SimulationManager{
-    public:
-        // SimulationManager();
+class SimulationManager
+{
+// Constructors & Destructors
+public:
+    SimulationManager() = default;
 
-    public:
-        bool isSimulationRunning();
+//Interface
+public:
+    bool isSimulationRunning();
 
-        SimulationState getState();
-        SimulationParameters getParameters();
+    SimulationState getState();
+    SimulationParameters getParameters();
 
-        void setParameters();
-        
-        SimulationData simulate(SimulationState state, SimulationParameters parameters);
-        SimulationData update();
-    private:
-        SimulationState state;
+    void setParameters();
+    
+    SimulationData simulate(SimulationState state, SimulationParameters parameters);
+    SimulationData update();
 
-        SimulationParameters parameters;
-
-        SimulationData data;
+// Private members
+private:
+    SimulationState __state;
+    SimulationParameters __parameters;
+    SimulationData __data;
+    
 };
 
 #endif

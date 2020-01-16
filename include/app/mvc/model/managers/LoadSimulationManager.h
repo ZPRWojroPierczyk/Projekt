@@ -12,9 +12,11 @@
  * 
  */
 
-class LoadSimulationManager{
-    public:
-        // LoadSimulationManager();
+class LoadSimulationManager
+{
+// Constructors & Destructors
+public:
+    LoadSimulationManager() = default;
 };
 
 #endif

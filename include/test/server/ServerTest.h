@@ -16,6 +16,7 @@ class ServerTest
 {
 // Public types
 public:
+
     /// Application's instance
     using instance = std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>;
 
@@ -26,36 +27,30 @@ public:
     /// Set of clients
     using clientsMap = std::unordered_map<std::string, client>;
 
-// Constructor
+// Constructors & Destructors
 public:
+
     ServerTest(const std::string& configFile);
-
-//Interface
-public:
-    /// Start server running
-    void run();
-
-    // Server's state manipulation
-    void __stop();
-    // Server's configuration
-    void __loadConfig(const std::string& configFile);
-
-    // Clients' list manipulation
-    bool __join (const std::string& clientID);
-    bool __leave (const std::string& clientID);
-
-    // Internal clients management
-    void __clean();
-
-    // Get reference to the clients table
-    clientsMap& getClients();
-
-    // Utilities to get Server's private fields
-    boost::asio::io_context&
-    __getContext();
 
 // Public members
 public:
-    Server __server;
+
+    Server server;
+    clientsMap& __clients;
+    boost::asio::io_context& __context;
+
+//Interface
+public:
+
+    void run();
+    void __stop();
+    void __loadConfig(const std::string& configFile);
+    bool __join (const std::string& clientID);
+    bool __leave (const std::string& clientID);
+    void __clean();
+    const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&
+    __getInstance(const std::string& clientID);
+    const std::shared_ptr<boost::asio::steady_timer>&
+    __getTimeoutTimer(const std::string& clientID);
 
 };

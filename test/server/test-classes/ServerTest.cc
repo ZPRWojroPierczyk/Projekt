@@ -11,33 +11,37 @@
 #include "ServerTest.h"
 
 ServerTest::ServerTest(const std::string& configFile) :
-    __server(configFile)
+    server(configFile),
+    __clients(server.__clients),
+    __context(server.__context)
 {}
 
 void ServerTest::__stop(){
-    __server.__stop();
+    server.__stop();
 }
 
 void ServerTest::__loadConfig(const std::string& configFile){
-    __server.__loadConfig(configFile);
+    server.__loadConfig(configFile);
 }
 
 bool ServerTest::__join (const std::string& clientID){
-    return __server.__join(clientID);
+    return server.__join(clientID);
 }
 
 bool ServerTest::__leave (const std::string& clientID){
-    return __server.__leave (clientID);
+    return server.__leave (clientID);
 }
 
 void ServerTest::__clean(){
-    __server.__clean();
+    server.__clean();
 }
 
-ServerTest::clientsMap& ServerTest::getClients(){
-    return __server.__clients;
+const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&
+ServerTest::__getInstance(const std::string& clientID){
+    return server.__getInstance(clientID);
 }
 
-boost::asio::io_context& ServerTest::__getContext(){
-    return __server.__getContext();
+const std::shared_ptr<boost::asio::steady_timer>&
+ServerTest::__getTimeoutTimer(const std::string& clientID){
+    return server.__getTimeoutTimer(clientID);
 }

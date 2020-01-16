@@ -28,24 +28,24 @@ BOOST_AUTO_TEST_CASE( httpSessionConstructorTest )
     serverTest.__join(clientID);
 
     // Create socket
-    boost::asio::ip::tcp::socket socket(serverTest.__getContext());
+    boost::asio::ip::tcp::socket socket(serverTest.__context);
 
     // Constructor test
     BOOST_REQUIRE_NO_THROW(
         HttpSession httpSession(
-            serverTest.__server,
+            serverTest.server,
             clientID,
             std::move(socket)
         )
     );
 
     // Create another socket ...
-    boost::asio::ip::tcp::socket anotherSocket(serverTest.__getContext());
+    boost::asio::ip::tcp::socket anotherSocket(serverTest.__context);
 
     // run() method test should throw an exception, as socket is not connected
     BOOST_CHECK_NO_THROW(
         std::make_shared<HttpSession>(
-            serverTest.__server,
+            serverTest.server,
             clientID,
             std::move(anotherSocket)
         )->run()

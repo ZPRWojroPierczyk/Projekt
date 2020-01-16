@@ -15,11 +15,7 @@
 /*------------------------ Constructors and destructors --------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief Construct a new Controller:: Controller object
- * 
- * @param model 
- */
+
 Controller::Controller(const std::shared_ptr<Model>& model):
     __model(model)
 {}
@@ -30,13 +26,7 @@ Controller::Controller(const std::shared_ptr<Model>& model):
 /*----------------------------- Public member methods ----------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief 
- * 
- * @param actionType 
- * @param body 
- * @return View::DataType& 
- */
+
 View::DataType Controller::action(const std::string& actionType, const std::string& body){
     return View::DataType::None;
 }

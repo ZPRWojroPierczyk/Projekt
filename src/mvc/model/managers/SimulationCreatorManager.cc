@@ -16,21 +16,13 @@ namespace pt = boost::property_tree;
 /*--------------------------- Constructors & Destructors -------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief Creates a new settings menager for the app's instance and
- *        loads client's settings from the data base
- * @param clientID 
- */
-SimulationCreatorManager::SimulationCreatorManager(const std::string& clientID, SimulationManager& simulationManager) :
-    __clientID(clientID),
+SimulationCreatorManager::SimulationCreatorManager(
+    const std::string& clientID, SimulationManager& simulationManager) :
     __simulationManager(simulationManager)
 {
     __loadCreator();
 }
 
-/**
- * @brief Destroy the Simulatoion Creator Manager and saves actual creator to the database
- */
 SimulationCreatorManager::~SimulationCreatorManager(){
     __saveCreator();
 }
@@ -41,9 +33,6 @@ SimulationCreatorManager::~SimulationCreatorManager(){
 /*----------------------------- Public member methods ----------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @brief Runs simulation with set parameters
- */
 void runSimulation(){
 
 }
@@ -68,10 +57,6 @@ std::string getTimeParams();
 /*----------------------------- Private member methods ---------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-/**
- * @todo Implement creator's loading
- * @brief Loads client's creator's state from the database 
- */
 void SimulationCreatorManager::__loadCreator(){
     
     // if (__clientID found in database)
@@ -80,9 +65,6 @@ void SimulationCreatorManager::__loadCreator(){
         __loadDefaultCreator();
 }
 
-/**
- * @brief Loads a default creator 
- */
 void SimulationCreatorManager::__loadDefaultCreator(){
     // pt::read_json(std::string(ROOT) + "/data/json-structures/cities_form.json", __cities);
     // pt::read_json(std::string(ROOT) + "/data/json-structures/transport_form.json", __transports);
@@ -91,10 +73,6 @@ void SimulationCreatorManager::__loadDefaultCreator(){
     // pt::read_json(std::string(ROOT) + "/data/json-structures/time_form.json", __timeParams);
 }
 
-/**
- * @todo Implement creator's saving
- * @brief Saves client's creator's state to the database
- */
 void SimulationCreatorManager::__saveCreator(){
     // pt::write_json("spike/ptree_json_save/cities.json", __cities);
     // pt::write_json("spike/ptree_json_save/transports.json", __transports);

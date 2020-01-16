@@ -31,24 +31,53 @@ class HttpSessionTest;
 /**
  * @brief Class representing a single HTTP session
  * 
- * Servers all requests acquired from the client including reading, decoding
- * request and sending the response back
+ * Servers requests acquired from the client using RequestHandler class
+ * to parse, interpret request and send back a response.
+ * 
  */
 class HttpSession : public std::enable_shared_from_this<HttpSession>
 {
-// Constructors
+// Constructors & Destructors
 public:
+    
+    /**
+     * @brief Construct a new Http Session:: Http Session object
+     * 
+     * @param server Reference to the Server object owning session
+     * @param clientID Identifier of the client initializing session
+     * @param socket Boost:asio::ip::tcp::socket associated with the session
+     * 
+     * @note HttpSession instance should be created by the shared pointer and run()
+     *       method should be called before the end of the creating scope. This
+     *       approach to creation delegates session's life-time responsibility
+     *       to the object itself, which is desired behaviour.
+     */
     HttpSession(Server& server,
                 const std::string& clientID,
                 boost::asio::ip::tcp::socket&& socket);
 
 // Interface
 public:
+
+    /**
+     * @brief Run the session
+     * 
+     * @note run() method creates another shared_ptr on the HttpSession 
+     *       (first was created by Listener::__on_accept()) which, in turn,
+     *       is again removed at the end of the scope.
+     * 
+     *       At this time it's __onRead() method's responsibility to prolong
+     *       object's lifetime. Method's call decides if object's should be
+     *       maintained or deleted.
+     * 
+     * @see Listener::__on_accept() (Listener.cc)
+     */
     void run();
 
 // Private Friends
 private:
-    friend class HttpServerTest;
+
+    friend class HttpSessionTest;
 
 // Private members
 private:
@@ -73,10 +102,34 @@ private:
 
 // Private member methods
 private:
+
+    /**
+     * @brief Method called after getting a new request from the client
+     * @param errCode : Error code from the async_read()
+     */
     void __onRead(boost::system::error_code err_code, std::size_t);
+
+    /**
+     * @brief Method called after writing a response to the client
+     * 
+     * @param errCode :  Error code of the async_write()
+     * @param close : True if connection is to be closed
+     */
     void __onWrite(boost::system::error_code err_code, std::size_t, bool close);
+
+    /**
+     * @brief Reports a failure
+     * 
+     * @param : errCode Reported error code
+     * @param : what Reason of the failure
+     */
     void __fail(const boost::system::error_code& err_code, char const* what);
+
+    /**
+     * @brief Closes the socket finishing the tcp connetcion.
+     */
     void __closeConnection();
+
 };
 
 #endif

@@ -12,17 +12,35 @@
 #include <memory>
 #include <string>
 #include <boost/asio.hpp>
-
 #include "HttpSession.h"
 
-class HttpSessionTest{
-// Constructor
+/**
+ * @brief Class making HttpSession's private members public
+ *        to perform unit tests
+ * 
+ * @see HttpSession.h
+ */
+class HttpSessionTest
+{
+// Constructors & Destructors
 public:
+
     HttpSessionTest(Server& server,
                     const std::string& clientID,
                     boost::asio::ip::tcp::socket&& socket);
 
 // Public members
 public:
+
     HttpSession httpSession;
+
+// Interface
+public:
+    
+    void run();
+    void __onRead(boost::system::error_code err_code, std::size_t);
+    void __onWrite(boost::system::error_code err_code, std::size_t, bool close);
+    void __fail(const boost::system::error_code& err_code, char const* what);
+    void __closeConnection();
+
 };

@@ -26,8 +26,13 @@ namespace http = boost::beast::http;
  *         the type of the data member of the resulting message object
  * @tparam Allocator Allocator used for a beast::http::basic_fields
  * @tparam Send Generic lambda type used to send response
+ * 
  * @param req HTTP request
  * @param send Generic lambda used to send response
+ * 
+ * @see RequestHandler.h to get a comprehension about what operator()
+ *      is responsible for.
+ * 
  */
 template<class Body, class Allocator, class Send>
 void RequestHandler::operator()(

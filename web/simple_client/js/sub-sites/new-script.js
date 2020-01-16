@@ -1,5 +1,3 @@
-// JavaScript tabs, forms and AJAX for new.html
-
 /****************** Switching tabs *******************/
 
 function openTab(evt, tab) {
@@ -16,7 +14,7 @@ function openTab(evt, tab) {
     evt.currentTarget.className += " active";
 }
 
-/****************** Cities form validation *******************/
+/****************** Cities form validation and creating JSON data *******************/
 
 var cities_valid = false;
 
@@ -91,7 +89,7 @@ function createCitiesJSON() {
     return departments;
 }
 
-/****************** Transport tab entry condition and form generator *******************/
+/****************** Transport tab entry condition and and creating JSON data *******************/
 
 var transport_elements_count = 0;
 
@@ -146,7 +144,7 @@ function transportRemoveElement(evt) {
 }
 
 
-/****************** Transport form validation *******************/
+/****************** Transport form validation and creating JSON data *******************/
 
 var transport_valid = false;
 
@@ -227,7 +225,7 @@ function createTransportsJSON() {
     return transports;
 }
 
-/****************** Agent form validation *******************/
+/****************** Agent form validation and creating JSON data *******************/
 
 var agent_valid = false;
 
@@ -278,7 +276,7 @@ function createAgentJSON() {
     return agent;
 }
 
-/****************** Map parameters form validation *******************/
+/****************** Map parameters form validation and creating JSON data *******************/
 
 var map_params_valid = false;
 
@@ -325,81 +323,19 @@ function createMapParamsJSON() {
     return map_params;
 }
 
-/****************** Time parameters form validation *******************/
-
-var time_params_valid = false;
-
-function timeParamsAccept() {
-    var x = document.getElementById("Time-Params-Form");
-    var i;
-
-    if (x.elements[0].value <= 0 || x.elements[1].value <= 0
-        || !isIntegral(x.elements[0].value) || !isIntegral(x.elements[1].value)) {
-        alert("Parametry muszą być dodatnie, typu całkowitego.");
-        return;
-    }
-
-    for (i = 0; i < x.length; i++) {
-        x.elements[i].disabled = true;
-    }
-
-    document.getElementsByClassName("accept")[4].style.display = "none";
-    document.getElementsByClassName("go-back")[4].style.display = "inline";
-    var jsonTimeParams = createTimeParamsJSON();
-    sendJSON(jsonTimeParams, "time-params");
-    time_params_valid = true;
-}
-
-function timeParamsGoBack() {
-    var x = document.getElementById("Time-Params-Form");
-    var i;
-    for (i = 0; i < x.length; i++) {
-        x.elements[i].disabled = false;
-    }
-    document.getElementsByClassName("accept")[4].style.display = "inline";
-    document.getElementsByClassName("go-back")[4].style.display = "none";
-    time_params_valid = false;
-}
-
-function createTimeParamsJSON() {
-    var time_params = "{\"timeParams\":{"
-    var x = document.getElementById("Time-Params-Form");
-
-    time_params += "\"simulationWindow\":" + x.elements[0].value + ",";
-    time_params += "\"simulationStep\":" + x.elements[1].value + "}}";
-    return time_params;
-}
-
 /************** AJAX - asynchronous exchange of data with a web server behind the scenes ***************/
 /******************                          Submitting forms                        *******************/
 
 function submitForms() {
     if (cities_valid == true && transport_valid == true && agent_valid == true
-        && map_params_valid == true && time_params_valid == true) {
-
-        /*
-        var json_form_data = createJSON();
-
-        var xhttp;
-        xhttp = new XMLHttpRequest();
-
-        //TODO: Using url parameter to deciade which action should be executed on server-side
-        xhttp.open("POST", url, true);
-        if (url == "form_data.php") {
-            var headerName = "Content-type";
-            var headerValue = "application/x-www-form-json";
-            var sendString = json_form_data;
-            xhttp.setRequestHeader(headerName, headerValue);
-            xhttp.send(sendString);
-        }
-        */
-
+        && map_params_valid == true) {
+       
        var xhttp;
        xhttp = new XMLHttpRequest();
        var url = "";
        xhttp.open("POST", url, true);
        var headerName = "Content-type";
-       var headerValue = "creator/success";
+       var headerValue = "creator-success";
        xhttp.setRequestHeader(headerName, headerValue);
        xhttp.send();
 
@@ -423,72 +359,6 @@ function sendJSON(jsonData, suffix) {
     xhttp.setRequestHeader(headerName, headerValue);
     xhttp.send(sendString);
 }
-
-/************** Generating JSON string to be sent in AJAX communication ***************/
-
-/*
-function createJSON(){
-    var departments = "{\"departments\":{";
-    var x = document.getElementById("Cities-Form");
-    for (i = 0; i < x.length; i++) {
-        var element = x.elements[i];
-        if (element.type == "checkbox" && element.checked == true) {
-            departments += "\"" + element.value + "\":{";
-            departments += "\"carsNumber\":" + x.elements[i+1].value + ",";
-            departments += "\"driversNumber\":" + x.elements[i+2].value + "},"
-            
-        }
-    }
-
-    departments = departments.substr(0, departments.length-1);
-    departments += "},";
-
-    var transports = "\"transports\":[";
-    var select_distinction = 0;
-    var x = document.getElementById("Transport-Form");
-    for (i = 0; i < x.length; i++) {
-        if(x.elements[i].tagName == "SELECT"){
-            if(select_distinction == 0){
-                transports += "{\"from\":\"" + x.elements[i].value + "\",";
-                transports += "\"to\":\"" + x.elements[i+1].value + "\",";
-                select_distinction++;
-            } else {
-                select_distinction--;
-            }
-        }
-        if(x.elements[i].type == "number"){
-            transports += "\"load\":" + x.elements[i].value + "},";
-        }
-    }
-
-    transports = transports.substr(0, transports.length-1);
-    transports += "],";
-
-    var agent = "\"agent\":{"
-    var x = document.getElementById("Agent-Form");
-    
-    agent += "\"maxfunctionProbability\":" + x.elements[0].value + ",";
-    agent += "\"maxDrivingTime\":" + x.elements[1].value + ",";
-    agent += "\"maxLoad\":" + x.elements[2].value + ",";
-    agent += "\"maxSpeed\":" + x.elements[3].value + "},";
-
-    var map_params = "\"mapParams\":{"
-    var x = document.getElementById("Map-Params-Form");
-    
-    map_params += "\"congestionProbability\":" + x.elements[0].value + ",";
-    map_params += "\"accidentProbability\":" + x.elements[1].value + "},";
-
-    var time_params = "\"timeParams\":{"
-    var x = document.getElementById("Time-Params-Form");
-    
-    time_params += "\"simulationWindow\":" + x.elements[0].value + ",";
-    time_params += "\"simulationStep\":" + x.elements[1].value + "}}";
-    
-    var json_form_data_input = departments + transports + agent + map_params + time_params;
-
-    return json_form_data_input;
-}
-*/
 
 /************** Checking if a number is an integral ***************/
 

@@ -15,7 +15,6 @@
             <a href="#transport" class="tablinks" onclick="return transportEntry(event, 'Transport')">Transport</a>
             <a href="#agent" class="tablinks" onclick="openTab(event, 'Agent')">Agent</a>
             <a href="#map-params" class="tablinks" onclick="openTab(event, 'Map-Params')">Parametry mapy</a>
-            <a href="#time-params" class="tablinks" onclick="openTab(event, 'Time-Params')">Parametry czasowe</a>
             <a href="#other" class="tablinks" onclick="openTab(event, 'Other')">Inne</a>
         </div>
         <div id="tabs">
@@ -155,22 +154,6 @@
                 </form>
                 <button class="accept" onclick="mapParamsAccept()">Zatwierdź</button>
                 <button class="go-back" onclick="mapParamsGoBack()">Wróć</button>
-            </div>
-            <div id="Time-Params" class="inner-body">
-                <form id="Time-Params-Form">
-                    <table class="form-table">
-                        <tr>
-                            <td>Okno czasowe symulacji: </td>
-                            <td class="left-align"><input type="number" name="time-window" value="28" step="7" min="0">  dni</td>
-                        </tr>
-                        <tr>
-                            <td>Krok symulacji: </td>
-                            <td class="left-align"><input type="number" name="time-step" value="1" step="1" min="1"></td>
-                        </tr>
-                    </table>
-                </form>
-                <button class="accept" onclick="timeParamsAccept()">Zatwierdź</button>
-                <button class="go-back" onclick="timeParamsGoBack()">Wróć</button>
             </div>
             <div id="Other" class="inner-body">
                 <h1>Other</h1>

@@ -1,99 +1,5 @@
-/******************** Communication with server ********************/
-
-// Querying server for simulation snapshot data
-//var server_querying = setInterval(querying, 5000);
-
-function querying() {
-    var json_snapshot_request = jsonSnapshotRequest();
-    /*var xhttp;
-    xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            mapUpdate(this.responseText);
-            document.getElementById("myRange").value = Number(value) + 1;
-        }
-    };
-
-    xhttp.open("POST", "snapshot_request.php", true);
-    var headerName = "Content-type";
-    var headerValue = "simulate/snapshot";
-    var sendString = json_snapshot_request;
-    xhttp.setRequestHeader(headerName, headerValue);
-    xhttp.send(sendString);*/
-}
-
-function jsonSnapshotRequest() {
-    var jsonData = "{\"snapshotNumber\": ";
-    jsonData += document.getElementById("myRange").value;
-    jsonData += "}";
-    alert(jsonData);
-    return jsonData;
-}
-
-function mapUpdate(jsonData) {
-    jsonData = JSON.parse(jsonData);
-    //TODO: updating map
-}
-
-function sliderChanged() {
-    var snapshot_number = document.getElementById("myRange").value;
-    document.getElementById("output").innerHTML = snapshot_number;
-    /*var xhttp;
-    xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            mapUpdate(this.responseText);
-        }
-    };
-
-    xhttp.open("POST", "snapshot_request.php", true);
-    var headerName = "Content-type";
-    var headerValue = "application/x-www-snapshot-request";
-    var sendString = json_snapshot_request;
-    xhttp.setRequestHeader(headerName, headerValue);
-    xhttp.send(sendString);*/
-}
-
-function stopSimulation() {
-    clearInterval(server_querying);
-}
-
-function resumeSimulation() {
-    server_querying = setInterval(querying, 5000);
-}
-
-// Request with Response communication and service
-//Example of use in HTML
-//<button type="button" onclick="loadDoc('ajax_info.txt', myFunction)">Change Content</button>
-/*
-function loadDoc(url, cFunction) {
-    var xhttp;
-    xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            cFunction(this);
-        }
-    };
-
-    xhttp.open("POST", url, true);
-    var headerName = "Content-type";
-    var headerValue = "application/x-www-form-urlencoded";
-    var sendString = "fname=Henry&lname=Ford";
-    xhttp.setRequestHeader(headerName, headerValue);
-    xhttp.send(sendString);
-}
-
-function myFunction1(xhttp) {
-    var textFromServer = xhttp.responseText;
-    var data = JSON.parse(textFromServer);
-}
-*/
-
-/************************** GOOGLE MAPS API **************************/
-//Center of the map
+/************************** Google maps API **************************/
+// Center of the map
 var position = [52.22977, 21.01178];
 
 // Cities and their coordinates
@@ -118,7 +24,7 @@ var cities =
     }
 }
 
-/************ MAP ************/
+/************ Map ************/
 var latlng = new google.maps.LatLng(position[0], position[1]);
 var myOptions = {
     zoom: 7,
@@ -127,7 +33,7 @@ var myOptions = {
 };
 var map = new google.maps.Map(document.getElementById("mapCanvas"), myOptions);
 
-/************ MARKERS ************/
+/************ Markers ************/
 var marker = new google.maps.Marker({
     position: latlng,
     map: map,
@@ -159,7 +65,7 @@ function displayLorries() {
 
 }
 
-/************ DIRECTIONS ************/
+/************ Directions ************/
 var directionsService = new google.maps.DirectionsService();
 var directionsRenderer = new google.maps.DirectionsRenderer();
 
@@ -181,7 +87,7 @@ directionsService.route(
 
 directionsRenderer.setMap(map);
 
-/*********** MOVING MARKERS **********/
+/*********** Moving markers **********/
 google.maps.event.addListener(map, 'click', function (event) {
     var result = [event.latLng.lat(), event.latLng.lng()];
     transition(result);
@@ -211,31 +117,45 @@ function moveMarker() {
         setTimeout(moveMarker, delay);
     }
 }
-/*
-function createCars(agents){
-    var i = 0;
-    for ( ; i < agents.length; i++) {
-        agents[i].latitude;
-        agents[i].longitude;
-        var marker = new google.maps.Marker({
-            position: myCenter,
-            icon:'/imgs/lorry.png'
-        });
-        marker.setMap(map);
+
+/******************** Simulation buttons ********************/
+
+// Sending information about simulation mode (buttons state), and styling the active one
+function sendInformation(element) {
+
+    if(element.getAttribute("data-icon") == "pause"){
+        clearInterval(server_querying);
+    } else {
+        server_querying = setInterval(querying, 10); // Could be done better
     }
+
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            mapUpdate(this.responseText);
+        }
+    };
+
+    xhttp.open("POST", "", true);
+    var headerName = "Information";
+    var headerValue = "simulation-" + element.getAttribute("data-icon");
+    xhttp.setRequestHeader(headerName, headerValue);
+    xhttp.send();
+
+    styleActiveMode(element);
 }
 
-function createMarker(map){
-    var latlng = new google.maps.LatLng(position[0], position[1]);
-    var marker = new google.maps.Marker({
-        position: latlng,
-        map = map,
-        icon:'/imgs/lorry.png'
-    });
-    marker.setMap(map);
-}*/
+function styleActiveMode(element) {
+    var i, icons;
+    icons = document.getElementsByClassName("fas");
+    for (i = 0; i < icons.length; i++) {
+        icons[i].className = icons[i].className.replace(" active", "");
+    }
+    element.className += " active";
+}
 
-/************ SIDE MENU ************/
+/************ Side menu ************/
 
 function openSideMenu() {
     document.getElementById("mySideMenu").style.width = "250px";
@@ -245,8 +165,9 @@ function closeSideMenu() {
     document.getElementById("mySideMenu").style.width = "0";
 }
 
-/************ MODIFICATIONS ************/
+/************ Side menu modification buttons ************/
 
+// Could be done better
 var buttonStates = [false, false,false, false, false];
 
 function sideMenuButtonClick(element, number){
@@ -255,33 +176,37 @@ function sideMenuButtonClick(element, number){
         if(buttonStates[i] == true){
             if(i == number){
                 buttonStates[i] = false;
-                disableStyle(element);
+                disableStyleButton(element);
                 return;
             } else {
                 buttonStates[i] = false;
                 var diffElement = document.getElementsByClassName("sideMenuButton")[i];
-                disableStyle(diffElement);
+                disableStyleButton(diffElement);
                 buttonStates[number] = true;
-                enableStyle(element);
+                enableStyleButton(element);
                 return;
             }
         }
     }
 
     buttonStates[number] = true;
-    enableStyle(element);
+    enableStyleButton(element);
 
     return;
 }
 
-function enableStyle(element){
+function enableStyleButton(element){
     element.style.backgroundColor = "#4e5066";
     element.style.border = "3px solid white";
 }
 
-function disableStyle(element){
+function disableStyleButton(element){
     element.style.backgroundColor = "#626588";
     element.style.border = "none";
+}
+
+function modificationsAccept(){
+    //TODO
 }
 
 // Getting style property in string
@@ -291,6 +216,30 @@ function disableStyle(element){
     else element.style.backgroundColor = "rgb(98, 101, 136)";
 }*/
 
-function modificationsAccept(){
+/******************** Constantly requesting for simulation snapshot ********************/
 
+// Querying server for simulation snapshot data
+var server_querying = setInterval(querying, 10); // every 10ms
+
+function querying() {
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            mapUpdate(this.responseText);
+        }
+    };
+
+    xhttp.open("POST", "", true);
+    var headerName = "Information";
+    var headerValue = "simulation-snapshot-request";
+    xhttp.setRequestHeader(headerName, headerValue);
+    xhttp.send();
+}
+
+/******************** Updating map with simulation snapshot ********************/
+
+function mapUpdate(jsonData) {
+    jsonData = JSON.parse(jsonData);
+    //TODO: updating map
 }

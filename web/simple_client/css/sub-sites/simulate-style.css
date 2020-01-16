@@ -26,6 +26,10 @@ body {
   box-shadow: 3px 3px 5px grey;
 }
 
+#content i.active {
+  background-color: #4e5066; 
+}
+
 .fas{
   font-size: 20px;
   padding: 10px;

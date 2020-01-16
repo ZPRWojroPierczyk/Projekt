@@ -15,7 +15,7 @@ web browser.
 
 ## Creator
 
-GET requests - requesting page to load
+GET requests - requesting page to load - response with proper html
 
 POST requests - sending data to server (without response):
 
@@ -40,40 +40,57 @@ var sendString = json_form_data;
 ```
 
 ```
-//Time parameters form data
-var headerName = "Content-type";
-var headerValue = "creator/time-params";
-var sendString = json_form_data;
-```
-
-```
 //Simulation transition, all forms acceptance confirmation
-var headerName = "Content-type";
-var headerValue = "creator/success";
+var headerName = "Information";
+var headerValue = "creator-success";
 ```
 
 ## Simulation
 
-GET requests - requesting page to load
+GET requests - requesting page to load - response with proper html
 
-POST requests:
-
-```
-//Requesting time parameters to create slider
-var headerName = "Content-type";
-var headerValue = "simulation/start";
-```
+POST request - constantly querying for snapshot  - response with snapshot:
 
 ```
-//Requesting snapshot of simulation
-var headerName = "Content-type";
-var headerValue = "simulate/snapshot";
-var sendString = json_snapshot_request;
+//Simulation snapshot request
+var headerName = "Information";
+var headerValue = "simulation-snapshot-request";
+```
+
+POST requests - sending information about request - buttons state reflection (without response):
+
+```
+//Simulation pause
+var headerName = "Information";
+var headerValue = "simulation-stop";
 ```
 
 ```
-//Requesting updated current snapshot and resimulation
-var headerName = "Content-type";
-var headerValue = "simulation/update";
-var sendString = json_update_request;
+//Simulation play
+var headerName = "Information";
+var headerValue = "simulation-play";
+```
+
+```
+//Simulation forward
+var headerName = "Information";
+var headerValue = "simulation-forward";
+```
+
+```
+//Simulation backward
+var headerName = "Information";
+var headerValue = "simulation-backward";
+```
+
+```
+//Simulation fast forward
+var headerName = "Information";
+var headerValue = "simulation-fast-forward";
+```
+
+```
+//Simulation fast backward
+var headerName = "Information";
+var headerValue = "simulation-fast-backward";
 ```

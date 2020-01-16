@@ -7,11 +7,10 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjAs8A6v5EcrU6ccJ-W0WPe3mbdNS9Uik"></script>
     <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMgSw_a4Nch8_1X2uMtOHprXminl2ktQs"></script>-->
     <link rel="stylesheet" type="text/css" href="/css/sub-sites/simulate-style.css">
-    <script src="/js/sub-sites/simulate-before-load-script.js"></script>
     <script src="https://kit.fontawesome.com/1ad7b5af19.js" crossorigin="anonymous"></script>
 </head>
 
-<body onload="start()">
+<body>
     <div id="mapCanvas"></div>
 
     <div id="mySideMenu" class="sideMenu">
@@ -25,12 +24,12 @@
     </div>
 
     <div id="content">
-        <i class="fas fa-fast-backward"></i>
-        <i class="fas fa-backward"></i>
-        <i class="fas fa-pause"></i>
-        <i class="fas fa-play"></i>
-        <i class="fas fa-forward"></i>
-        <i class="fas fa-fast-forward"></i>
+        <i class="fas fa-fast-backward" data-icon="fast-backward" onclick="sendInformation(this)"></i>
+        <i class="fas fa-backward" data-icon="backward" onclick="sendInformation(this)"></i>
+        <i class="fas fa-pause" data-icon="pause" onclick="sendInformation(this)"></i>
+        <i class="fas fa-play active" data-icon="play" onclick="sendInformation(this)"></i>
+        <i class="fas fa-forward" data-icon="forward" onclick="sendInformation(this)"></i>
+        <i class="fas fa-fast-forward" data-icon="fast-forward" onclick="sendInformation(this)"></i>
         <button onclick="openSideMenu()" id="modificationsButton">Modifications</button>
     </div>
 
@@ -40,7 +39,8 @@
         <a href="#load-simulation">Załaduj symulacje</a>
         <a href="/">Wróć</a>
     </div>
-    <script src="/js/sub-sites/simulate-after-load-script.js"></script>
 </body>
+
+<script src="/js/sub-sites/simulate-script.js"></script>
 
 </html>

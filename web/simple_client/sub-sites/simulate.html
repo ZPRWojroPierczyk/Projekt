@@ -4,39 +4,34 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjAs8A6v5EcrU6ccJ-W0WPe3mbdNS9Uik"></script>-->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMgSw_a4Nch8_1X2uMtOHprXminl2ktQs"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjAs8A6v5EcrU6ccJ-W0WPe3mbdNS9Uik"></script>
+    <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMgSw_a4Nch8_1X2uMtOHprXminl2ktQs"></script>-->
     <link rel="stylesheet" type="text/css" href="/css/sub-sites/simulate-style.css">
     <script src="/js/sub-sites/simulate-before-load-script.js"></script>
+    <script src="https://kit.fontawesome.com/1ad7b5af19.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="start()">
     <div id="mapCanvas"></div>
 
+    <div id="mySideMenu" class="sideMenu">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSideMenu()">&times;</a>
+        <button onclick="sideMenuButtonClick(this, 0)" class="sideMenuButton" id="blockadeButton">Ustaw blokadę</button> <br>
+        <button onclick="sideMenuButtonClick(this, 1)" class="sideMenuButton" id="congestionButton">Ustaw korek</button> <br>
+        <button onclick="sideMenuButtonClick(this, 2)" class="sideMenuButton" id="breakButton">Przerwa kierowcy</button> <br>
+        <button onclick="sideMenuButtonClick(this, 3)" class="sideMenuButton" id="malfunctionButton">Awaria kierowcy</button> <br>
+        <button onclick="sideMenuButtonClick(this, 4)" class="sideMenuButton" id="accidentButton">Wypadek kierowcy</button> <br>
+        <button onclick="modificationsAccept()" class="sideMenuButton">Zatwierdź modyfikacje</button>
+    </div>
+
     <div id="content">
-        <p>This text is in frontend</p>
-        <form> <!-- simulate.php -->
-            <div class="slidecontainer">
-                <p>Custom range slider:</p>
-                <input type="range" min="1" max="100" value="1" step="1" class="slider" id="myRange" list="tickmarks" oninput="sliderChanged()">
-                <datalist id="tickmarks">
-                    <option value="0"></option>
-                    <option value="10"></option>
-                    <option value="20"></option>
-                    <option value="30"></option>
-                    <option value="40"></option>
-                    <option value="50"></option>
-                    <option value="60"></option>
-                    <option value="70"></option>
-                    <option value="80"></option>
-                    <option value="90"></option>
-                    <option value="100"></option>
-                </datalist>
-            </div>
-            <div id="output">1</div>
-        </form>
-        <button onclick="stopSimulation()">Stop Simulation</button>
-        <button onclick="resumeSimulation()">Resume Simulation</button>
+        <i class="fas fa-fast-backward"></i>
+        <i class="fas fa-backward"></i>
+        <i class="fas fa-pause"></i>
+        <i class="fas fa-play"></i>
+        <i class="fas fa-forward"></i>
+        <i class="fas fa-fast-forward"></i>
+        <button onclick="openSideMenu()" id="modificationsButton">Modifications</button>
     </div>
 
     <div class="navbar">

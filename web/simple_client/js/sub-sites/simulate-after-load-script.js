@@ -97,9 +97,9 @@ function myFunction1(xhttp) {
 var position = [52.22977, 21.01178];
 
 // Cities and their coordinates
-var cities = 
+var cities =
 {
-    cities:{
+    cities: {
         bialystok: [53.133610, 23.163585],
         bydgoszcz: [53.123606, 18.013118],
         gdansk: [54.351403, 18.644016],
@@ -142,9 +142,9 @@ var lorryIcon = {
 
 displayLorries();
 
-function displayLorries(){
+function displayLorries() {
     var i = 1;
-    for (x in cities.cities){
+    for (x in cities.cities) {
         var lorryPosition = new google.maps.LatLng(cities.cities[x][0], cities.cities[x][1]);
         agent = new google.maps.Marker({
             position: lorryPosition,
@@ -156,7 +156,7 @@ function displayLorries(){
         agent.setMap(map);
         i++;
     }
-    
+
 }
 
 /************ DIRECTIONS ************/
@@ -167,17 +167,17 @@ directionsRenderer.setMap(map);
 
 directionsService.route(
     {
-      origin: new google.maps.LatLng(cities.cities.warszawa[0],cities.cities.warszawa[1]),
-      destination: new google.maps.LatLng(cities.cities.poznan[0],cities.cities.poznan[1]),
-      travelMode: 'DRIVING'
+        origin: new google.maps.LatLng(cities.cities.warszawa[0], cities.cities.warszawa[1]),
+        destination: new google.maps.LatLng(cities.cities.poznan[0], cities.cities.poznan[1]),
+        travelMode: 'DRIVING'
     },
-    function(response, status) {
-      if (status == 'OK') {
-        directionsRenderer.setDirections(response);
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-});
+    function (response, status) {
+        if (status == 'OK') {
+            directionsRenderer.setDirections(response);
+        } else {
+            window.alert('Directions request failed due to ' + status);
+        }
+    });
 
 directionsRenderer.setMap(map);
 
@@ -234,3 +234,63 @@ function createMarker(map){
     });
     marker.setMap(map);
 }*/
+
+/************ SIDE MENU ************/
+
+function openSideMenu() {
+    document.getElementById("mySideMenu").style.width = "250px";
+}
+
+function closeSideMenu() {
+    document.getElementById("mySideMenu").style.width = "0";
+}
+
+/************ MODIFICATIONS ************/
+
+var buttonStates = [false, false,false, false, false];
+
+function sideMenuButtonClick(element, number){
+    
+    for (var i = 0; i < buttonStates.length; i++){
+        if(buttonStates[i] == true){
+            if(i == number){
+                buttonStates[i] = false;
+                disableStyle(element);
+                return;
+            } else {
+                buttonStates[i] = false;
+                var diffElement = document.getElementsByClassName("sideMenuButton")[i];
+                disableStyle(diffElement);
+                buttonStates[number] = true;
+                enableStyle(element);
+                return;
+            }
+        }
+    }
+
+    buttonStates[number] = true;
+    enableStyle(element);
+
+    return;
+}
+
+function enableStyle(element){
+    element.style.backgroundColor = "#4e5066";
+    element.style.border = "3px solid white";
+}
+
+function disableStyle(element){
+    element.style.backgroundColor = "#626588";
+    element.style.border = "none";
+}
+
+// Getting style property in string
+/*function changeElementColor(element){
+    var bc = window.getComputedStyle(element, null).getPropertyValue("background-color");
+    if (bc == "rgb(98, 101, 136)") element.style.backgroundColor = "rgb(0, 0, 255)";
+    else element.style.backgroundColor = "rgb(98, 101, 136)";
+}*/
+
+function modificationsAccept(){
+
+}

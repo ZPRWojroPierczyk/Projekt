@@ -399,7 +399,7 @@ function submitForms() {
        var url = "";
        xhttp.open("POST", url, true);
        var headerName = "Content-type";
-       var headerValue = "creator/start";
+       var headerValue = "creator/success";
        xhttp.setRequestHeader(headerName, headerValue);
        xhttp.send();
 

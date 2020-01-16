@@ -2,14 +2,11 @@
     "transports": [{
             "city": "",
             "ID": "",
+            "from": "",
+            "to": "",
             "load": "",
             "position": ["long", "lat"],
-            "path": [
-                ["long1", "lat1"],
-                ["long2", "lat2"],
-                ["long3", "lat4"],
-                ["long3", "lat4"]
-            ]
+            "path": {"DirectionAPI": "Whole route structure"}
         }
 
     ]

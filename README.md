@@ -13,21 +13,52 @@ web browser.
 
 ## Server requests
 
-form_data.php - just sending form data (no response)
+# Creator
+
+GET requests - requesting page to load
+
+POST requests - sending data to server (without response):
+
+//Cities form data
 var headerName = "Content-type";
-var headerValue = "application/x-www-form-data";
+var headerValue = "creator/cities";
 var sendString = json_form_data;
 
-init.php - requesting initial data - simulation window and simulation step (response with proper JSON)
+//Transports form data
 var headerName = "Content-type";
-var headerValue = "application/x-www-init-request";
+var headerValue = "creator/transports";
+var sendString = json_form_data;
 
-simulate.php - requesting simulation snapshot (response with proper JSON)
+//Map parameters form data
 var headerName = "Content-type";
-var headerValue = "application/x-www-snapshot-request";
+var headerValue = "creator/map-params";
+var sendString = json_form_data;
+
+//Time parameters form data
+var headerName = "Content-type";
+var headerValue = "creator/time-params";
+var sendString = json_form_data;
+
+//Simulation transition, all forms acceptance confirmation
+var headerName = "Content-type";
+var headerValue = "creator/success";
+
+# Simulation
+
+GET requests - requesting page to load
+
+POST requests:
+
+//Requesting time parameters to create slider
+var headerName = "Content-type";
+var headerValue = "simulation/start";
+
+//Requesting snapshot of simulation
+var headerName = "Content-type";
+var headerValue = "simulate/snapshot";
 var sendString = json_snapshot_request;
 
-update.php - requesting simulation update (response with proper JSON - actual snapshot - and resimulation)
+//Requesting updated current snapshot and resimulation
 var headerName = "Content-type";
-var headerValue = "application/x-www-update-request";
+var headerValue = "simulation/update";
 var sendString = json_update_request;

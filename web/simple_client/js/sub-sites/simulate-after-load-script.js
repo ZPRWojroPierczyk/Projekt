@@ -17,7 +17,7 @@ function querying() {
 
     xhttp.open("POST", "snapshot_request.php", true);
     var headerName = "Content-type";
-    var headerValue = "application/x-www-snapshot-request";
+    var headerValue = "simulate/snapshot";
     var sendString = json_snapshot_request;
     xhttp.setRequestHeader(headerName, headerValue);
     xhttp.send(sendString);*/

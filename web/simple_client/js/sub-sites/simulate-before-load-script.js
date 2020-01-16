@@ -15,7 +15,7 @@ function start(){
 
     xhttp.open("POST", "init.php", true);
     var headerName = "Content-type";
-    var headerValue = "application/x-www-init-request";
+    var headerValue = "simulation/start";
     xhttp.setRequestHeader(headerName, headerValue);
     xhttp.send();*/
 }

@@ -401,6 +401,7 @@ function submitForms() {
        var headerName = "Content-type";
        var headerValue = "creator/start";
        xhttp.setRequestHeader(headerName, headerValue);
+       xhttp.send();
 
         return true;
     } else {

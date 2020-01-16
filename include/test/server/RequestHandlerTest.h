@@ -15,12 +15,14 @@ class RequestHandlerTest
 // Constructor & Destructors
 public:
 
-    RequestHandlerTest(const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance);
+    RequestHandlerTest(Server& server,   
+                       const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance);
 
 // Public members
 public:
 
     RequestHandler requestHandler;
+    Server& __server;
 
 //Interface
 public:
@@ -31,5 +33,6 @@ public:
         Send&& send
     );
     boost::beast::string_view __mimeType(const boost::beast::string_view& path);
+    std::string __pathCat(const boost::beast::string_view& base, const boost::beast::string_view& path);
 
 };

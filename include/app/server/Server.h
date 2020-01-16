@@ -26,6 +26,7 @@
 
 class Listener;
 class HttpSession;
+class RequestHandler;
 
 class ServerTest;
 class ListenerTest;
@@ -60,6 +61,12 @@ public:
      */
     friend class HttpSession;
 
+    /**
+     * @brief RequestHandler needs access to the server to get
+     *        __docRoot in a straight way.
+     */
+    friend class RequestHandler;
+
 // Constructors & Destructors
 public:
 
@@ -70,11 +77,11 @@ public:
      * @param timeout : client's connection timeout. If client doesn't
      *                interact with server within this time, application's
      *                instance is deleted.
-     * @param configFile : path to the configuration file
+     * @param config_file : path to the configuration file
      * @throw boost::program_options::invalid_option_value : If failed to load
      *        configuration from a given file.
      */
-    explicit Server(const std::string& configFile);
+    explicit Server(const std::string& config_file);
 
 // Interface
 public:
@@ -103,14 +110,14 @@ private:
 // Private types
 private:
     /// Application's instance
-    using instance = std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>;
+    using Instance = std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>;
 
     /// Type representing a single client record in the table
-    using client = std::pair<std::shared_ptr<boost::asio::steady_timer>,
-                              instance>;
+    using Client = std::pair<std::shared_ptr<boost::asio::steady_timer>,
+                              Instance>;
 
     /// Table of clients
-    using clientsMap = std::unordered_map<std::string, client>;
+    using ClientsMap = std::unordered_map<std::string, Client>;
 
 // Private classes
 private:
@@ -121,7 +128,7 @@ private:
 private:
 
     /// Table of the active client's
-    clientsMap __clients;
+    ClientsMap __clients;
 
     /// Absolute path to the folder containing static files
     std::string __docRoot;
@@ -161,32 +168,32 @@ private:
      *        passed in argument. To load parameters server have to be
      *        stopped. Otherwise methods returns imediately.
      * 
-     * @param configFile : Path to the config file
+     * @param config_file : Path to the config file
      */
-    void __loadConfig(const std::string& configFile);
+    void __loadConfig(const std::string& config_file);
 
     /**
      * @brief Looks for client in the actual clients table. If client found
      *        method resets timeout for this client. Otherwise it creates
      *        app instance for the client
      * 
-     * @param clientID : Client's ID (IP address)
+     * @param client_id : Client's ID (IP address)
      * 
      * @return true : Client was added to the table. 
      * @return false : Client was in the table. Timeout was reset.
      */
-    bool __join (const std::string& clientID);
+    bool __join (const std::string& client_id);
 
     /**
      * @brief Unregisters clients session from the table. Deallocates
      *        instance of the app assigned to the client
      * 
-     * @param clientID : Client's ID (IP address)
+     * @param client_id : Client's ID (IP address)
      * 
      * @returns true : Client was ereased
      * @returns false : Client with the given ID doesn't exist
      */
-    bool __leave (const std::string& clientID);
+    bool __leave (const std::string& client_id);
 
 
     /**
@@ -195,18 +202,18 @@ private:
     void __clean();
 
     /** 
-     * @param clientID 
+     * @param client_id 
      * @return Instance of the app assigned to the specified client
      */
     const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&
-    __getInstance(const std::string& clientID);
+    __getInstance(const std::string& client_id);
 
     /**
-     * @param clientID 
+     * @param client_id 
      * @return Pointer to the client's timeout timer
      */
     const std::shared_ptr<boost::asio::steady_timer>&
-    __getTimeoutTimer(const std::string& clientID);
+    __getTimeoutTimer(const std::string& client_id);
 
 };
 

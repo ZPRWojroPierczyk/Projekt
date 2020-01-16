@@ -23,9 +23,9 @@ BOOST_AUTO_TEST_CASE( httpSessionConstructorTest )
     );
 
     // Client's ID
-    std::string clientID("0.0.0.0");
+    std::string client_id("0.0.0.0");
     // Create app instance
-    serverTest.__join(clientID);
+    serverTest.__join(client_id);
 
     // Create socket
     boost::asio::ip::tcp::socket socket(serverTest.__context);
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE( httpSessionConstructorTest )
     BOOST_REQUIRE_NO_THROW(
         HttpSession httpSession(
             serverTest.server,
-            clientID,
+            client_id,
             std::move(socket)
         )
     );
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE( httpSessionConstructorTest )
     BOOST_CHECK_NO_THROW(
         std::make_shared<HttpSession>(
             serverTest.server,
-            clientID,
+            client_id,
             std::move(anotherSocket)
         )->run()
     );

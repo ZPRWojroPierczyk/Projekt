@@ -39,10 +39,10 @@ class Model
 public:
 
     /**
-     * @param clientID Client's ID used to interact with and appropriate
+     * @param client_id Client's ID used to interact with and appropriate
      *                 set of data from database, associated with the client.
      */
-    Model(const std::string& clientID);
+    Model(const std::string& client_id);
 
 // Interface                 
 public:

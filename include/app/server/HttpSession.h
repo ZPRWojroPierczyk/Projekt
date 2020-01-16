@@ -44,7 +44,7 @@ public:
      * @brief Construct a new Http Session:: Http Session object
      * 
      * @param server Reference to the Server object owning session
-     * @param clientID Identifier of the client initializing session
+     * @param client_id Identifier of the client initializing session
      * @param socket Boost:asio::ip::tcp::socket associated with the session
      * 
      * @note HttpSession instance should be created by the shared pointer and run()
@@ -53,7 +53,7 @@ public:
      *       to the object itself, which is desired behaviour.
      */
     HttpSession(Server& server,
-                const std::string& clientID,
+                const std::string& client_id,
                 boost::asio::ip::tcp::socket&& socket);
 
 // Interface
@@ -105,14 +105,14 @@ private:
 
     /**
      * @brief Method called after getting a new request from the client
-     * @param errCode : Error code from the async_read()
+     * @param err_code : Error code from the async_read()
      */
     void __onRead(boost::system::error_code err_code, std::size_t);
 
     /**
      * @brief Method called after writing a response to the client
      * 
-     * @param errCode :  Error code of the async_write()
+     * @param err_code :  Error code of the async_write()
      * @param close : True if connection is to be closed
      */
     void __onWrite(boost::system::error_code err_code, std::size_t, bool close);
@@ -120,8 +120,8 @@ private:
     /**
      * @brief Reports a failure
      * 
-     * @param : errCode Reported error code
-     * @param : what Reason of the failure
+     * @param err_code Reported error code
+     * @param what Reason of the failure
      */
     void __fail(const boost::system::error_code& err_code, char const* what);
 

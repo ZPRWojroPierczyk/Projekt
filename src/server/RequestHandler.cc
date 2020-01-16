@@ -14,7 +14,10 @@
 /*-------------------------------- Constructors ----------------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-RequestHandler::RequestHandler(const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance) :
+RequestHandler::RequestHandler(
+        Server& server,
+        const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance) :
+    __server(server),
     __controller(instance.first),
     __view(instance.second)
 {}
@@ -62,3 +65,32 @@ RequestHandler::__mimeType(const boost::beast::string_view& path)
     if(iequals(ext, ".svgz")) return "image/svg+xml";
     return "application/text";
 }
+
+std::string RequestHandler::__pathCat(
+    const boost::beast::string_view& base,
+    const boost::beast::string_view& path)
+{
+    if(base.empty())
+        return path.to_string();
+    std::string result = base.to_string();
+
+#if BOOST_MSVC
+
+    char constexpr path_separator = '\\';
+    if(result.back() == path_separator)
+        result.resize(result.size() - 1);
+    result.append(path.data(), path.size());
+    for(auto& c : result)
+        if(c == '/')
+            c = path_separator;
+
+#else
+
+    char constexpr path_separator = '/';
+    if(result.back() == path_separator)
+        result.resize(result.size() - 1);
+    result.append(path.data(), path.size());
+
+#endif
+    return result;
+} 

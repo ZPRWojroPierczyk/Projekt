@@ -15,8 +15,8 @@
 /*--------------------------------------------------------------------------------*/
 
 
-SettingsManager::SettingsManager(const std::string& clientID) :
-    __clientID(clientID)
+SettingsManager::SettingsManager(const std::string& client_id) :
+    __clientID(client_id)
 {
     __loadSettings();
 }
@@ -54,8 +54,8 @@ void SettingsManager::setSoundtrack(SettingsManager::Soundtrack soundtrack){
 /*--------------------------------------------------------------------------------*/
 
 void SettingsManager::__loadSettings(){
-    __theme = Theme::Default;
-    __soundtrack = Soundtrack::Default;
+    __theme = Theme::DEFAULT;
+    __soundtrack = Soundtrack::DEFAULT;
 }
 
 void SettingsManager::__saveSettings(){

@@ -1,5 +1,5 @@
 /**
- * @file ServerTest.cc
+ * @file server_test.cc
  * @author Wojtek Rokicki & Krzysiek Pierczyk
  * @brief Set of tests for Server class
  * @version 0.1
@@ -96,11 +96,11 @@ BOOST_AUTO_TEST_CASE( serverConstructorTest )
 BOOST_AUTO_TEST_CASE( serverRunTest )
 {
     
-    Server server(
+    ServerTest server_test(
         std::string(ROOT) + "/config/http_server.conf"
     );
 
-    BOOST_CHECK_NO_THROW(server.run());
+    BOOST_CHECK_NO_THROW(server_test.run());
 }
 
 
@@ -117,20 +117,20 @@ BOOST_AUTO_TEST_CASE( serverRunTest )
 BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
 {
     // Construct server
-    ServerTest serverTest(
+    ServerTest server_test(
         std::string(ROOT) + "/config/http_server.conf"
     );
 
     // Load valid config
     BOOST_CHECK_NO_THROW(
-        serverTest.__loadConfig(
+        server_test.__loadConfig(
             std::string(ROOT) + "/config/http_server.conf"
         )
     );
 
     // Load config with invalid configuration file path
     BOOST_CHECK_THROW(
-        serverTest.__loadConfig(
+        server_test.__loadConfig(
             ""
         ),
         std::ios_base::failure
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
 
     // Load config with config file containing wrong ip
     BOOST_CHECK_THROW(
-        serverTest.__loadConfig(
+        server_test.__loadConfig(
             std::string() + "test/server/bad-configs/bad_ip.conf"
         ),
         po::invalid_option_value
@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
 
     // Load config with config file containing invalid port
     BOOST_CHECK_THROW(
-        serverTest.__loadConfig(
+        server_test.__loadConfig(
             std::string() + "test/server/bad-configs/bad_port.conf"
         ),
         po::invalid_option_value
@@ -154,7 +154,7 @@ BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
 
     // Load config with config file containing invalid doc root path
     BOOST_CHECK_THROW(
-        serverTest.__loadConfig(
+        server_test.__loadConfig(
             std::string() + "test/server/bad-configs/bad_root.conf"
         ),
         po::invalid_option_value
@@ -169,7 +169,7 @@ BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
 BOOST_AUTO_TEST_CASE( serverJoinLeaveTest )
 {    
     // Create server
-    ServerTest serverTest(
+    ServerTest server_test(
         std::string(ROOT) + "/config/http_server.conf"
     );
 
@@ -179,18 +179,18 @@ BOOST_AUTO_TEST_CASE( serverJoinLeaveTest )
     std::string client_2("0.0.0.2");
 
     // Join client - check if client was added
-    BOOST_CHECK(serverTest.__join(client_1));
+    BOOST_CHECK(server_test.__join(client_1));
     // Join another client - check if client was added
-    BOOST_CHECK(serverTest.__join(client_2));
+    BOOST_CHECK(server_test.__join(client_2));
     // Try to join client one more time - check if client was NOT added
-    BOOST_CHECK(serverTest.__join(client_1) == false);
+    BOOST_CHECK(server_test.__join(client_1) == false);
 
     // Client 1 leaves
-    BOOST_CHECK(serverTest.__leave(client_1));
+    BOOST_CHECK(server_test.__leave(client_1));
     // Client 2 leaves
-    BOOST_CHECK(serverTest.__leave(client_2));
+    BOOST_CHECK(server_test.__leave(client_2));
     // Client 1 leaves one more time
-    BOOST_CHECK(serverTest.__leave(client_1) == 0);
+    BOOST_CHECK(server_test.__leave(client_1) == 0);
 }
 
 
@@ -201,24 +201,24 @@ BOOST_AUTO_TEST_CASE( serverJoinLeaveTest )
 BOOST_AUTO_TEST_CASE( serverCleanTest )
 {
     // Create server
-    ServerTest serverTest(
+    ServerTest server_test(
         std::string(ROOT) + "/config/http_server.conf"
     );
 
     // Client joins
-    serverTest.__join("0.0.0.0");
+    server_test.__join("0.0.0.0");
     
     // Simulate client's timeout
-    serverTest.__leave("0.0.0.0");
+    server_test.__leave("0.0.0.0");
 
     // Test if leave function works properly
-    BOOST_CHECK( serverTest.__clients.count("None") == 1);
+    BOOST_CHECK( server_test.__clients.count("None") == 1);
 
     // Clean deleted client
-    serverTest.__clean();
+    server_test.__clean();
 
     // Check if client is cleaned properly
-    BOOST_CHECK( serverTest.__clients.empty() == true);
+    BOOST_CHECK( server_test.__clients.empty() == true);
 }
 
 

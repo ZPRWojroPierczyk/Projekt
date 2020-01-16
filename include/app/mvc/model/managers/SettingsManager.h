@@ -27,12 +27,12 @@ public:
 
     /// Graphical themes
     enum class Theme{
-        Default
+        DEFAULT
     };
 
     /// Soundtracks
     enum class Soundtrack{
-        Default
+        DEFAULT
     };
 
 // Constructors & Destructors
@@ -41,9 +41,9 @@ public:
     /**
      * @brief Creates a new settings menager for the app's instance and
      *        loads client's settings from the data base
-     * @param clientID 
+     * @param client_id 
      */
-    SettingsManager(const std::string& clientID);
+    SettingsManager(const std::string& client_id);
 
     /**
      * @brief Destroy the Settings Manager and saves settings to the database

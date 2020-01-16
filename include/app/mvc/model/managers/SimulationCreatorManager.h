@@ -39,9 +39,9 @@ public:
     /**
      * @brief Creates a new settings menager for the app's instance and
      *        loads client's settings from the data base
-     * @param clientID 
+     * @param client_id 
      */
-    SimulationCreatorManager(const std::string& clientID, SimulationManager& simulationManager);
+    SimulationCreatorManager(const std::string& client_id, SimulationManager& simulation_manager);
 
     /**
      * @brief Destroy the Simulatoion Creator Manager and saves actual creator to the database
@@ -52,10 +52,7 @@ public:
 public:
 
     /**
-     * @todo SimulationCreatorManager should be a friend class of the
-     *       Simulation manager to be the only one able to run the simulation
-     *       (except LoadSimulationManager in the future).
-     * 
+     * @todo Implement SimulationCreatorManager::runSimulation()
      * @brief Runs simulation with set parameters
      */
     void runSimulation();
@@ -70,9 +67,9 @@ public:
     /// Setters used to load attributes from the JSON format
     void getCities(const std::string& cities);
     void getTransports(const std::string& transports);
-    void getAgentsParams(const std::string& agetnsParams);
-    void getMapParams(const std::string& mapParams);
-    void getTimeParams(const std::string& timeParams); 
+    void getAgentsParams(const std::string& agents_params);
+    void getMapParams(const std::string& map_params);
+    void getTimeParams(const std::string& time_params); 
 
 
 // Private member fields

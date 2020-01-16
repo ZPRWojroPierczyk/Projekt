@@ -16,12 +16,16 @@ ServerTest::ServerTest(const std::string& configFile) :
     __context(server.__context)
 {}
 
+void ServerTest::run(){
+    return server.run();
+}
+
 void ServerTest::__stop(){
-    server.__stop();
+    return server.__stop();
 }
 
 void ServerTest::__loadConfig(const std::string& configFile){
-    server.__loadConfig(configFile);
+    return server.__loadConfig(configFile);
 }
 
 bool ServerTest::__join (const std::string& clientID){
@@ -33,7 +37,7 @@ bool ServerTest::__leave (const std::string& clientID){
 }
 
 void ServerTest::__clean(){
-    server.__clean();
+    return server.__clean();
 }
 
 const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&

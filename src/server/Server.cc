@@ -30,13 +30,13 @@ namespace po = boost::program_options;
 /*------------------------ Constructors and destructors --------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-Server::Server(const std::string& configFile) :
+Server::Server(const std::string& config_file) :
     __clients(),
     __context()
 {
     // Initial configuration loading
     try{
-        __loadConfig(configFile);
+        __loadConfig(config_file);
     } catch (...){
         throw;
     }
@@ -95,49 +95,49 @@ void Server::__stop(){
     __context.stop();
 }
 
-bool Server::__join(const std::string& clientID){
+bool Server::__join(const std::string& client_id){
 
-    bool clientAdded = true;
+    bool client_added = true;
 
     /* -- Specified client's session exists -- */
-    if(__clients.count(clientID) != 0){
+    if(__clients.count(client_id) != 0){
 
-        clientAdded = false;
+        client_added = false;
     } 
     /* -- New client to register -- */
     else{
 
         /* --- Create record's elements --- */
         auto timer = std::make_shared<boost::asio::steady_timer>(__context, __clientTimeout);
-        auto model = std::make_shared<Model>(clientID);
-        auto view = std::make_shared<View>(model, __docRoot);
+        auto model = std::make_shared<Model>(client_id);
+        auto view = std::make_shared<View>(model);
         auto controller = std::make_shared<Controller>(model);
         
         /* --- Inser the new record ---*/
-        __clients[clientID] = client(
+        __clients[client_id] = Client(
             std::move(timer),
-            std::move(instance(controller, view))
+            std::move(Instance(controller, view))
         );
     }
 
-    return clientAdded;
+    return client_added;
 }
 
-bool Server::__leave(const std::string& clientID){
+bool Server::__leave(const std::string& client_id){
   
-    if(__clients.count(clientID) == 0)
+    if(__clients.count(client_id) == 0)
         return false;
     else{
-        __clients[clientID].second.first = nullptr;
-        __clients[clientID].second.second = nullptr;
-        auto record = __clients.extract(clientID);
+        __clients[client_id].second.first = nullptr;
+        __clients[client_id].second.second = nullptr;
+        auto record = __clients.extract(client_id);
         record.key() = "None";
         __clients.insert(std::move(record));
         return true;
     }  
 }
 
-void Server::__loadConfig(const std::string& configFile){
+void Server::__loadConfig(const std::string& config_file){
 
     // Prepare options set
     po::options_description opt("Server options");
@@ -156,7 +156,7 @@ void Server::__loadConfig(const std::string& configFile){
         ("session_timeout_s", po::value<short>()->default_value(30), "Session's timeout [s].");
 
     // Open config_file and read options values
-    std::ifstream file(configFile.c_str());
+    std::ifstream file(config_file.c_str());
     if(file.fail()){
         throw std::ios_base::failure("Server configuration file cannot be read!");
     }
@@ -174,22 +174,22 @@ void Server::__loadConfig(const std::string& configFile){
     try{
         auto address = asio::ip::make_address(vm["ip"].as<std::string>().c_str());
         auto port = vm["port"].as<unsigned short>();
-        auto clientTimeout = vm["client_timeout_min"].as<short>();
-        auto sessionTimeout = vm["session_timeout_s"].as<short>();
+        auto client_timeout = vm["client_timeout_min"].as<short>();
+        auto session_timeout = vm["session_timeout_s"].as<short>();
 
         // Port correctness
         if(port <1024 || port > 65535)
             throw po::invalid_option_value("port number");
 
         // Check duaration corectness
-        if (clientTimeout > 0)
-            __clientTimeout = std::chrono::minutes(clientTimeout);
+        if (client_timeout > 0)
+            __clientTimeout = std::chrono::minutes(client_timeout);
         else
             throw po::invalid_option_value("client imeout");
 
         // Check duaration corectness
-        if (sessionTimeout > 0)
-            __sessionTimeout = std::chrono::seconds(sessionTimeout);
+        if (session_timeout > 0)
+            __sessionTimeout = std::chrono::seconds(session_timeout);
         else
             throw po::invalid_option_value("session timeout");
 
@@ -208,11 +208,6 @@ void Server::__loadConfig(const std::string& configFile){
     } catch (std::exception &ex){
         throw po::invalid_option_value(std::string("ip address"));
     }
-
-    // Inform every View in active clients set that __docRoot changed
-    for (auto it = __clients.begin(); it != __clients.end(); ++it)    {
-        it->second.second.second->setDocRoot(__docRoot);
-    }
 }
 
 void Server::__clean(){
@@ -221,11 +216,11 @@ void Server::__clean(){
 }
 
 const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&
-Server::__getInstance(const std::string& clientID){
-    return __clients[clientID].second;
+Server::__getInstance(const std::string& client_id){
+    return __clients[client_id].second;
 }
 
 const std::shared_ptr<boost::asio::steady_timer>&
-Server::__getTimeoutTimer(const std::string& clientID){
-    return __clients[clientID].first;
+Server::__getTimeoutTimer(const std::string& client_id){
+    return __clients[client_id].first;
 }

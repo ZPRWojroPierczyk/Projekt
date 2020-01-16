@@ -44,27 +44,6 @@
  */
 class View
 {
-// Public Types
-public:
-
-    /**
-     * @brief Enum of possible data types to be sent back to the
-     *        client after receiving POST request. Every type is
-     *        associated with exactly one action performed by the
-     *        client.
-     */
-    enum class DataType{
-        
-        None,
-        
-        // Data send to simulation creator
-        CreatorCities,
-        CreatorTransports,
-        CreatorAgents,
-        CreatorMap,
-        CreatorTime
-    };
-
 // Constructors & Destructors
 public:
 
@@ -72,25 +51,15 @@ public:
      * @brief Initializes a new instance of the View.
      * 
      * @param model Shared pointer to the Model instance
-     * @param docRoot Absolute path to the folder containing web-files
+     * @param doc_root Absolute path to the folder containing web-files
      */
-    View(const std::shared_ptr<Model>& model,
-         const std::string& docRoot);
+    View(const std::shared_ptr<Model>& model);
 
 // Interface
 public:
 
-
-    /**
-     * @param path : Path to the web-files root 
-     */
-    void setDocRoot(const std::string& docRoot);
-
     /**
      * @todo Implement Themes differencing
-     * @todo Implement redirecting client back to the main site
-     *       if simulation was not run and client tries to
-     *       get to it by-hand.
      * 
      * @brief Evaluates path to the requested resource. If resource is
      *        a .css files method modifies target basing on actual Theme
@@ -98,40 +67,34 @@ public:
      *        In both cases _docRoot path is inserted at the beggining of
      *        the target.
      * 
-     * @param target Relative path to the requested resource
-     * @return Evaluated path to the requested reource
+     *        If requested page is a simulation page and simulation was not
+     *        activated yet, redirection indicator is set to true and returne
+     *        path points to the redirection target.
+     * 
+     * 
+     * @param target [in] Relative path to the requested resource
+     * @param is_redirect [out] True if requested page is not available at now and
+     *                          redirect response is required
+     * @return Evaluated, relative path to the requested reource
+     * 
+     * 
      */    
-    std::string getResource(const std::string& target);
+    std::string getResource(const std::string& target, bool& is_redirect);
 
     /**
-     * @todo Implement fetching data from the Model
+     * @todo Implements fetching data from the Model
      * @brief Get the Data object
      * 
-     * @param requestedData 
+     * @param requested_data 
      * @return std::string 
      */
-    std::string getData(const DataType& requestedData);
+    std::string getData(const std::string& requested_data);
 
 // Private members
 private:
 
     /// Pointer to the model
     const std::shared_ptr<Model>& __model;
-
-    /// Path to the folder containing web static files
-    std::string __docRoot;
-
-// Private member methods
-private:
-
-    /**
-     * @brief Append an HTTP rel-path to a local filesystem path.
-     * 
-     * @param base Path to the doc's root folder
-     * @param path Relative path to the resource
-     * @return Returned path (normalized for the platform.)
-     */
-    std::string __pathCat(const std::string& base, const std::string& path);
 
 };
 

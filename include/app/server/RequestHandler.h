@@ -2,6 +2,7 @@
 #define REQUEST_HANDLER_H
 
 #include <boost/beast.hpp>
+#include "Server.h"
 #include "View.h"
 #include "Controller.h"
 
@@ -41,10 +42,10 @@ public:
      * @brief Construct a new RequestHandler with given pointers to Controller and View modules
      *        of the MVC instance 
      * 
-     * @param controller 
-     * @param view 
+     * @param instance Pair containing pointers to Controller and View instance
      */
-    RequestHandler(const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance);
+    RequestHandler(Server& server,
+                   const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance);
 
 //Interface
 public:
@@ -63,6 +64,9 @@ private:
 // Private members
 private:
 
+    /// Reference to the Serverj instance
+    Server& __server;
+
     /// Pointer to the Controller instance
     std::shared_ptr<Controller> __controller;
 
@@ -80,6 +84,15 @@ private:
      */
     boost::beast::string_view __mimeType(const boost::beast::string_view& path);
     
+    /**
+     * @brief Append an HTTP rel-path to a local filesystem path.
+     * 
+     * @param base Path to the doc's root folder
+     * @param path Relative path to the resource
+     * @return Returned path (normalized for the platform.)
+     */
+    std::string __pathCat(const boost::beast::string_view& base, const boost::beast::string_view& path);
+
 };
 
 #endif

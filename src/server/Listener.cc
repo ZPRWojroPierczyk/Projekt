@@ -90,17 +90,17 @@ void Server::Listener::__on_accept(const error_code& err_code){
     }
     /* --- Else, create HttpSession to manage session --- */
     else {
-        auto clientID = __socket.remote_endpoint().address().to_string();
+        auto client_id = __socket.remote_endpoint().address().to_string();
 
         // Register client to the if they are new
-        __server.__join(clientID);
+        __server.__join(client_id);
         
 
 
         // Create a new session for this client basing on the record in clients table
         std::make_shared<HttpSession>(
                 __server,
-                clientID,
+                client_id,
                 std::move(__socket)
         )->run();
     }

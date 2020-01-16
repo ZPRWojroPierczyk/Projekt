@@ -16,17 +16,6 @@
 /*--------------------------- Constructors & Destructors -------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-// SimulationData SimulationManager::simulate(SimulationState state, SimulationParameters parameters){
-//     Simulation simulation;
-//     simulation.setup(state, parameters);
-//     simulation.run();
-
-//     SimulationData data;
-//     data = simulation.get();
-    
-//     return data;
-// }
-
 
 
 /*--------------------------------------------------------------------------------*/

@@ -24,13 +24,13 @@ using error_code = boost::system::error_code;
 /*--------------------------------------------------------------------------------*/
 
 HttpSession::HttpSession(Server& server,
-                         const std::string& clientID,
+                         const std::string& client_id,
                          boost::asio::ip::tcp::socket&& socket) :
-    __clientID(clientID),
+    __clientID(client_id),
     __server(server),
     __socket(std::move(socket)),
     __sessionTimeoutTimer(__server.__context),
-    __handler(__server.__getInstance(clientID))
+    __handler(server, __server.__getInstance(client_id))
 {}
 
 
@@ -47,9 +47,9 @@ void HttpSession::run(){
         __buffer,
         __req,
         [self = shared_from_this()]
-        (error_code errCode, std::size_t bytes)
+        (error_code err_code, std::size_t bytes)
         {
-            self->__onRead(errCode, bytes);
+            self->__onRead(err_code, bytes);
         }
     );
 
@@ -77,19 +77,19 @@ void HttpSession::run(){
 /*----------------------------- Private member methods ---------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-void HttpSession::__onRead(error_code errCode, std::size_t){
+void HttpSession::__onRead(error_code err_code, std::size_t){
 
     /* --- Check error code --- */
-    if(errCode){
+    if(err_code){
         // When peer closed the connection
-        if(errCode == boost::beast::http::error::end_of_stream){
-            __socket.shutdown(boost::asio::ip::tcp::socket::shutdown_send, errCode);
+        if(err_code == boost::beast::http::error::end_of_stream){
+            __socket.shutdown(boost::asio::ip::tcp::socket::shutdown_send, err_code);
             return;
         } 
         // Connection error
         else{
             __fail(
-                errCode,
+                err_code,
                 (std::string("Read from ") + __socket.remote_endpoint().address().to_string() +
                 std::string(" failed!")).c_str()
             );
@@ -99,7 +99,7 @@ void HttpSession::__onRead(error_code errCode, std::size_t){
 
 
     /* --- Create generic lambda to serve response sending --- */
-    auto sendHandler = 
+    auto send_handler = 
         [this](auto&& response) -> void
         {
             // Deduce message type
@@ -133,7 +133,7 @@ void HttpSession::__onRead(error_code errCode, std::size_t){
     /* --- Handle response --- */
     __handler(
         std::move(__req),
-        std::move(sendHandler)
+        std::move(send_handler)
     );
 
 
@@ -181,11 +181,11 @@ void HttpSession::__onRead(error_code errCode, std::size_t){
     );
 }
 
-void HttpSession::__onWrite(error_code errCode, std::size_t, bool close){
+void HttpSession::__onWrite(error_code err_code, std::size_t, bool close){
 
     /* --- Check error code --- */
-    if(errCode){
-        __fail(errCode, "Response writting failed!");
+    if(err_code){
+        __fail(err_code, "Response writting failed!");
         return;
     }
 
@@ -193,7 +193,7 @@ void HttpSession::__onWrite(error_code errCode, std::size_t, bool close){
     if(close){
         // This means we should close the connection, usually because
         // the response indicated the "Connection: close" semantic.
-        __socket.shutdown(boost::asio::ip::tcp::socket::shutdown_send, errCode);
+        __socket.shutdown(boost::asio::ip::tcp::socket::shutdown_send, err_code);
         return;
     }
 
@@ -207,24 +207,24 @@ void HttpSession::__onWrite(error_code errCode, std::size_t, bool close){
         __buffer,
         __req,
         [self = shared_from_this()]
-        (error_code errCode, std::size_t bytes)
+        (error_code err_code, std::size_t bytes)
         {
-            self->__onRead(errCode, bytes);
+            self->__onRead(err_code, bytes);
         }
     );
 }
 
-void HttpSession::__fail(const error_code& errCode, char const* what){
+void HttpSession::__fail(const error_code& err_code, char const* what){
     
     // Don't report on canceled operations
-    if(errCode == boost::asio::error::operation_aborted)
+    if(err_code == boost::asio::error::operation_aborted)
         return;
     
     // Report if any other error occured
-    std::cerr << what << ": " << errCode.message() << "\n";
+    std::cerr << what << ": " << err_code.message() << "\n";
 }
 
 void HttpSession::__closeConnection(){
-    error_code errCode;
-    __socket.cancel(errCode);
+    error_code err_code;
+    __socket.cancel(err_code);
 }

@@ -8,51 +8,38 @@
  * @copyright Copyright (c) 2019
  * 
  */
-
 #ifndef SIMULATION_MANAGER_H 
 #define SIMULATION_MANAGER_H
 
-class SimulationData{
-    //some data structure
-};
+class SimulationCreatorManager;
 
-class SimulationParameters{
-    //some parameters structure
-};
-
-enum SimulationState{
-    //some simulation states
-};
-
-/**
- * @brief Class representing the manager of simulation
- * @todo Think data structures over
- * @see SimulationData, SimulationParameters, SimulationState
- */
 class SimulationManager
 {
 // Constructors & Destructors
 public:
+
     SimulationManager() = default;
 
 //Interface
 public:
+
     bool isSimulationRunning();
 
-    SimulationState getState();
-    SimulationParameters getParameters();
+// Private friends
+private:
 
-    void setParameters();
-    
-    SimulationData simulate(SimulationState state, SimulationParameters parameters);
-    SimulationData update();
+    friend class SimulationCreatorManager;
 
 // Private members
 private:
-    SimulationState __state;
-    SimulationParameters __parameters;
-    SimulationData __data;
-    
+
+
+
+// Private member methods
+private:
+
+    void __runSimulation();
+
 };
 
 #endif

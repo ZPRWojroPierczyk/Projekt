@@ -44,11 +44,11 @@ public:
      *        this method passing actionType (that is passed with the
      *        Content-Type header) and request's body.
      * 
-     * @param actionType 
+     * @param action_type 
      * @param body Data associated with an action
      * @return Type of the data that View instance should be requested for.
      */
-    View::DataType action(const std::string& actionType, const std::string& body);
+    std::string action(const std::string& action_type, const std::string& body);
 
 // Private members
 private:

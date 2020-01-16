@@ -25,13 +25,13 @@ namespace po = boost::program_options;
 int main(int argc, char* argv[]){
 
     /* --- Load command-line parameters --- */
-    po::options_description desc("Server options");
-    desc.add_options()
+    po::options_description description("Server options");
+    description.add_options()
         ("config", po::value<std::string>()->default_value(std::string(ROOT) + "/config/http_server.conf"),
                     "Path to the config file.");
 
     po::variables_map vm;
-    po::store(po::parse_command_line(argc, argv, desc), vm);
+    po::store(po::parse_command_line(argc, argv, description), vm);
     po::notify(vm); 
 
     /* --- Initialize HTTP server --- */

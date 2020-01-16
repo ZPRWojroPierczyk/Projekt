@@ -27,6 +27,6 @@ Controller::Controller(const std::shared_ptr<Model>& model):
 /*--------------------------------------------------------------------------------*/
 
 
-View::DataType Controller::action(const std::string& actionType, const std::string& body){
-    return View::DataType::None;
+std::string Controller::action(const std::string& action_type, const std::string& body){
+    return "";
 }

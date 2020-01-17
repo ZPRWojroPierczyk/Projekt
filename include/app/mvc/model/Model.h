@@ -49,6 +49,7 @@ public:
 
 // Public member fields
 public:
+
     /// Module responsible for app's settings
     SettingsManager settingsManager;
     /// Module managing simulation process
@@ -57,12 +58,6 @@ public:
     SimulationCreatorManager simulationCreatorManager;
     /// Module responsible for loading saved simulations
     LoadSimulationManager loadSimulationManager;
-
-// Private member fields
-private:
-
-// Private methods:
-private:
 
 };
 

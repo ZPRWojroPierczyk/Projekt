@@ -92,8 +92,6 @@ private:
     boost::property_tree::ptree __agentsParams;
     /// Map's parameters
     boost::property_tree::ptree __mapParams;
-    /// Simulation's time parameters
-    boost::property_tree::ptree __timeParams;
 
 // Private member methods
 private:

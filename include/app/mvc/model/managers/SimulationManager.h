@@ -10,8 +10,11 @@
  */
 #ifndef SIMULATION_MANAGER_H 
 #define SIMULATION_MANAGER_H
+#include <chrono>
+#include "Agent.h"
 
 class SimulationCreatorManager;
+class LoadSimulationManager;
 
 class SimulationManager
 {
@@ -23,22 +26,51 @@ public:
 //Interface
 public:
 
+    /* --- Simulation's state manipulation --- */
+
     bool isSimulationRunning();
+    void pause();
+    void reasume();
+    void changeSpeed();
+
+    /* --- Semantic actions --- */
+
+    void optimise();
 
 // Private friends
 private:
 
     friend class SimulationCreatorManager;
+    friend class LoadSimulationManager;
 
 // Private members
 private:
 
+    /* --- Simulation's state --- */
 
+    bool __isInitialized;
+    bool __isRunning;
+    
+    /// Simulated time (between 10 p.m. and 6 a.m.)
+    std::chrono::time_point __time;
+
+    /// Indicates speed of the simulated time flow
+    int __speedMultiplier;
+
+
+    /* --- Semantic informations --- */
+
+    /// Table of active agents
+    std::vector<Agent> __agents;
+
+    /// Table of planned transports
+    std::vector<Transport> __transports;
 
 // Private member methods
 private:
 
-    void __runSimulation();
+    void __initialize()
+    void __run();
 
 };
 

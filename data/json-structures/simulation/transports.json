@@ -6,7 +6,11 @@
             "to": "",
             "load": "",
             "position": ["long", "lat"],
-            "path": {"DirectionAPI": "Whole route structure"}
+            "path": {"DirectionAPI": "Whole route structure"},
+            "break": "",
+            "malfunction": "",
+            "accident": "",
+            "transportStatus": ""
         }
 
     ]

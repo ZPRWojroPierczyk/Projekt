@@ -2,19 +2,18 @@ html,
 body {
     background-color: #68829E;
     font-family: sans-serif;
-    height: 100%;
 }
 
 #main {
-    height: 80%;
+    margin-top: 10%;
     width: 100%;
     display: table;
 }
 
 #wrapper {
     display: table-cell;
-    height: 60%;
     vertical-align: middle;
+    overflow: hidden;
 }
 
 h1 {

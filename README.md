@@ -94,3 +94,12 @@ var headerValue = "simulation-fast-forward";
 var headerName = "Information";
 var headerValue = "simulation-fast-backward";
 ```
+
+POST requests - sending information about modifications (without response):
+
+```
+//Simulation modifications
+var headerName = "Content-type";
+var headerValue = "simulation-modifications";
+var sendString = json_data;
+```

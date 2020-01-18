@@ -105,9 +105,9 @@ body {
   color: white;
 }
 
-/**************************** Side Menu ****************************/
+/**************************** Side Menu Left ****************************/
 
-.sideMenu {
+.sideMenuLeft {
   height: 50%;
   width: 0;
   position: fixed;
@@ -139,7 +139,7 @@ body {
   background-color: #505160;
 }
 
-.sideMenu .closebtn {
+.sideMenuLeft .closebtn {
   position: absolute;
   top: 0;
   right: 25px;
@@ -156,7 +156,70 @@ body {
   color: #f1f1f1;
 }
 
+/**************************** Side Menu Right ****************************/
+
+.sideMenuRight {
+  height: 50%;
+  width: 0px;
+  position: fixed;
+  z-index: 1;
+  top: 10%;
+  right: 0;
+  background-color: #333;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  text-align: center;
+  box-shadow: 3px 3px 5px grey;
+}
+
+.sideMenuRight .closebtn {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  font-size: 36px;
+  margin-right: 50px;
+  padding: 8px 20px 8px 8px;
+  text-decoration: none;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.closebtn:hover{
+  color: #f1f1f1;
+}
+
+#buttonMenuRightContainer{
+  position: absolute;
+  top: 10%;
+  right: 0;
+  height: 50px;
+  width: 50px;
+  border-radius: 5px 0 0 5px;
+  background-color: #333;
+}
+
+#buttonMenuRight{
+  font-size: 30px;
+  color: #c7c7c7;
+  border: none;
+  margin: 1px;
+  float: left;
+  cursor: pointer;
+}
+
+#buttonMenuRight:hover{
+  color: white;
+}
+
+h2{
+  color: white;
+  font-size: 20px;
+}
+
 @media screen and (max-height: 450px) {
-  .sideMenu {padding-top: 15px;}
+  .sideMenuLeft {padding-top: 15px;}
+  .sideMenuRight {padding-top: 15px;}
   .sideMenuButton {font-size: 18px;}
 }

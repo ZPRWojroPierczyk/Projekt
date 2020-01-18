@@ -1,3 +1,6 @@
+// --- * Uncomment when servers response ready
+// *** * Comment when server response ready
+
 /************************** Google maps API **************************/
 // Center of the map
 var position = [52.22977, 21.01178];
@@ -34,43 +37,53 @@ var myOptions = {
 var map = new google.maps.Map(document.getElementById("mapCanvas"), myOptions);
 
 /************ Markers ************/
+// ***
 var marker = new google.maps.Marker({
     position: latlng,
     map: map,
     title: "Latitude:" + position[0] + " | Longitude:" + position[1]
 });
-
+// ***
+// ***
 var lorryIcon = {
-    anchor: new google.maps.Point(12, 12),
-    scaledSize: new google.maps.Size(25, 25),
+    anchor: new google.maps.Point(17.5, 17.5),
+    scaledSize: new google.maps.Size(35, 35),
     url: '/imgs/lorry.png'
 };
+// ***
 var agents = [];
+var agentsProperties = [];
 displayLorries();
-
+// ***
+// ***
 function displayLorries() {
-    var i = 1;
+    var i = 0;
     for (x in cities.cities) {
         var lorryPosition = new google.maps.LatLng(cities.cities[x][0], cities.cities[x][1]);
         agents.push(new google.maps.Marker({
             position: lorryPosition,
             map: map,
-            title: "Lorry no." + i + " " + x,
+            title: "Lorry from: " + x + " no." + i,
             icon: lorryIcon
         }));
-
-        agents[agents.length-1].setMap(map);
+        agents[agents.length - 1].setMap(map);
+        agentsProperties[i] = {
+            break: false,
+            malfunction: false,
+            accident: false
+        }
         i++;
     }
-
 }
+// ***
 
 /************ Directions ************/
+// ***
 var directionsService = new google.maps.DirectionsService();
 var directionsRenderer = new google.maps.DirectionsRenderer();
-
+// ***
 directionsRenderer.setMap(map);
-
+// ***
 directionsService.route(
     {
         origin: new google.maps.LatLng(cities.cities.warszawa[0], cities.cities.warszawa[1]),
@@ -85,14 +98,12 @@ directionsService.route(
         }
     }
 );
-
-directionsRenderer.setMap(map);
-
+// ***
 /*********** Setting modification markers when click **********/
 
-google.maps.event.addListener(map, 'click', function (event) {
-    var result = [event.latLng.lat(), event.latLng.lng()];
-    transition(result);
+function mapClick(event) {
+    //var result = [event.latLng.lat(), event.latLng.lng()];
+    //transition(result);
     var index = -1;
     for (var i = 0; i < buttonStates.length; i++) {
         if (buttonStates[i] == true) index = i;
@@ -104,19 +115,11 @@ google.maps.event.addListener(map, 'click', function (event) {
         case 1: // congestion
             setCongestion(event.latLng.lat(), event.latLng.lng());
             break;
-        case 2: // break
-            setBreak(event.latLng.lat(), event.latLng.lng());
-            break;
-        case 3: // malfunction
-            setMalfunction(event.latLng.lat(), event.latLng.lng());
-            break;
-        case 4: // accident
-            setAccident(event.latLng.lat(), event.latLng.lng());
-            break;
         default:
     }
-});
+}
 
+/*
 var numDeltas = 100;
 var delay = 10; //milliseconds
 var i = 0;
@@ -140,7 +143,7 @@ function moveMarker() {
         i++;
         setTimeout(moveMarker, delay);
     }
-}
+}*/
 
 /********************** Setting blockades **************************/
 
@@ -157,7 +160,7 @@ function setBlockade(lat, lng) {
     blockades.push(new google.maps.Marker({
         position: blockadePosition,
         map: map,
-        title: "Just blockade ...",
+        title: "Blokada x",
         icon: blockadeIcon
     }));
 
@@ -179,7 +182,7 @@ function setCongestion(lat, lng) {
     congestions.push(new google.maps.Marker({
         position: congestionPosition,
         map: map,
-        title: "Just congestion ...",
+        title: "Korek ...",
         icon: congestionIcon
     }));
 
@@ -189,21 +192,21 @@ function setCongestion(lat, lng) {
 /********************** Setting break **************************/
 
 var breakIcon = {
-    anchor: new google.maps.Point(12, 12),
-    scaledSize: new google.maps.Size(25, 25),
+    anchor: new google.maps.Point(25 + 17.5, 25 + 7.5),
+    scaledSize: new google.maps.Size(20, 20),
     url: '/imgs/break.png'
 };
 
-var radius = 0.056674;
+//var radius = 0.056674;
 var breaks = [];
 
 function setBreak(lat, lng) {
-    var current_distance = 10;
+    /*var current_distance = 10;
     var shortest_distance = 10;
     var agent_index = -1;
     var alat;
     var alng;
-    /*agents.forEach(function (item, index, array) {
+    agents.forEach(function (item, index, array) {
         alat = item.position.lat;
         alng = item.position.lng;
         current_distance = Math.sqrt((lat-alat)**2 + (lng-alng)**2);
@@ -212,7 +215,7 @@ function setBreak(lat, lng) {
             shortest_distance = current_distance;
             agent_index = index;
         }
-    });*/
+    });
     for(var i = 0; i < agents.length; i++){
         alat = agents[i].position.lat();
         alng = agents[i].position.lng();
@@ -232,42 +235,75 @@ function setBreak(lat, lng) {
             icon: breakIcon
         }));
         breaks[breaks.length-1].setMap(map);
-    }
+    }*/
+    var breakPosition = new google.maps.LatLng(lat, lng);
+    breaks.push(new google.maps.Marker({
+        position: breakPosition,
+        map: map,
+        title: "Przerwa B)",
+        icon: breakIcon
+    }));
+    breaks[breaks.length - 1].setMap(map);
 }
 
 /********************** Setting malfunction **************************/
 
 var malfunctionIcon = {
-    anchor: new google.maps.Point(12, 12),
-    scaledSize: new google.maps.Size(25, 25),
+    anchor: new google.maps.Point(0 + 17.5, 25 + 7.5),
+    scaledSize: new google.maps.Size(20, 20),
     url: '/imgs/malfunction.png'
 };
 
-function setMalfunction(lat, lng) {
+var malfunctions = [];
 
+function setMalfunction(lat, lng) {
+    var malfunctionPosition = new google.maps.LatLng(lat, lng);
+    malfunctions.push(new google.maps.Marker({
+        position: malfunctionPosition,
+        map: map,
+        title: "Awaria :(",
+        icon: malfunctionIcon
+    }));
+    malfunctions[malfunctions.length - 1].setMap(map);
 }
 
 /********************** Setting accident **************************/
 
 var accidentIcon = {
-    anchor: new google.maps.Point(12, 12),
-    scaledSize: new google.maps.Size(25, 25),
+    anchor: new google.maps.Point(-25 + 17.5, 25 + 7.5),
+    scaledSize: new google.maps.Size(20, 20),
     url: '/imgs/accident.png'
 };
 
-function setAccident(lat, lng) {
+var accidents = [];
 
+function setAccident(lat, lng) {
+    var accidentPosition = new google.maps.LatLng(lat, lng);
+    accidents.push(new google.maps.Marker({
+        position: accidentPosition,
+        map: map,
+        title: "Wypadek [*]",
+        icon: accidentIcon
+    }));
+    accidents[accidents.length - 1].setMap(map);
 }
 
 /******************** Simulation buttons ********************/
+
+var pause_mode = false;
 
 // Sending information about simulation mode (buttons state), and styling the active one
 function sendInformation(element) {
 
     if (element.getAttribute("data-icon") == "pause") {
-        clearInterval(server_querying);
+        // --- clearInterval(server_querying);
+        google.maps.event.addListener(map, 'click', mapClick);
+        pause_mode = true;
     } else {
-        //server_querying = setInterval(querying, 10); // Could be done better
+        // --- server_querying = setInterval(querying, 10); // Could be done better
+        google.maps.event.clearInstanceListeners(map, 'click');
+        pause_mode = false;
+        closeSideMenuLeft();
     }
 
     var xhttp;
@@ -290,29 +326,84 @@ function styleActiveMode(element) {
     element.className += " active";
 }
 
-/************ Side menu ************/
+/************ Side menu Left ************/
 
-function openSideMenu() {
-    document.getElementById("mySideMenu").style.width = "250px";
+function openSideMenuLeft() {
+    if (pause_mode == true) {
+        for (var i = 0; i < agents.length; i++) {
+            google.maps.event.addListener(agents[i], 'click', agentClicked);
+        }
+        document.getElementById("mySideMenuLeft").style.width = "250px";
+    }
+    else alert("Modyfikacja tylko w trybie pauzy."); //can it block ajax and/or displaying?
 }
 
-function closeSideMenu() {
-    document.getElementById("mySideMenu").style.width = "0";
-    
-    blockades.forEach(function (item, index, array) {
-        item.setMap(null);
-    });
-    blockades = [];
+function agentClicked(agent) {
+    var i;
+    for (i = 0; i < agents.length; i++) {
+        if (agents[i].position.lat() == agent.latLng.lat() &&
+            agents[i].position.lng() == agent.latLng.lng()) break;
+    }
+    if (buttonStates[2] == true && agentsProperties[i].break == false) {
+        agentsProperties[i].break = true;
+        setBreak(agent.latLng.lat(), agent.latLng.lng());
+    } else if (buttonStates[3] == true && agentsProperties[i].malfunction == false) {
+        agentsProperties[i].malfunction = true;
+        setMalfunction(agent.latLng.lat(), agent.latLng.lng());
+    } else if (buttonStates[4] == true && agentsProperties[i].accident == false) {
+        agentsProperties[i].accident = true;
+        setAccident(agent.latLng.lat(), agent.latLng.lng());
+    }
+}
 
-    congestions.forEach(function (item, index, array) {
-        item.setMap(null);
-    });
-    congestions = [];
+function closeSideMenuLeft() {
+    document.getElementById("mySideMenuLeft").style.width = "0";
 
-    breaks.forEach(function (item, index, array) {
-        item.setMap(null);
-    });
-    breaks = [];
+    var len;
+
+    len = blockades.length;
+    for (var i = len - 1; i >= 0; i--) {
+        blockades[i].setMap(null);
+        delete blockades.pop();
+    }
+
+    len = congestions.length;
+    for (var i = len - 1; i >= 0; i--) {
+        congestions[i].setMap(null);
+        delete congestions.pop();
+    }
+
+    len = breaks.length;
+    for (var i = len - 1; i >= 0; i--) {
+        breaks[i].setMap(null);
+        delete breaks.pop();
+    }
+
+    len = malfunctions.length;
+    for (var i = len - 1; i >= 0; i--) {
+        malfunctions[i].setMap(null);
+        delete malfunctions.pop();
+    }
+
+    len = accidents.length;
+    for (var i = len - 1; i >= 0; i--) {
+        accidents[i].setMap(null);
+        delete accidents.pop();
+    }
+
+    for (var i = 0; i < buttonStates.length; i++) {
+        buttonStates[i] = false;
+    }
+    var sideMenuButtons = document.getElementsByClassName("sideMenuButton");
+
+    for (var i = 0; i < agents.length; i++) {
+        google.maps.event.clearInstanceListeners(agents[i], 'click');
+        agentsProperties[i].break = false;
+        agentsProperties[i].malfunction = false;
+        agentsProperties[i].accident = false;
+    }
+
+    for (var i = 0; i < sideMenuButtons.length; i++) disableStyleButton(sideMenuButtons[i]);
 }
 
 /************ Side menu modification buttons ************/
@@ -356,7 +447,66 @@ function disableStyleButton(element) {
 }
 
 function modificationsAccept() {
-    //TODO
+    var json_data = "{";
+
+    if (congestions.length != 0) {
+        json_data += "\"congestions\":[";
+
+        for (var i = 0; i < congestions.length; i++) {
+            json_data += "[" + congestions[i].position.lat() + ", ";
+            json_data += congestions[i].position.lng() + "],";
+        }
+
+        json_data = json_data.substr(0, json_data.length - 1);
+        json_data += "],";
+    }
+
+    if (blockades.length != 0) {
+        json_data += "\"blockades\":[";
+
+        for (var i = 0; i < blockades.length; i++) {
+            json_data += "[" + blockades[i].position.lat() + ", ";
+            json_data += blockades[i].position.lng() + "],";
+        }
+
+        json_data = json_data.substr(0, json_data.length - 1);
+        json_data += "],";
+    }
+
+    json_data += "\"agents\":[";
+
+    for (var i = 0; i < agentsProperties.length; i++) {
+        var no = agents[i].title.substring(agents[i].title.search("no.") + 3, agents[i].title.length);
+        // --- var no = agents[i].title.substring(agents[i].title.search("ID") + 4, agents[i].title.search("Transport") - 1);
+        json_data += "{\"ID\": " + no + ", ";
+        json_data += "\"break\": " + agentsProperties[i].break + ", ";
+        json_data += "\"malfunction\": " + agentsProperties[i].malfunction + ", ";
+        json_data += "\"accident\": " + agentsProperties[i].accident + "},";
+    }
+
+    json_data = json_data.substr(0, json_data.length - 1);
+    json_data += "]}";
+
+    var xhttp;
+    xhttp = new XMLHttpRequest();
+
+    xhttp.open("POST", "", true);
+    var headerName = "Content-type";
+    var headerValue = "simulation-modifications";
+    var sendString = json_data;
+    xhttp.setRequestHeader(headerName, headerValue);
+    xhttp.send(sendString);
+}
+
+
+/************ Side menu Right ************/
+
+function openSideMenuRight() {
+    document.getElementById("mySideMenuRight").style.width = "250px";
+}
+
+function closeSideMenuRight() {
+    document.getElementById("mySideMenuRight").style.width = "0";
 }
 
 // Getting style property in string
@@ -369,7 +519,7 @@ function modificationsAccept() {
 /******************** Constantly requesting for simulation snapshot ********************/
 
 // Querying server for simulation snapshot data
-//var server_querying = setInterval(querying, 10); // every 10ms
+// --- var server_querying = setInterval(querying, 10); // every 10ms
 
 function querying() {
     var xhttp;
@@ -395,27 +545,58 @@ var lorryIcon = {
     url: '/imgs/lorry.png'
 };
 
-//var agents = [];
+// --- var directionsRendererArray = [];
+// --- var agents = [];
+// --- var agentsProperties = [];
 
 function mapUpdate(jsonData) {
     jsonData = JSON.parse(jsonData);
-    var directionsRendererArray = [];
+    clearMap();
     for (var i = 0; i < jsonData.transports.length; i++) {
         var transport = jsonData.transports[i];
         //Marker
-        var agentLatlng = new google.maps.LatLng(transport.position[0], transport.position[1]);
+        var agentLatlng = new google.maps.LatLng(transport.position[0], transport.position[1]); // Number()
         agents.push(new google.maps.Marker({
             position: agentLatlng,
             map: map,
-            title: "Home city: " + transport.city + "\nAgent ID: " + transport.ID +
-                "\nTransport form: " + transport.from + " to: " + transport.to +
-                "\nLoad: " + transport.load +
-                "\nPosition: " + transport.position[0] + ", " + transport.position[1],
+            title: "Miasto przynal.: " + transport.city + "\nID: " + transport.ID +
+                "\nTransport z: " + transport.from + " do: " + transport.to +
+                "\nŁadunek: " + transport.load +
+                "\nPozycja: " + transport.position[0] + ", " + transport.position[1] + 
+                "\nPrzerwa: " + transport.break +
+                "\nAwaria: " + transport.malfunction +
+                "\nWypadek: " + transport.accident,
             icon: lorryIcon
         }));
-        agents[agents.length-1].setMap(map);
+        agents[agents.length - 1].setMap(map);
+        agentsProperties[i] = {
+            break: false,
+            malfunction: false,
+            accident: false
+        }
         //Direction
         directionsRendererArray[i] = new google.maps.DirectionsRenderer();
+        directionsRendererArray[i].setMap(map);
         directionsRendererArray[i].setDirections(transport.path);
+        //Transports content
+        var transportsContent = "<p>Z " + transport.from + " do " + transport.to + ". Ładunek: ";
+        transportsContent += transport.load + ". Status: " + transport.transportStatus + ".</p>";
+        document.getElementById("transportsContent").innerHTML = transportsContent;
+    }
+}
+
+function clearMap(){
+    var len;
+
+    len = agents.length;
+    for (var i = len - 1; i >= 0; i--) {
+        agents[i].setMap(null);
+        delete agents.pop();
+    }
+
+    len = directionsRendererArray.length;
+    for (var i = len - 1; i >= 0; i--) {
+        directionsRendererArray[i].setMap(null);
+        delete directionsRendererArray[i].pop();
     }
 }

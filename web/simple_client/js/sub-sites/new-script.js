@@ -237,10 +237,14 @@ function agentAccept() {
         Musi być typu całkowitego lub ułamka dziesiętnego.");
         return;
     }
-    for (i = 1; i < x.length; i++) {
-        if (x.elements[i].value <= 0 || !isFloat(x.elements[i].value)) {
-            alert("Wszystkie parametry, oprócz prawdopodobieństwa wypadku, muszą być dodatnie. \
-            Muszą być typu całkowitego lub ułamka dziesiętnego.");
+    if (x.elements[1].value <= 0 || !isFloat(x.elements[1].value)){
+        alert("Maksymalny czas jazdy musi być dodatni oraz typu całkowitego lub ułamka dziesiętnego.");
+        return;
+    }
+    for (i = 2; i < x.length; i++) {
+        if (x.elements[i].value <= 0 || !isIntegral(x.elements[i].value)) {
+            alert("Wszystkie parametry, oprócz prawdopodobieństwa wypadku oraz czasu jazdy bez przerwy,\
+             muszą być całkowite. Muszą być też dodatnie.");
             return;
         }
     }
@@ -271,8 +275,9 @@ function createAgentJSON() {
 
     agent += "\"maxfunctionProbability\":" + x.elements[0].value + ",";
     agent += "\"maxDrivingTime\":" + x.elements[1].value + ",";
-    agent += "\"maxLoad\":" + x.elements[2].value + ",";
-    agent += "\"maxSpeed\":" + x.elements[3].value + "}}";
+    agent += "\"breakTime\":" + x.elements[2].value + ",";
+    agent += "\"maxLoad\":" + x.elements[3].value + ",";
+    agent += "\"maxSpeed\":" + x.elements[4].value + "}}";
     return agent;
 }
 

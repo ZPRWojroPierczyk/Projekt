@@ -13,8 +13,8 @@
 <body>
     <div id="mapCanvas"></div>
 
-    <div id="mySideMenu" class="sideMenu">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeSideMenu()">&times;</a>
+    <div id="mySideMenuLeft" class="sideMenuLeft">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSideMenuLeft()">&times;</a>
         <button onclick="sideMenuButtonClick(this, 0)" class="sideMenuButton" id="blockadeButton">Ustaw blokadę</button> <br>
         <button onclick="sideMenuButtonClick(this, 1)" class="sideMenuButton" id="congestionButton">Ustaw korek</button> <br>
         <button onclick="sideMenuButtonClick(this, 2)" class="sideMenuButton" id="breakButton">Przerwa kierowcy</button> <br>
@@ -23,6 +23,17 @@
         <button onclick="modificationsAccept()" class="sideMenuButton">Zatwierdź modyfikacje</button>
     </div>
 
+    <div id="mySideMenuRight" class="sideMenuRight">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSideMenuRight()">&times;</a>
+        <h2>Transporty: </h2>
+        <div id="transportsContent"></div></div>
+    </div>
+
+    <div id="buttonMenuRightContainer">
+        <i class="fas fa-angle-double-left" id="buttonMenuRight" onclick="openSideMenuRight()"></i>
+    </div>
+   
+
     <div id="content">
         <i class="fas fa-fast-backward" data-icon="fast-backward" onclick="sendInformation(this)"></i>
         <i class="fas fa-backward" data-icon="backward" onclick="sendInformation(this)"></i>
@@ -30,14 +41,14 @@
         <i class="fas fa-play active" data-icon="play" onclick="sendInformation(this)"></i>
         <i class="fas fa-forward" data-icon="forward" onclick="sendInformation(this)"></i>
         <i class="fas fa-fast-forward" data-icon="fast-forward" onclick="sendInformation(this)"></i>
-        <button onclick="openSideMenu()" id="modificationsButton">Modifications</button>
+        <button onclick="openSideMenuLeft()" id="modificationsButton">Modyfikacje</button>
     </div>
 
     <div class="navbar">
-        <a href="/sub-sites/simulate.html" class="active">Menu</a>
+        <a href="/" class="active">Menu</a>
         <a href="#save-simulation">Zapisz symulacje</a>
         <a href="#load-simulation">Załaduj symulacje</a>
-        <a href="/">Wróć</a>
+        <a href="/sub-sites/new.html">Wróć</a>
     </div>
 </body>
 

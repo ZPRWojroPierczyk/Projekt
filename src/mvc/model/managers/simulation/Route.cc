@@ -1,9 +1,23 @@
+/**
+ * @file Point.cc
+ * @author Wojtek Rokicki & Krzysiek Pierczyk
+ * @brief Implementation of the Route's class methods
+ * @version 0.1
+ * @date 2020-01-18
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
 #include <algorithm>
 #include "Route.h"
 
 /*--------------------------------------------------------------------------------*/
 /*--------------------------- Constructors & Destructors -------------------------*/
 /*--------------------------------------------------------------------------------*/
+
+Route::Route() :
+    __length(0)
+{}
 
 Route::Route(std::vector<Point> path, int length) :
     __path(path),
@@ -15,6 +29,15 @@ Route::Route(std::vector<Point> path, int length) :
 /*--------------------------------------------------------------------------------*/
 /*----------------------------- Public member methods ----------------------------*/
 /*--------------------------------------------------------------------------------*/
+
+Route& Route::operator=(Route&& route){
+    
+    __path = std::move(route.__path);
+    __length = route.__length;
+    route.__length = 0;
+
+    return *this;
+}
 
 std::vector<std::pair<unsigned int, unsigned int>> Route::isClose(const Route& route) const{
     

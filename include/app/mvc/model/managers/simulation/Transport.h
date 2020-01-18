@@ -13,11 +13,11 @@
 #define TRANSPORT_H
 #include <string>
 
-class Tranport
+class Transport
 {
 // Constructors & Destructors
 public:
-    Tranport() = default;
+    Transport() = default;
 
 // Interface
 public:

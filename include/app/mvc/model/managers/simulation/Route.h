@@ -29,10 +29,30 @@ class Route
 // Constructors & Destructors
 public:
 
+    /**
+     * @brief Construct a new empty Route object
+     */
+    Route();
+
+    /**
+     * @brief Construct a new Route object with a given path
+     *        and length
+     * 
+     * @param __path Vector of points constituting route
+     * @param __length Length of the route in [km]
+     */
     Route(std::vector<Point> __path, int __length);
 
 // Interface
 public:
+
+    /**
+     * @brief Move assighnment operator
+     * 
+     * @param route Route to move
+     * @returns Reference to this
+     */
+    Route& operator=(Route&& route);
 
     /* --- Semantic operations on the Route --- */
 
@@ -41,9 +61,9 @@ public:
      *        routes points arrays indicating which pairs of points
      *        are close each other.
      * 
-     * @return Vector of pairs of indices. First index of each pair
-     *         is index for this object and the second is index for
-     *         object passed as argument.
+     * @returns Vector of pairs of indices. First index of each pair
+     *          is index for this object and the second is index for
+     *          object passed as argument.
      */
     std::vector<std::pair<unsigned int, unsigned int>> isClose(const Route& route) const;
 

@@ -10,9 +10,9 @@
  */
 #ifndef SIMULATION_CREATOR_MANAGER_H 
 #define SIMULATION_CREATOR_MANAGER_H
+#include <sqlite3.h>
 #include <string>
 #include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
 
 #include "SimulationManager.h"
 
@@ -57,19 +57,48 @@ public:
      */
     void runSimulation();
 
-    /// Getters used to transform simulation attributes into JSON format
-    std::string getCities();
-    std::string getTransports();
-    std::string getAgentsParam();
-    std::string getMapParams();
-    std::string getTimeParams(); 
 
-    /// Setters used to load attributes from the JSON format
-    void getCities(const std::string& cities);
-    void getTransports(const std::string& transports);
-    void getAgentsParams(const std::string& agents_params);
-    void getMapParams(const std::string& map_params);
-    void getTimeParams(const std::string& time_params); 
+    /* --- Getters & setters --- */
+    
+    /**
+     * @returns Cities form in JSON format 
+     */
+    std::string getCities();
+
+    /**
+     * @param cities Cities form in JSON format
+     */
+    void setCities(const std::string& cities);
+
+    /**
+     * @returns Transports form in JSON format 
+     */
+    std::string getTransports();
+    
+    /**
+     * @param transports Transports form in JSON format 
+     */
+    void setTransports(const std::string& transports);
+
+    /**
+     * @returns Agents form in JSON format 
+     */
+    std::string getAgentsParam();
+    
+    /**
+     * @param agent_params Agents form in JSON format 
+     */
+    void setAgentsParams(const std::string& agents_params);
+
+    /**
+     * @return Map form in JSON format 
+     */
+    std::string getMapParams();
+    
+    /**
+     * @param map_params Map form in JSON format 
+     */
+    void setMapParams(const std::string& map_params);
 
 
 // Private member fields
@@ -111,8 +140,70 @@ private:
      * @todo Implement creator's saving
      * @brief Saves client's creator's state to the database
      */
-    void __saveCreator(); 
-           
+    void __saveCreator();
+
+    /**
+     * @brief Converts given attribute to a JSON-formatted string
+     * 
+     * @param attribute Ptree to convert
+     * @returns Converted tree
+     */
+    std::string __getJSON(boost::property_tree::ptree attribute);
+
+
+    /*----------------------------- SQLight operations -------------------------------*/
+
+    /**
+     * @param databse Pointer to the database object
+     * @returns true 'Creator' table is in database
+     * @returns false No 'Creator' table in database
+     */
+    bool __isTable(sqlite3* databse);
+
+    /**
+     * @brief Creates 'Creator' table in the database
+     * 
+     * @param database Pointer to the database object
+     * @return true Table has been created
+     * @return false Failed to create table
+     */
+    bool __createTable(sqlite3* database);
+    
+    /**
+     * @param databse Pointer to the database object
+     * @return true Client's record exists in 'Creator' table in database
+     * @return false No Client's record exists in 'Creator' table in database
+     */
+    bool __isClientRecord(sqlite3* database);
+
+    /**
+     * @brief Loads creator's configuration from the database
+     * 
+     * @param database Pointer to the database object
+     * @return true Configuration was loaded
+     * @return false Failed to load configuartion
+     */
+    bool __loadRecord(sqlite3* database);
+
+    /**
+     * @brief Save's client's creator's configuration to the database
+     *        as a new record. 
+     * 
+     * @param database Pointer to the database object
+     * @return true New record has been created
+     * @return false Failed to create a new record
+     */
+    bool __saveNew(sqlite3* database);
+
+    /**
+     * @brief Save's client's creator's configuration to the database
+     *        updating exiting record. 
+     * 
+     * @param database Pointer to the database object
+     * @return true Record has been updated
+     * @return false Failed to update a record
+     */
+    bool __saveUpdate(sqlite3* database);
 };
 
 #endif

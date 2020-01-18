@@ -12,18 +12,52 @@
 #define AGENT_H
 #include <utility>
 #include <boost/numeric/ublas/vector.hpp>
+#include <boost/property_tree/ptree.hpp>
 #include "Route.h"
 
-namespace ul = boost::numeric::ublas;
-
+/**
+ * @brief Agent class represents a single Agent (a lorry) responsible for delivering transports
+ * 
+ * Class incorporates basic informations about an agent, involving machine's
+ * and driver's limits, identificators, actual transport specification or
+ * technical condition of the machine. 
+ * 
+ */
 class Agent
 {
 // Constructors & Destructors
 public:
-    Agent() = default;
+    
+    /**
+     * @brief Construct a new Agent object initialized
+     *        with basic parameters and identificators
+     *        but without any transport assigned.
+     * 
+     * @param home Agent's home city
+     * @param id Agent's identifier
+     * @param params Tree of parameters defining basic agent's
+     *               behaviour
+     */
+    Agent(const std::string& home, unsigned int id,
+          boost::property_tree::ptree params);
 
 // Interface
 public:
+
+    /**
+     * @brief Initializes a new transport between given cities
+     *        if possible.
+     * 
+     * @param origin Start point of the transport
+     * @param destination Transport's destination
+     * @param load Amount of stuff to transport
+     * @return true Transport was sucesfullt allocated
+     * @return false It is not possible for agent to perform transport
+     */
+    bool initializeTransport(const std::string& origin,
+                             const std::string& destination,
+                             unsigned int load);
+
 
 // Private constants
 private:
@@ -31,51 +65,51 @@ private:
     /* --- Agent's limits --- */
 
     /// Maximum agent's velocity
-    const int __MAX__VELOCITY;
+    const unsigned int __MAX_VELOCITY;
     
     /// Maximum agent's load in [kg]
-    const int __MAX__LOAD;
+    const unsigned int __MAX_LOAD;
 
     /// Maximum agent's continuant drive time in [min]
-    const int __MAX__DRIVE_TIME;
+    const unsigned int __MAX_DRIVE_TIME;
 
     /// Agent's gap time (gaps are taken once per __MAX_DRIVE_TIME)
-    const int __GAP__TIME;
+    const unsigned int __GAP_TIME;
 
     /// Probability for agent's breakdown
-    const float __BREAK_PROBABILITY;
+    const unsigned int __BREAK_PROBABILITY;
 
 //Private members
 private:
 
     /* --- Agent's identificators --- */
 
-    const std::string __HOME
+    const std::string __HOME;
 
-    const std::string __ID;
+    const unsigned int __ID;
 
-    const std::string __TRANSPORT_ID;
+    std::string __TRANSPORT_ID;
 
 
     /* --- Localization informations --- */    
 
     /// Coordinates given in [latitude; longitude]
-    std::pair<float, float> __cordinates;
+     boost::numeric::ublas::vector<float> __cordinates;
 
     /// Agent's road
     Route __route;
 
-    /// Index of the __route's point that
-    int __towardPointIndex;
+    /// Index of the __route's point that Agent's moving toward
+    unsigned int __towardPointIndex;
 
     /// Actual velocity in [km/h]
-    int __velocity;
+    unsigned int __velocity;
 
 
     /* --- Agent's informations --- */
     
     /// Agent's load in [kg]
-    int __load;
+    unsigned int __load;
 
     /// Start point of the route
     std::string __origin;

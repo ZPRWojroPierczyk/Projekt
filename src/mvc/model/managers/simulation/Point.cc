@@ -1,3 +1,13 @@
+/**
+ * @file Point.cc
+ * @author Wojtek Rokicki & Krzysiek Pierczyk
+ * @brief Implementation of the Point's class methods
+ * @version 0.1
+ * @date 2020-01-18
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
 #include <cmath>
 #include <string>
 #include <strstream>
@@ -43,7 +53,7 @@ Point::Point(int unsigned max_velocity,
 
 bool Point::isClose(Point point) const{
 
-    int distance = sqrt(
+    unsigned int distance = sqrt(
         pow(__coordinates[0] - point.toVector()[0], 2) +
         pow(__coordinates[0] - point.toVector()[0], 2)
     );
@@ -70,13 +80,13 @@ float Point::getCrashProbability() const{
 }
 
 float Point::getTrafficProbability() const{
-    return __TRASFFIC_PROBABILITY;
+    return __TRAFFIC_PROBABILITY;
 }
 
 bool Point::isTraffic() const{
     return __isTraffic;
 }
 
-void Point::setTraffic(bool isTraffic) const{
+void Point::setTraffic(bool isTraffic){
     __isTraffic = isTraffic;
 }

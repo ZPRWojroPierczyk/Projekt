@@ -18,7 +18,7 @@ envApp = env.Clone()
 if(platform.system() == "Linux"):
     envApp.Append( CPPPATH = [ ] )
     envApp.Append( LIBPATH = [ ] )
-    envApp.Append( LIBS = ['boost_thread', 'boost_program_options'] )
+    envApp.Append( LIBS = ['boost_thread', 'boost_program_options', 'sqlite3'] )
     # Custom compiller flags
     envApp.Append( CPPFLAGS = '' )
     # Custom linker flags

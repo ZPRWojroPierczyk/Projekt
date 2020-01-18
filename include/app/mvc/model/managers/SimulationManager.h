@@ -12,6 +12,7 @@
 #define SIMULATION_MANAGER_H
 #include <chrono>
 #include "Agent.h"
+#include "Transport.h"
 
 class SimulationCreatorManager;
 class LoadSimulationManager;
@@ -52,7 +53,7 @@ private:
     bool __isRunning;
     
     /// Simulated time (between 10 p.m. and 6 a.m.)
-    std::chrono::time_point __time;
+    std::chrono::system_clock::time_point __time;
 
     /// Indicates speed of the simulated time flow
     int __speedMultiplier;
@@ -69,7 +70,7 @@ private:
 // Private member methods
 private:
 
-    void __initialize()
+    void __initialize();
     void __run();
 
 };

@@ -8,11 +8,19 @@ import os
 # Build constants
 LINUX_BOOST_INCLUDE_PATH = '/usr/local/include/boost'
 LINUX_BOOST_LIB_PATH = '/usr/local/lib'
+
+LINUX_SQLITE3_INCLUDE_PATH = '/usr/inlude'
+LINUX_SQLITE3_LIB_PATH = '/usr/lib/x86_64-linux-gnu'
+
+#----------------------------------------------------------
+
 LINUX_CPPPATH = [ \
-    Dir(LINUX_BOOST_INCLUDE_PATH),
+    Dir(LINUX_BOOST_INCLUDE_PATH), \
+	Dir(LINUX_SQLITE3_INCLUDE_PATH) \
 ]
 LINUX_LIBPATH = [ \
 	Dir(LINUX_BOOST_LIB_PATH), \
+	Dir(LINUX_SQLITE3_LIB_PATH) \
 ]
 
 #----------------------------------------------------------
@@ -70,7 +78,9 @@ if(platform.system() == "Linux"):
 	# Custom compiller flags
 	env.Append( CPPFLAGS = '-Wall -pedantic -std=c++17 ' )
 	# Custom linker flags
-	env.Append( LINKFLAGS = '-Wall -Wl,-rpath={} '.format(LINUX_BOOST_LIB_PATH) )
+	env.Append( LINKFLAGS = '-Wall ' )
+	env.Append( LINKFLAGS = '-Wl,-rpath={} '.format(LINUX_BOOST_LIB_PATH))
+	env.Append( LINKFLAGS = '-Wl,-rpath={} '.format(LINUX_SQLITE3_LIB_PATH))
 
 	# Compile-time ROOT constant is used by the programm
 	# to be aware about it's structure's localization

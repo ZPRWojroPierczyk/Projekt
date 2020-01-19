@@ -1,0 +1,9 @@
+{
+    "agent": {
+        "malfunctionProbability": "0",
+        "maxDrivingTime": "0",
+        "breakTime": "0",
+        "maxLoad": "0",
+        "maxSpeed": "0"
+    }
+}

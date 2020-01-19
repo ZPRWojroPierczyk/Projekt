@@ -72,20 +72,21 @@ function citiesGoBack() {
 }
 
 function createCitiesJSON() {
-    var departments = "{";
+    var departments = "{\"cities\":{";
     var x = document.getElementById("Cities-Form");
     for (i = 0; i < x.length; i++) {
         var element = x.elements[i];
         if (element.type == "checkbox" && element.checked == true) {
             departments += "\"" + element.value + "\":{";
-            departments += "\"carsNumber\":" + x.elements[i + 1].value + ",";
-            departments += "\"driversNumber\":" + x.elements[i + 2].value + "},"
+            departments += "\"vehicles\":" + x.elements[i + 1].value + ",";
+            departments += "\"drivers\":" + x.elements[i + 2].value + "},"
 
         }
     }
 
     departments = departments.substr(0, departments.length - 1);
-    departments += "}";
+    departments += "}}";
+    alert(departments);
     return departments;
 }
 
@@ -273,7 +274,7 @@ function createAgentJSON() {
     var agent = "{\"agent\":{"
     var x = document.getElementById("Agent-Form");
 
-    agent += "\"maxfunctionProbability\":" + x.elements[0].value + ",";
+    agent += "\"malfunctionProbability\":" + x.elements[0].value + ",";
     agent += "\"maxDrivingTime\":" + x.elements[1].value + ",";
     agent += "\"breakTime\":" + x.elements[2].value + ",";
     agent += "\"maxLoad\":" + x.elements[3].value + ",";

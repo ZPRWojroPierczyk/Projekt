@@ -447,7 +447,7 @@ function disableStyleButton(element) {
 }
 
 function modificationsAccept() {
-    var json_data = "{";
+    var json_data = "{modifications:{";
 
     if (congestions.length != 0) {
         json_data += "\"congestions\":[";
@@ -485,7 +485,7 @@ function modificationsAccept() {
     }
 
     json_data = json_data.substr(0, json_data.length - 1);
-    json_data += "]}";
+    json_data += "]}}";
 
     var xhttp;
     xhttp = new XMLHttpRequest();

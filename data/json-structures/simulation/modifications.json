@@ -1,0 +1,18 @@
+{
+    "modifications":{
+        "congestions":[
+            ["0", "0"]
+        ],
+        "blockades":[
+            ["0", "0"]
+        ],
+        "agents":[
+            {   
+                "ID": "",
+                "break": "false",
+                "malfunction": "false",
+                "accident": "false"
+            }
+        ]
+    }
+}

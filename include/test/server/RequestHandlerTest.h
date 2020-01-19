@@ -15,14 +15,12 @@ class RequestHandlerTest
 // Constructor & Destructors
 public:
 
-    RequestHandlerTest(Server& server,   
-                       const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance);
+    RequestHandlerTest(Server& server, const std::string& client_id);
 
 // Public members
 public:
 
     RequestHandler requestHandler;
-    Server& __server;
 
 //Interface
 public:

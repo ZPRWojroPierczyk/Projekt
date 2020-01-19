@@ -162,7 +162,7 @@ void RequestHandler::operator()(
         /* --- Redirection not required --- */
 
         // Build the absolute path to the requested file
-        std::string path = __pathCat(__server.__docRoot, relative_path);
+        std::string path = __pathCat(__docRoot, relative_path);
         if(path.back() == '/')
             path.append("index.html");
 

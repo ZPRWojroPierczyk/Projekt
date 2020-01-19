@@ -48,8 +48,10 @@ public:
     bool __join (const std::string& clientID);
     bool __leave (const std::string& clientID);
     void __clean();
-    const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&
-    __getInstance(const std::string& clientID);
+    const std::shared_ptr<Controller>&
+    __getController(const std::string& clientID);
+    const std::shared_ptr<View>&
+    __getView(const std::string& clientID);
     const std::shared_ptr<boost::asio::steady_timer>&
     __getTimeoutTimer(const std::string& clientID);
 

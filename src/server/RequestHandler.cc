@@ -14,12 +14,10 @@
 /*-------------------------------- Constructors ----------------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-RequestHandler::RequestHandler(
-        Server& server,
-        const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance) :
-    __server(server),
-    __controller(instance.first),
-    __view(instance.second)
+RequestHandler::RequestHandler(const Server& server, const std::string& client_id)
+    : __docRoot(server.__docRoot)
+    , __controller(server.__getController(client_id))
+    , __view(server.__getView(client_id)) 
 {}
 
 

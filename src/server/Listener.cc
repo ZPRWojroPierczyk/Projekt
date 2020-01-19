@@ -94,8 +94,6 @@ void Server::Listener::__on_accept(const error_code& err_code){
 
         // Register client to the if they are new
         __server.__join(client_id);
-        
-
 
         // Create a new session for this client basing on the record in clients table
         std::make_shared<HttpSession>(

@@ -195,7 +195,6 @@ private:
      */
     bool __leave (const std::string& client_id);
 
-
     /**
      * @brief Removes expired record from the clients table
      */
@@ -203,17 +202,24 @@ private:
 
     /** 
      * @param client_id 
-     * @return Instance of the app assigned to the specified client
+     * @return Instance of controller assigned to the specified client
      */
-    const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&
-    __getInstance(const std::string& client_id);
+    const std::shared_ptr<Controller>&
+    __getController(const std::string& client_id) const;
+
+    /** 
+     * @param client_id 
+     * @return Instance of view assigned to the specified client
+     */
+    const std::shared_ptr<View>&
+    __getView(const std::string& client_id) const;
 
     /**
      * @param client_id 
      * @return Pointer to the client's timeout timer
      */
     const std::shared_ptr<boost::asio::steady_timer>&
-    __getTimeoutTimer(const std::string& client_id);
+    __getTimeoutTimer(const std::string& client_id) const;
 
 };
 

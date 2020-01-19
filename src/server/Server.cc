@@ -215,12 +215,17 @@ void Server::__clean(){
     return;
 }
 
-const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&
-Server::__getInstance(const std::string& client_id){
-    return __clients[client_id].second;
+const std::shared_ptr<Controller>&
+Server::__getController(const std::string& client_id) const{
+    return __clients.at(client_id).second.first;
+}
+
+const std::shared_ptr<View>&
+Server::__getView(const std::string& client_id) const{
+    return __clients.at(client_id).second.second;
 }
 
 const std::shared_ptr<boost::asio::steady_timer>&
-Server::__getTimeoutTimer(const std::string& client_id){
-    return __clients[client_id].first;
+Server::__getTimeoutTimer(const std::string& client_id) const{
+    return __clients.at(client_id).first;
 }

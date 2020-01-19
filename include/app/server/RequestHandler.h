@@ -36,16 +36,16 @@ class RequestHandlerTest;
 class RequestHandler
 {
 // Constructors & Destructors
-public:
+public:    
 
     /**
      * @brief Construct a new RequestHandler with given pointers to Controller and View modules
      *        of the MVC instance 
      * 
-     * @param instance Pair containing pointers to Controller and View instance
+     * @param server Reference to the Server object
+     * @param client_id 
      */
-    RequestHandler(Server& server,
-                   const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>& instance);
+    RequestHandler(const Server& server, const std::string& client_id);
 
 //Interface
 public:
@@ -65,7 +65,7 @@ private:
 private:
 
     /// Reference to the Serverj instance
-    Server& __server;
+    const std::string& __docRoot;
 
     /// Pointer to the Controller instance
     std::shared_ptr<Controller> __controller;

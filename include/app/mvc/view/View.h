@@ -51,7 +51,6 @@ public:
      * @brief Initializes a new instance of the View.
      * 
      * @param model Shared pointer to the Model instance
-     * @param doc_root Absolute path to the folder containing web-files
      */
     View(const std::shared_ptr<Model>& model);
 
@@ -59,8 +58,6 @@ public:
 public:
 
     /**
-     * @todo Implement Themes differencing
-     * 
      * @brief Evaluates path to the requested resource. If resource is
      *        a .css files method modifies target basing on actual Theme
      *        set in the model. Else, it returns passed path without changes.
@@ -76,7 +73,6 @@ public:
      * @param is_redirect [out] True if requested page is not available at now and
      *                          redirect response is required
      * @return Evaluated, relative path to the requested reource
-     * 
      * 
      */    
     std::string getResource(const std::string& target, bool& is_redirect);
@@ -94,7 +90,7 @@ public:
 private:
 
     /// Pointer to the model
-    const std::shared_ptr<Model>& __model;
+    const std::shared_ptr<Model> __model;
 
 };
 

@@ -54,7 +54,7 @@ public:
 private:
 
     /// Pointer to the Model instance
-    std::shared_ptr<Model> __model;
+    const std::shared_ptr<Model> __model;
 
 };
 

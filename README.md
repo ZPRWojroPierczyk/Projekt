@@ -32,6 +32,14 @@ var headerName = "Content-type";
 var headerValue = "creator/transports";
 var sendString = json_form_data;
 ```
+
+```
+//Agent parameters form data
+var headerName = "Content-type";
+var headerValue = "creator/agent";
+var sendString = json_form_data;
+```
+
 ```
 //Map parameters form data
 var headerName = "Content-type";

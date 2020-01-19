@@ -40,9 +40,14 @@ void ServerTest::__clean(){
     return server.__clean();
 }
 
-const std::pair<std::shared_ptr<Controller>, std::shared_ptr<View>>&
-ServerTest::__getInstance(const std::string& clientID){
-    return server.__getInstance(clientID);
+const std::shared_ptr<Controller>&
+ServerTest::__getController(const std::string& client_id){
+    return server.__clients[client_id].second.first;
+}
+
+const std::shared_ptr<View>&
+ServerTest::__getView(const std::string& client_id){
+    return server.__clients[client_id].second.second;
 }
 
 const std::shared_ptr<boost::asio::steady_timer>&

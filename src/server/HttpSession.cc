@@ -30,7 +30,7 @@ HttpSession::HttpSession(Server& server,
     __server(server),
     __socket(std::move(socket)),
     __sessionTimeoutTimer(__server.__context),
-    __handler(server, __server.__getInstance(client_id))
+    __handler(server, client_id)
 {}
 
 

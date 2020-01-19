@@ -22,7 +22,10 @@ class SimulationManager
 // Constructors & Destructors
 public:
 
-    SimulationManager() = default;
+    /**
+     * @brief Constructs uninitialized simulation
+     */
+    SimulationManager();
 
 //Interface
 public:

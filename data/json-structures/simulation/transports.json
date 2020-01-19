@@ -1,15 +1,8 @@
 {
-    "transports": [{
-            "city": "",
-            "ID": "",
+    "agents": [{
             "from": "",
             "to": "",
-            "load": "",
-            "position": ["0", "0"],
-            "path": {"DirectionAPI": "Whole route structure"},
-            "break": "",
-            "malfunction": "",
-            "accident": "",
+            "amount": "",
             "transportStatus": ""
         }
 

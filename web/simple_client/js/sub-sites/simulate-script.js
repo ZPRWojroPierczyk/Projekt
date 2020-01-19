@@ -308,7 +308,7 @@ function sendInformation(element) {
     xhttp = new XMLHttpRequest();
     xhttp.open("POST", "", true);
     var headerName = "Information";
-    var headerValue = "simulation-" + element.getAttribute("data-icon");
+    var headerValue = "simulation/" + element.getAttribute("data-icon");
     xhttp.setRequestHeader(headerName, headerValue);
     xhttp.send();
 
@@ -489,7 +489,7 @@ function modificationsAccept() {
 
     xhttp.open("POST", "", true);
     var headerName = "Content-Type";
-    var headerValue = "simulation-modifications";
+    var headerValue = "simulation/modifications";
     var sendString = json_data;
     xhttp.setRequestHeader(headerName, headerValue);
     xhttp.send(sendString);
@@ -529,7 +529,7 @@ function querying() {
 
     xhttp.open("POST", "", true);
     var headerName = "Information";
-    var headerValue = "simulation-snapshot-request";
+    var headerValue = "simulation/snapshot-request";
     xhttp.setRequestHeader(headerName, headerValue);
     xhttp.send();
 }

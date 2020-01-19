@@ -70,37 +70,37 @@ POST requests - sending information about request - buttons state reflection (wi
 ```
 //Simulation pause
 var headerName = "Information";
-var headerValue = "simulation-stop";
+var headerValue = "simulation/stop";
 ```
 
 ```
 //Simulation play
 var headerName = "Information";
-var headerValue = "simulation-play";
+var headerValue = "simulation/play";
 ```
 
 ```
 //Simulation forward
 var headerName = "Information";
-var headerValue = "simulation-forward";
+var headerValue = "simulation/forward";
 ```
 
 ```
 //Simulation backward
 var headerName = "Information";
-var headerValue = "simulation-backward";
+var headerValue = "simulation/backward";
 ```
 
 ```
 //Simulation fast forward
 var headerName = "Information";
-var headerValue = "simulation-fast-forward";
+var headerValue = "simulation/fast-forward";
 ```
 
 ```
 //Simulation fast backward
 var headerName = "Information";
-var headerValue = "simulation-fast-backward";
+var headerValue = "simulation/fast-backward";
 ```
 
 POST requests - sending information about modifications (without response):
@@ -108,6 +108,6 @@ POST requests - sending information about modifications (without response):
 ```
 //Simulation modifications
 var headerName = "Content-type";
-var headerValue = "simulation-modifications";
+var headerValue = "simulation/modifications";
 var sendString = json_data;
 ```

@@ -27,11 +27,11 @@ function citiesAccept() {
     for (i = 0; i < x.length; i++) {
         var element = x.elements[i];
         if (element.type == "checkbox" && element.checked == true) {
-            //Checking if cars and drivers numbers are correct
-            if (x.elements[i + 1].value < 0 || x.elements[i + 2].value < 0 ||
-                !isIntegral(x.elements[i + 1].value) || !isIntegral(x.elements[i + 2].value)) {
+            //Checking if cars are correct
+            if (x.elements[i + 1].value < 0 ||
+                !isIntegral(x.elements[i + 1].value)) {
                 alert(element.getAttribute("data-name") +
-                    " niepoprawnie uzupełniony. Liczba pojazdów i kierowców musi być nieujemna oraz całkowita.\
+                    " niepoprawnie uzupełniony. Liczba pojazdów musi być nieujemna oraz całkowita.\
                   Proszę wprowadzić poprawne dane ponownie.");
                 return;
             }
@@ -78,9 +78,7 @@ function createCitiesJSON() {
         var element = x.elements[i];
         if (element.type == "checkbox" && element.checked == true) {
             departments += "\"" + element.value + "\":{";
-            departments += "\"vehicles\":" + x.elements[i + 1].value + ",";
-            departments += "\"drivers\":" + x.elements[i + 2].value + "},"
-
+            departments += "\"vehicles\":" + x.elements[i + 1].value + "},";
         }
     }
 

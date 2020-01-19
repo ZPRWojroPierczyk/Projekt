@@ -1,6 +1,6 @@
 {
     "cities": {
-        "bydgoszcz": {"vehicles": "0", "drivers": "0"},
-        "gdansk": {"vehicles": "0", "drivers": "0"}
+        "bydgoszcz": {"vehicles": "0"},
+        "gdansk": {"vehicles": "0"}
     }
 }

@@ -473,9 +473,9 @@ function modificationsAccept() {
     json_data += "\"agents\":[";
 
     for (var i = 0; i < agentsProperties.length; i++) {
-        var no = agents[i].title.substring(agents[i].title.search("no.") + 3, agents[i].title.length);
-        // --- var no = agents[i].title.substring(agents[i].title.search("ID") + 4, agents[i].title.search("Transport") - 1);
-        json_data += "{\"ID\": " + no + ", ";
+        //var no = agents[i].title.substring(agents[i].title.search("no.") + 3, agents[i].title.length);
+        json_data += "{\"city\": " + agentsProperties[i].city + ", "; ////////////////////////////////////////////////////////////////////////////////////
+        json_data += "\"ID\": " + agentsProperties[i].id + ", ";
         json_data += "\"break\": " + agentsProperties[i].break+", ";
         json_data += "\"malfunction\": " + agentsProperties[i].malfunction + ", ";
         json_data += "\"accident\": " + agentsProperties[i].accident + "},";
@@ -549,35 +549,40 @@ var lorryIcon = {
 function mapUpdate(jsonData) {
     jsonData = JSON.parse(jsonData);
     clearMap();
-    for (var i = 0; i < jsonData.transports.length; i++) {
-        var transport = jsonData.transports[i];
+    for (var i = 0; i < jsonData.agents.length; i++) {
+        var agent = jsonData.agents[i];
         //Marker
-        var agentLatlng = new google.maps.LatLng(transport.position[0], transport.position[1]); // Number()
+        var agentLatlng = new google.maps.LatLng(agent.position[0], agent.position[1]); // Number()
         agents.push(new google.maps.Marker({
             position: agentLatlng,
             map: map,
-            title: "Miasto przynal.: " + transport.city + "\nID: " + transport.ID +
-                "\nTransport z: " + transport.from + " do: " + transport.to +
-                "\nŁadunek: " + transport.load +
-                "\nPozycja: " + transport.position[0] + ", " + transport.position[1] +
-                "\nPrzerwa: " + transport.break+
-                "\nAwaria: " + transport.malfunction +
-                "\nWypadek: " + transport.accident,
+            title: "Miasto przynal.: " + agent.city + "\nID: " + agent.ID +
+                "\nTransport z: " + agent.from + " do: " + agent.to +
+                "\nŁadunek: " + agent.load +
+                "\nPozycja: " + agent.position[0] + ", " + agent.position[1] +
+                "\nPrzerwa: " + agent.break+
+                "\nAwaria: " + agent.malfunction +
+                "\nWypadek: " + agent.accident,
             icon: lorryIcon
         }));
         agents[agents.length - 1].setMap(map);
         agentsProperties[i] = {
+                city: agent.city,
+                id: agent.ID,
                 break: false,
                 malfunction: false,
                 accident: false
-            }
-            //Direction
+        }
+        //Direction
         directionsRendererArray[i] = new google.maps.DirectionsRenderer();
         directionsRendererArray[i].setMap(map);
-        directionsRendererArray[i].setDirections(transport.path);
+        directionsRendererArray[i].setDirections(agent.path);
+    }
+    for (var i = 0; i < jsonData.transports.length; i++) {
+        var transport = jsonData.transports[i];
         //Transports content
         var transportsContent = "<p>Z " + transport.from + " do " + transport.to + ". Ładunek: ";
-        transportsContent += transport.load + ". Status: " + transport.transportStatus + ".</p>";
+        transportsContent += transport.amount + ". Status: " + transport.transportStatus + ".</p>";
         document.getElementById("transportsContent").innerHTML = transportsContent;
     }
 }

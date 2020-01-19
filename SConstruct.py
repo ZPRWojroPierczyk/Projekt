@@ -9,8 +9,8 @@ import os
 LINUX_BOOST_INCLUDE_PATH = '/usr/local/include/boost'
 LINUX_BOOST_LIB_PATH = '/usr/local/lib'
 
-LINUX_SQLITE3_INCLUDE_PATH = '/usr/inlude'
-LINUX_SQLITE3_LIB_PATH = '/usr/lib/x86_64-linux-gnu'
+LINUX_SQLITE3_INCLUDE_PATH = '/home/nitrox/sqlite-autoconf-3300100'
+LINUX_SQLITE3_LIB_PATH = '/home/nitrox/sqlite-autoconf-3300100'
 
 #----------------------------------------------------------
 

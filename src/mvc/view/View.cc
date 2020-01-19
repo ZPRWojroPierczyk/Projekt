@@ -33,7 +33,7 @@ std::string View::getResource(const std::string& target, bool& is_redirect){
     if(target.find("simulate.html") != std::string::npos){
 
         // Check if simulation i running. If so, do not redirect request
-        if(__model->simulationManager.isSimulationRunning()){
+        if(__model->simulationManager.isSimulationInitialized()){
             response = target;
             is_redirect = false;
         }

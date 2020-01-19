@@ -6,8 +6,7 @@
 var position = [52.22977, 21.01178];
 
 // Cities and their coordinates
-var cities =
-{
+var cities = {
     cities: {
         bialystok: [53.133610, 23.163585],
         bydgoszcz: [53.123606, 18.013118],
@@ -84,13 +83,12 @@ var directionsRenderer = new google.maps.DirectionsRenderer();
 // ***
 directionsRenderer.setMap(map);
 // ***
-directionsService.route(
-    {
+directionsService.route({
         origin: new google.maps.LatLng(cities.cities.warszawa[0], cities.cities.warszawa[1]),
         destination: new google.maps.LatLng(cities.cities.poznan[0], cities.cities.poznan[1]),
         travelMode: 'DRIVING'
     },
-    function (response, status) {
+    function(response, status) {
         if (status == 'OK') {
             directionsRenderer.setDirections(response);
         } else {
@@ -334,8 +332,7 @@ function openSideMenuLeft() {
             google.maps.event.addListener(agents[i], 'click', agentClicked);
         }
         document.getElementById("mySideMenuLeft").style.width = "250px";
-    }
-    else alert("Modyfikacja tylko w trybie pauzy."); //can it block ajax and/or displaying?
+    } else alert("Modyfikacja tylko w trybie pauzy."); //can it block ajax and/or displaying?
 }
 
 function agentClicked(agent) {
@@ -479,7 +476,7 @@ function modificationsAccept() {
         var no = agents[i].title.substring(agents[i].title.search("no.") + 3, agents[i].title.length);
         // --- var no = agents[i].title.substring(agents[i].title.search("ID") + 4, agents[i].title.search("Transport") - 1);
         json_data += "{\"ID\": " + no + ", ";
-        json_data += "\"break\": " + agentsProperties[i].break + ", ";
+        json_data += "\"break\": " + agentsProperties[i].break+", ";
         json_data += "\"malfunction\": " + agentsProperties[i].malfunction + ", ";
         json_data += "\"accident\": " + agentsProperties[i].accident + "},";
     }
@@ -491,7 +488,7 @@ function modificationsAccept() {
     xhttp = new XMLHttpRequest();
 
     xhttp.open("POST", "", true);
-    var headerName = "Content-type";
+    var headerName = "Content-Type";
     var headerValue = "simulation-modifications";
     var sendString = json_data;
     xhttp.setRequestHeader(headerName, headerValue);
@@ -524,7 +521,7 @@ function closeSideMenuRight() {
 function querying() {
     var xhttp;
     xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             mapUpdate(this.responseText);
         }
@@ -562,19 +559,19 @@ function mapUpdate(jsonData) {
             title: "Miasto przynal.: " + transport.city + "\nID: " + transport.ID +
                 "\nTransport z: " + transport.from + " do: " + transport.to +
                 "\nŁadunek: " + transport.load +
-                "\nPozycja: " + transport.position[0] + ", " + transport.position[1] + 
-                "\nPrzerwa: " + transport.break +
+                "\nPozycja: " + transport.position[0] + ", " + transport.position[1] +
+                "\nPrzerwa: " + transport.break+
                 "\nAwaria: " + transport.malfunction +
                 "\nWypadek: " + transport.accident,
             icon: lorryIcon
         }));
         agents[agents.length - 1].setMap(map);
         agentsProperties[i] = {
-            break: false,
-            malfunction: false,
-            accident: false
-        }
-        //Direction
+                break: false,
+                malfunction: false,
+                accident: false
+            }
+            //Direction
         directionsRendererArray[i] = new google.maps.DirectionsRenderer();
         directionsRendererArray[i].setMap(map);
         directionsRendererArray[i].setDirections(transport.path);
@@ -585,7 +582,7 @@ function mapUpdate(jsonData) {
     }
 }
 
-function clearMap(){
+function clearMap() {
     var len;
 
     len = agents.length;

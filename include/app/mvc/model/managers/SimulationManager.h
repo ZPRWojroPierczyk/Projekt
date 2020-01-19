@@ -29,7 +29,7 @@ public:
 
     /* --- Simulation's state manipulation --- */
 
-    bool isSimulationRunning();
+    bool isSimulationInitialized();
     void pause();
     void reasume();
     void changeSpeed();

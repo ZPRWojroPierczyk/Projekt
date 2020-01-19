@@ -55,7 +55,7 @@ public:
      * @todo Implement SimulationCreatorManager::runSimulation()
      * @brief Runs simulation with set parameters
      */
-    void runSimulation();
+    void initializeSimulation();
 
 
     /* --- Getters & setters --- */
@@ -126,7 +126,6 @@ private:
 private:
 
     /**
-     * @todo Implement creator's loading
      * @brief Loads client's creator's state from the database 
      */
     void __loadCreator();
@@ -137,7 +136,6 @@ private:
     void __loadDefaultCreator();
     
     /**
-     * @todo Implement creator's saving
      * @brief Saves client's creator's state to the database
      */
     void __saveCreator();

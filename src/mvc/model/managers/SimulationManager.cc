@@ -21,8 +21,8 @@
 /*----------------------------- Public member methods ----------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-bool SimulationManager::isSimulationRunning(){
-    return false;
+bool SimulationManager::isSimulationInitialized(){
+    return __isInitialized;
 }
 
 
@@ -30,3 +30,7 @@ bool SimulationManager::isSimulationRunning(){
 /*--------------------------------------------------------------------------------*/
 /*----------------------------- Private member methods ---------------------------*/
 /*--------------------------------------------------------------------------------*/
+
+void SimulationManager::__initialize(){
+    __isInitialized = true;
+}

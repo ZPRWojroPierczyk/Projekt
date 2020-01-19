@@ -37,8 +37,9 @@ SimulationCreatorManager::~SimulationCreatorManager(){
 /*----------------------------- Public member methods ----------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-void runSimulation(){
-
+void SimulationCreatorManager::initializeSimulation(){
+    __simulationManager.__initialize();
+    return;
 }
 
 /*------------------------------- Getters & Setters ------------------------------*/
@@ -59,6 +60,25 @@ std::string SimulationCreatorManager::getMapParams(){
     return __getJSON(__mapParams);
 }
 
+void SimulationCreatorManager::setCities(const std::string& cities){
+    std::stringstream stream(cities);
+    pt::read_json(stream, __cities);
+}
+
+void SimulationCreatorManager::setTransports(const std::string& transports){
+    std::stringstream stream(transports);
+    pt::read_json(stream, __transports);
+}
+
+void SimulationCreatorManager::setAgentsParams(const std::string& agents_params){
+    std::stringstream stream(agents_params);
+    pt::read_json(stream, __agentsParams);
+}
+
+void SimulationCreatorManager::setMapParams(const std::string& map_params){
+    std::stringstream stream(map_params);
+    pt::read_json(stream, __mapParams);
+}
 
 
 /*--------------------------------------------------------------------------------*/

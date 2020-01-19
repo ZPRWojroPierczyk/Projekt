@@ -28,10 +28,10 @@ function citiesAccept() {
         var element = x.elements[i];
         if (element.type == "checkbox" && element.checked == true) {
             //Checking if cars and drivers numbers are correct
-            if (x.elements[i + 1].value < 0 || x.elements[i + 2].value < 0
-                || !isIntegral(x.elements[i + 1].value) || !isIntegral(x.elements[i + 2].value)) {
-                alert(element.getAttribute("data-name")
-                    + " niepoprawnie uzupełniony. Liczba pojazdów i kierowców musi być nieujemna oraz całkowita.\
+            if (x.elements[i + 1].value < 0 || x.elements[i + 2].value < 0 ||
+                !isIntegral(x.elements[i + 1].value) || !isIntegral(x.elements[i + 2].value)) {
+                alert(element.getAttribute("data-name") +
+                    " niepoprawnie uzupełniony. Liczba pojazdów i kierowców musi być nieujemna oraz całkowita.\
                   Proszę wprowadzić poprawne dane ponownie.");
                 return;
             }
@@ -86,7 +86,6 @@ function createCitiesJSON() {
 
     departments = departments.substr(0, departments.length - 1);
     departments += "}}";
-    alert(departments);
     return departments;
 }
 
@@ -119,16 +118,16 @@ function transportGenerateElement() {
     for (i = 0; i < x.length; i++) {
         var element = x.elements[i];
         if (element.type == "checkbox" && element.checked == true) {
-            html_select += "<option value=\"" + element.value + "\">" + element.getAttribute("data-name")
-                + "</option>";
+            html_select += "<option value=\"" + element.value + "\">" + element.getAttribute("data-name") +
+                "</option>";
         }
     }
 
     html_select += "</select>";
 
-    html_content += html_select + "</td><td>Do miasta: " + html_select + "</td><td>"
-        + "<input type=\"number\" value=\"0\" step=\"100\" min=\"0\">  kg</td>"
-        + "<td><button class=\"remove-transport-element-button\" onclick=\"return transportRemoveElement(event);\">\
+    html_content += html_select + "</td><td>Do miasta: " + html_select + "</td><td>" +
+        "<input type=\"number\" value=\"0\" step=\"100\" min=\"0\">  kg</td>" +
+        "<td><button class=\"remove-transport-element-button\" onclick=\"return transportRemoveElement(event);\">\
     Usuń</button></td></tr>";
 
     document.getElementById("Transport-Table").innerHTML += html_content;
@@ -238,7 +237,7 @@ function agentAccept() {
         Musi być typu całkowitego lub ułamka dziesiętnego.");
         return;
     }
-    if (x.elements[1].value <= 0 || !isFloat(x.elements[1].value)){
+    if (x.elements[1].value <= 0 || !isFloat(x.elements[1].value)) {
         alert("Maksymalny czas jazdy musi być dodatni oraz typu całkowitego lub ułamka dziesiętnego.");
         return;
     }
@@ -290,9 +289,9 @@ function mapParamsAccept() {
     var x = document.getElementById("Map-Params-Form");
     var i;
 
-    if (x.elements[0].value < 0 || x.elements[0].value > 100
-        || x.elements[1].value < 0 || x.elements[1].value > 100
-        || !isFloat(x.elements[0].value) || !isFloat(x.elements[1].value)) {
+    if (x.elements[0].value < 0 || x.elements[0].value > 100 ||
+        x.elements[1].value < 0 || x.elements[1].value > 100 ||
+        !isFloat(x.elements[0].value) || !isFloat(x.elements[1].value)) {
         alert("Prawdopodobieństwo nie może być ujemne, ani nie może przekraczać 100%. \
         Musi być typu całkowitego lub ułamka dziesiętnego.");
         return;
@@ -333,17 +332,17 @@ function createMapParamsJSON() {
 /******************                          Submitting forms                        *******************/
 
 function submitForms() {
-    if (cities_valid == true && transport_valid == true && agent_valid == true
-        && map_params_valid == true) {
-       
-       var xhttp;
-       xhttp = new XMLHttpRequest();
-       var url = "";
-       xhttp.open("POST", url, true);
-       var headerName = "Content-type";
-       var headerValue = "creator-success";
-       xhttp.setRequestHeader(headerName, headerValue);
-       xhttp.send();
+    if (cities_valid == true && transport_valid == true && agent_valid == true &&
+        map_params_valid == true) {
+
+        var xhttp;
+        xhttp = new XMLHttpRequest();
+        var url = "";
+        xhttp.open("POST", url, true);
+        var headerName = "Content-Type";
+        var headerValue = "creator-success";
+        xhttp.setRequestHeader(headerName, headerValue);
+        xhttp.send();
 
         return true;
     } else {
@@ -359,7 +358,7 @@ function sendJSON(jsonData, suffix) {
     xhttp = new XMLHttpRequest();
     var url = "";
     xhttp.open("POST", url, true);
-    var headerName = "Content-type";
+    var headerName = "Content-Type";
     var headerValue = "creator/" + suffix;
     var sendString = jsonData;
     xhttp.setRequestHeader(headerName, headerValue);

@@ -56,6 +56,18 @@ private:
     /// Pointer to the Model instance
     const std::shared_ptr<Model> __model;
 
+// Private member methods
+private:
+
+    /**
+     * @brief Identifies and executes client's action performed in the simulation's
+     *        creator.
+     * 
+     * @param action_type 
+     * @param body Data associated with an action
+     * @return Type of the data that View instance should be requested for.
+     */
+    std::string __creatorAction(const std::string& action_type, const std::string& body);
 };
 
 #endif

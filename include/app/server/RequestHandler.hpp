@@ -93,6 +93,8 @@ void RequestHandler::operator()(
                 // Erease header's name
                 auto toErase = std::string("Content-Type: ").length();
                 action_type.erase(0, toErase);
+                // Erase '\r' from the header
+                action_type = action_type.substr(0, action_type.size() - 1);
                 break;
             }
         }

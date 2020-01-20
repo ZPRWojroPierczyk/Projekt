@@ -5,10 +5,8 @@ import os
 #---------------------- Preparation -----------------------
 #----------------------------------------------------------
 
-LINUX_BOOST_INCLUDE_PATH = '/usr/local/include/boost'
-LINUX_BOOST_LIB_PATH = '/usr/local/lib'
-#LINUX_BOOST_INCLUDE_PATH = 'include/boost'
-#LINUX_BOOST_LIB_PATH = 'lib'
+LINUX_BOOST_INCLUDE_PATH = 'include/boost'
+LINUX_BOOST_LIB_PATH = 'lib/boost'
 
 LINUX_SQLITE3_INCLUDE_PATH = '/usr/inlude'
 LINUX_SQLITE3_LIB_PATH = '/usr/lib/x86_64-linux-gnu'
@@ -42,7 +40,8 @@ LINUX_LIBPATH = [ \
 includePath = str(Dir('include').srcnode().abspath)
 # List all subdirectories in include/
 for root, dirnames, filenames in os.walk(includePath):
-	LINUX_CPPPATH.append(Dir(root))
+	if root.count("boost") == 0:
+		LINUX_CPPPATH.append(Dir(root))
 
 #----------------------------------------------------------
 #---------------------- Preparation -----------------------

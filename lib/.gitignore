@@ -1,4 +1,1 @@
-# Symbolic link to /usr/local/lib (boost libs' location)
-local_lib/
-*libboost*
-cmake/
+boost/

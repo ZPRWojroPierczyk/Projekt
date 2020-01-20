@@ -5,7 +5,6 @@ import os
 #---------------------- Preparation -----------------------
 #----------------------------------------------------------
 
-# Build constants
 LINUX_BOOST_INCLUDE_PATH = '/usr/local/include/boost'
 LINUX_BOOST_LIB_PATH = '/usr/local/lib'
 

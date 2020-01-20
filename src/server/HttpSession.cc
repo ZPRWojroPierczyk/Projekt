@@ -11,7 +11,6 @@
 
 #include <iostream>
 #include <boost/beast/http.hpp>
-#include <boost/bind.hpp>
 #include "HttpSession.h"
 #include "RequestHandler.hpp"
 

@@ -1,7 +1,7 @@
 # Folder purpose
 Folder was created to store all object files
 ('*.o' - linux, '*.obj - windows) created during
-compilation process
+compilation process.
 
 # Folder structure
 .

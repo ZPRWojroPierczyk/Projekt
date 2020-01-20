@@ -42,25 +42,7 @@ BOOST_AUTO_TEST_CASE ( listenerRunTest, * ut::depends_on(
 "ServerSuite/ListenerClassSuite/listenerConstructorTest"
 ))
 {
-    // Create context
-    boost::asio::io_context context;
 
-    //Create IP address 
-    auto address = boost::asio::ip::make_address("0.0.0.0");
-    // Create new client 1
-    boost::asio::ip::tcp::endpoint endpoint(address, 8000);
-
-    // Create server
-    Server server(
-        std::string(ROOT) + "/config/http_server.conf"
-    );
-
-    // run() method test
-    BOOST_CHECK_NO_THROW(
-        std::make_shared<ListenerTest>(
-            server
-        )->run()
-    );
 }
 
 BOOST_AUTO_TEST_SUITE_END()

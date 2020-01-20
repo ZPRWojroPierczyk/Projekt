@@ -19,7 +19,7 @@ envTest = env.Clone()
 if(platform.system() == "Linux"):
     envTest.Append( CPPPATH = [ ] )
     envTest.Append( LIBPATH = [ ] )
-    envTest.Append( LIBS = ['boost_thread', 'boost_program_options', 'boost_unit_test_framework', 'sqlite3'] )
+    envTest.Append( LIBS = ['boost_thread', 'boost_program_options', 'boost_unit_test_framework', 'sqlite3', 'ssl', 'crypto'] )
     # Custom compiller flags
     envTest.Append( CPPFLAGS = '' )
     # Custom linker flags

@@ -1,7 +1,7 @@
 /**
  * @file SharedState.cc
  * @author Wojtek Rokicki & Krzysiek Pierczyk
- * @brief SharedState class' methods definitions
+ * @brief Implementation of Server's class methods
  * @version 0.1
  * @date 2020-01-02
  * 

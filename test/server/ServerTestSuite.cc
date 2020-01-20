@@ -168,29 +168,7 @@ BOOST_AUTO_TEST_CASE( serverLoadConfigTest )
  */
 BOOST_AUTO_TEST_CASE( serverJoinLeaveTest )
 {    
-    // Create server
-    ServerTest server_test(
-        std::string(ROOT) + "/config/http_server.conf"
-    );
 
-    // Create new client 1
-    std::string client_1("0.0.0.1");
-    // Create new client 2
-    std::string client_2("0.0.0.2");
-
-    // Join client - check if client was added
-    BOOST_CHECK(server_test.__join(client_1));
-    // Join another client - check if client was added
-    BOOST_CHECK(server_test.__join(client_2));
-    // Try to join client one more time - check if client was NOT added
-    BOOST_CHECK(server_test.__join(client_1) == false);
-
-    // Client 1 leaves
-    BOOST_CHECK(server_test.__leave(client_1));
-    // Client 2 leaves
-    BOOST_CHECK(server_test.__leave(client_2));
-    // Client 1 leaves one more time
-    BOOST_CHECK(server_test.__leave(client_1) == 0);
 }
 
 
@@ -200,25 +178,7 @@ BOOST_AUTO_TEST_CASE( serverJoinLeaveTest )
  */
 BOOST_AUTO_TEST_CASE( serverCleanTest )
 {
-    // Create server
-    ServerTest server_test(
-        std::string(ROOT) + "/config/http_server.conf"
-    );
 
-    // Client joins
-    server_test.__join("0.0.0.0");
-    
-    // Simulate client's timeout
-    server_test.__leave("0.0.0.0");
-
-    // Test if leave function works properly
-    BOOST_CHECK( server_test.__clients.count("None") == 1);
-
-    // Clean deleted client
-    server_test.__clean();
-
-    // Check if client is cleaned properly
-    BOOST_CHECK( server_test.__clients.empty() == true);
 }
 
 

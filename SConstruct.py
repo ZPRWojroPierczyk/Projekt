@@ -12,15 +12,25 @@ LINUX_BOOST_LIB_PATH = '/usr/local/lib'
 LINUX_SQLITE3_INCLUDE_PATH = '/usr/inlude'
 LINUX_SQLITE3_LIB_PATH = '/usr/lib/x86_64-linux-gnu'
 
+LINUX_SSL_INCLUDE_PATH = '/usr/inlude'
+LINUX_SSL_LIB_PATH = '/usr/lib/x86_64-linux-gnu'
+
+LINUX_CRYPTO_INCLUDE_PATH = '/usr/inlude'
+LINUX_CRYPTO_LIB_PATH = '/usr/lib/x86_64-linux-gnu'
+
 #----------------------------------------------------------
 
 LINUX_CPPPATH = [ \
     Dir(LINUX_BOOST_INCLUDE_PATH), \
-	Dir(LINUX_SQLITE3_INCLUDE_PATH) \
+	Dir(LINUX_SQLITE3_INCLUDE_PATH), \
+	Dir(LINUX_SSL_INCLUDE_PATH), \
+	Dir(LINUX_CRYPTO_INCLUDE_PATH) \
 ]
 LINUX_LIBPATH = [ \
 	Dir(LINUX_BOOST_LIB_PATH), \
-	Dir(LINUX_SQLITE3_LIB_PATH) \
+	Dir(LINUX_SQLITE3_LIB_PATH), \
+	Dir(LINUX_SSL_LIB_PATH), \
+	Dir(LINUX_CRYPTO_LIB_PATH) \
 ]
 
 #----------------------------------------------------------
@@ -85,6 +95,7 @@ if(platform.system() == "Linux"):
 	# Compile-time ROOT constant is used by the programm
 	# to be aware about it's structure's localization
 	env.Append( CPPFLAGS = '-D ROOT=\\\"{}\\\" '.format(Dir('.').abspath) )
+	env.Append( CPPFLAGS = '-D API_KEY=\\\"AIzaSyCjAs8A6v5EcrU6ccJ-W0WPe3mbdNS9Uik\\\" ' )
 
 	# Debug-dependant configuration
 	if debug == 1:

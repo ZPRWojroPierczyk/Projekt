@@ -10,7 +10,7 @@
  */
 #include <cmath>
 #include <string>
-#include <strstream>
+#include <sstream>
 #include "Point.h"
 
 namespace ul = boost::numeric::ublas;
@@ -19,9 +19,9 @@ namespace ul = boost::numeric::ublas;
 /*--------------------------- Constructors & Destructors -------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-Point::Point(int unsigned max_velocity,
-             int unsigned crash_probabiliy,
-             int unsigned traffic_probability,
+Point::Point(unsigned int max_velocity,
+             unsigned int crash_probabiliy,
+             unsigned int traffic_probability,
              boost::numeric::ublas::vector<float> coordinates) :
     __MAX_VELOCITY(max_velocity),
     __CRASH_PROBABILITY(crash_probabiliy),
@@ -53,12 +53,12 @@ Point::Point(int unsigned max_velocity,
 
 bool Point::isClose(Point point) const{
 
-    unsigned int distance = sqrt(
-        pow(__coordinates[0] - point.toVector()[0], 2) +
-        pow(__coordinates[0] - point.toVector()[0], 2)
+    double distance = std::sqrt(
+        std::pow(__coordinates[0] - point.toVector()[0], 2) +
+        std::pow(__coordinates[0] - point.toVector()[0], 2)
     );
 
-    if(distance > TOLERANCE)
+    if(static_cast<unsigned int>(distance) > TOLERANCE)
         return false;
     else
         return true;

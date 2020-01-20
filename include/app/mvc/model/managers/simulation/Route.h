@@ -39,7 +39,7 @@ public:
      *        and length
      * 
      * @param __path Vector of points constituting route
-     * @param __length Length of the route in [km]
+     * @param __length Length of the route in [m]
      */
     Route(std::vector<Point> __path, int __length);
 
@@ -88,7 +88,7 @@ private:
     /// List of points constituting the road
     std::vector<Point> __path;
 
-    /// Length of the road in [km]
+    /// Length of the road in [m]
     unsigned int __length;
 
 };

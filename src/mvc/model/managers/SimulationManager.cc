@@ -100,10 +100,10 @@ void SimulationManager::__initialize(boost::property_tree::ptree& cities,
                 // For agents that reside in the transport's origin
                 // and have no transport assigned yet
                 if(agent.getHome() == transport.getOrigin() &&
-                agent.getTransportID() == "")
+                   agent.getTransport() == nullptr)
                 {
                     agent.initializeTransport(
-                        transport.getID(),
+                        &transport,
                         transport.getOrigin(),
                         transport.getDestination(),
                         (amount_to_transport > agent.getMaxLoad()) ? agent.getMaxLoad() : amount_to_transport,

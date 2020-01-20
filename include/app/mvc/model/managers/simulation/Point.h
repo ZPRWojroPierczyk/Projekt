@@ -42,9 +42,9 @@ public:
      * 
      * @throw std::runtime_exception 
      */
-    Point(int unsigned max_velocity,
-          int unsigned crash_probabiliy,
-          int unsigned traffic_probability,
+    Point(unsigned int max_velocity,
+          unsigned int crash_probabiliy,
+          unsigned int traffic_probability,
           boost::numeric::ublas::vector<float> coordinates);
 
 // Interface

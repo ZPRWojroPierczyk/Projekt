@@ -100,9 +100,9 @@ void RequestHandler::operator()(
         }
 
         // Get body to the string
-        std::stringstream request_dody_stream;
-        request_dody_stream << req.body();
-        std::string request_body = request_dody_stream.str();
+        std::stringstream request_body_stream;
+        request_body_stream << req.body();
+        std::string request_body = request_body_stream.str();
 
         // Inform controller about client's action
         std::string requested_data = __controller->action(action_type, request_body);

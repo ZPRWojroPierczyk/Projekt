@@ -10,10 +10,12 @@
  */
 #ifndef AGENT_H 
 #define AGENT_H
+#include <chrono>
 #include <utility>
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include "Route.h"
+#include "Transport.h"
 
 /**
  * @brief Agent class represents a single Agent (a lorry) responsible for delivering transports
@@ -54,7 +56,7 @@ public:
      * @brief Initializes a new transport between given cities
      *        if possible.
      * 
-     * @param transport_id Identifier of the realized transport
+     * @param transport Pointer to the Transport object associated with an agent
      * @param origin Start point of the transport
      * @param destination Transport's destination
      * @param load Amount of stuff to transport
@@ -63,7 +65,7 @@ public:
      * @returns true Transport was sucesfullt allocated
      * @returns false It is not possible for agent to perform transport
      */
-    bool initializeTransport(const std::string& transport_id,
+    bool initializeTransport(Transport* transport,
                              const std::string& origin,
                              const std::string& destination,
                              unsigned int load,
@@ -89,7 +91,7 @@ public:
     /**
      * @returns Identifier of the transport realized by the agent
      */
-    std::string getTransportID() const;
+    const Transport* getTransport() const;
 
 // Private constants
 private:
@@ -122,8 +124,8 @@ private:
     /// Agent's identificator (unique per home city)
     const unsigned int __ID;
 
-    /// ID of the transport delivered by the agent
-    std::string __transportID;
+    /// Pointer to the Transport object associated with an agent
+    Transport* __transport;
 
 
     /* --- Localization informations --- */    
@@ -141,7 +143,7 @@ private:
     unsigned int __velocity;
 
 
-    /* --- Agent's informations --- */
+    /* --- Transport's informations --- */
     
     /// Agent's load in [kg]
     unsigned int __load;
@@ -154,6 +156,9 @@ private:
 
 
     /* --- Agent's state --- */
+
+    /// Duration of the continuous drive
+    std::chrono::milliseconds __continuousDriveTime;
 
     /// States whether agent have a break at now
     bool __isGap;

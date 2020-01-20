@@ -1,0 +1,38 @@
+
+\begin{DoxyRefList}
+\item[Member \mbox{\hyperlink{class_agent_a80c835ccbc46ed8c16bbd02b376bec29}{Agent::Agent}} (const std\+::string \&home, unsigned int id, boost\+::property\+\_\+tree\+::ptree params)]\label{todo__todo000003}%
+\Hypertarget{todo__todo000003}%
+As speed limits informations from google maps are not available, some simplification is taken and by default all agents move with maximum velocity all the time. 
+\item[Member \mbox{\hyperlink{class_agent_aa9c61eb7dc30204069ea99054c0f66ac}{Agent::initialize\+Transport}} (\mbox{\hyperlink{class_transport}{Transport}} $\ast$transport, const std\+::string \&origin, const std\+::string \&destination, unsigned int load, boost\+::property\+\_\+tree\+::ptree map\+\_\+params)]\label{todo__todo000004}%
+\Hypertarget{todo__todo000004}%
+Usually, Google Maps A\+PI perform no-\/gracefull connection close that results in \textquotesingle{}scocket truncated\textquotesingle{} error. We should handle ec though but in the way that would distinguish short read from a real error. 
+
+\label{todo__todo000005}%
+\Hypertarget{todo__todo000005}%
+Here, transport is accountes as impossible, if a single agent cannot accomplish it. In a target app there will be possible to change vehicles between drivers so that it can be possible that such a transport could be done. 
+
+\label{todo__todo000006}%
+\Hypertarget{todo__todo000006}%
+In a target application each point of the route should have max\+\_\+velocity set to the real-\/data-\/based value. For now, these data is not available, so velocity is unlimited.  
+\item[Member \mbox{\hyperlink{class_controller_ad48b9c7e1d1fd40e88b817a79cf68a53}{Controller::\+\_\+\+\_\+creator\+Action}} (const std\+::string \&action\+\_\+type, const std\+::string \&body)]\label{todo__todo000001}%
+\Hypertarget{todo__todo000001}%
+Implement servicing requests for sending actually saved forms data.  
+\item[Member \mbox{\hyperlink{class_controller_a5d8811631ab0d7854440f9e7685983e0}{Controller::\+\_\+\+\_\+simulation\+Action}} (const std\+::string \&action\+\_\+type, const std\+::string \&body)]\label{todo__todo000002}%
+\Hypertarget{todo__todo000002}%
+Implement incremental speed changes instead of fixed ones  
+\item[Member \mbox{\hyperlink{class_settings_manager_a8af0423a70cba1b011673af2cd80f192}{Settings\+Manager::\+\_\+\+\_\+load\+Settings}} ()]\label{todo__todo000008}%
+\Hypertarget{todo__todo000008}%
+Implement settings\textquotesingle{} loading  
+\item[Member \mbox{\hyperlink{class_settings_manager_a9e3bf3fdc53227717810414cf259d488}{Settings\+Manager::\+\_\+\+\_\+save\+Settings}} ()]\label{todo__todo000009}%
+\Hypertarget{todo__todo000009}%
+Implement settings\textquotesingle{} saving  
+\item[Member \mbox{\hyperlink{class_simulation_creator_manager_a7431086ef47e8f53e02221ed9d9c0fce}{Simulation\+Creator\+Manager::initialize\+Simulation}} ()]\label{todo__todo000010}%
+\Hypertarget{todo__todo000010}%
+Implement Simulation\+Creator\+Manager\+::run\+Simulation()  
+\item[Member \mbox{\hyperlink{class_view_a74464ce66433fad56073298ec9632c85}{View::get\+Data}} (const std\+::string \&requested\+\_\+data)]\label{todo__todo000011}%
+\Hypertarget{todo__todo000011}%
+Implements fetching data from the \mbox{\hyperlink{class_model}{Model}}  
+\item[Member \mbox{\hyperlink{class_view_a7a3cdb6874e250bc539b757c9495e80a}{View::get\+Resource}} (const std\+::string \&target, bool \&is\+\_\+redirect)]\label{todo__todo000007}%
+\Hypertarget{todo__todo000007}%
+.css files constituting another themes should be placed in the /web/simple\+\_\+client/css/themename\+\_\+folder and should be divided into index.\+css and sub-\/sites/file.\+css files.
+\end{DoxyRefList}

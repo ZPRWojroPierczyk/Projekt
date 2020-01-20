@@ -1,0 +1,74 @@
+\hypertarget{class_model}{}\doxysection{Model Class Reference}
+\label{class_model}\index{Model@{Model}}
+
+
+Main model of the application. Top layer of the application state interface.  
+
+
+
+
+{\ttfamily \#include $<$Model.\+h$>$}
+
+
+
+Collaboration diagram for Model\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_model__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_model_ac327d808fd3f9e15c3edd52061dbbcad}{Model}} (const std\+::string \&client\+\_\+id)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_model_af3d03ea6d07c86f4528ade9563fc3a36}\label{class_model_af3d03ea6d07c86f4528ade9563fc3a36}} 
+\mbox{\hyperlink{class_settings_manager}{Settings\+Manager}} \mbox{\hyperlink{class_model_af3d03ea6d07c86f4528ade9563fc3a36}{settings\+Manager}}
+\begin{DoxyCompactList}\small\item\em Module responsible for app\textquotesingle{}s settings. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_model_ab88dcbf2c130b53706fc3622dc8aee0f}\label{class_model_ab88dcbf2c130b53706fc3622dc8aee0f}} 
+\mbox{\hyperlink{class_simulation_manager}{Simulation\+Manager}} \mbox{\hyperlink{class_model_ab88dcbf2c130b53706fc3622dc8aee0f}{simulation\+Manager}}
+\begin{DoxyCompactList}\small\item\em Module managing simulation process. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_model_a4c12156c5daaf23f8965812b6d5554b0}\label{class_model_a4c12156c5daaf23f8965812b6d5554b0}} 
+\mbox{\hyperlink{class_simulation_creator_manager}{Simulation\+Creator\+Manager}} \mbox{\hyperlink{class_model_a4c12156c5daaf23f8965812b6d5554b0}{simulation\+Creator\+Manager}}
+\begin{DoxyCompactList}\small\item\em Module responsible for simulation creation (parameters introcuction) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_model_a79b626c56a178d9a4fa1d444f2ceda66}\label{class_model_a79b626c56a178d9a4fa1d444f2ceda66}} 
+\mbox{\hyperlink{class_load_simulation_manager}{Load\+Simulation\+Manager}} \mbox{\hyperlink{class_model_a79b626c56a178d9a4fa1d444f2ceda66}{load\+Simulation\+Manager}}
+\begin{DoxyCompactList}\small\item\em Module responsible for loading saved simulations. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main model of the application. Top layer of the application state interface. 
+
+\mbox{\hyperlink{class_model}{Model}} class represents a single instance of the application that can interact with a user. It manages states of the application and legal transitions between them. It contains modules responsible for particular functionalities like\+:
+
+
+\begin{DoxyItemize}
+\item simulation creation
+\item simulation processing
+\item saved simulation loading
+\item adjusting app\textquotesingle{}s settings 
+\end{DoxyItemize}
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_model_ac327d808fd3f9e15c3edd52061dbbcad}\label{class_model_ac327d808fd3f9e15c3edd52061dbbcad}} 
+\index{Model@{Model}!Model@{Model}}
+\index{Model@{Model}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{Model()}{Model()}}
+{\footnotesize\ttfamily Model\+::\+Model (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{client\+\_\+id }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+id} & Client\textquotesingle{}s ID used to interact with and appropriate set of data from database, associated with the client. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/mvc/model/\mbox{\hyperlink{_model_8h}{Model.\+h}}\item 
+/home/cris/\+Desktop/\+Projekt/src/mvc/model/\mbox{\hyperlink{_model_8cc}{Model.\+cc}}\end{DoxyCompactItemize}

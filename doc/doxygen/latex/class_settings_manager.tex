@@ -1,0 +1,161 @@
+\hypertarget{class_settings_manager}{}\doxysection{Settings\+Manager Class Reference}
+\label{class_settings_manager}\index{SettingsManager@{SettingsManager}}
+
+
+Class responsible for keeping track of application instance\textquotesingle{}s global settings.  
+
+
+
+
+{\ttfamily \#include $<$Settings\+Manager.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_settings_manager_a7583aca15ef86b0dd170b86b7104251f}\label{class_settings_manager_a7583aca15ef86b0dd170b86b7104251f}} 
+enum \mbox{\hyperlink{class_settings_manager_a7583aca15ef86b0dd170b86b7104251f}{Theme}} \{ {\bfseries D\+E\+F\+A\+U\+LT}
+ \}
+\begin{DoxyCompactList}\small\item\em Graphical themes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_settings_manager_a7083517f9efc14f1859438f63aafb556}\label{class_settings_manager_a7083517f9efc14f1859438f63aafb556}} 
+enum \mbox{\hyperlink{class_settings_manager_a7083517f9efc14f1859438f63aafb556}{Soundtrack}} \{ {\bfseries D\+E\+F\+A\+U\+LT}
+ \}
+\begin{DoxyCompactList}\small\item\em Soundtracks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_settings_manager_a3c9dca11e4c0c1d4dee52f0f39eb698d}{Settings\+Manager}} (const std\+::string \&client\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Creates a new settings menager for the app\textquotesingle{}s instance and loads client\textquotesingle{}s settings from the data base. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_settings_manager_a00f848310bc1f31a896580d1ea4c2e1c}\label{class_settings_manager_a00f848310bc1f31a896580d1ea4c2e1c}} 
+\mbox{\hyperlink{class_settings_manager_a00f848310bc1f31a896580d1ea4c2e1c}{$\sim$\+Settings\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Settings Manager and saves settings to the database. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_settings_manager_a7583aca15ef86b0dd170b86b7104251f}{Theme}} \mbox{\hyperlink{class_settings_manager_ad2f3f24b601ce69a45812202c209c17e}{get\+Theme}} ()
+\item 
+void \mbox{\hyperlink{class_settings_manager_aec4cf524a7c660b4acae24075df858df}{set\+Theme}} (\mbox{\hyperlink{class_settings_manager_a7583aca15ef86b0dd170b86b7104251f}{Theme}} theme)
+\begin{DoxyCompactList}\small\item\em Sets a new graphical theme from the set of available. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_settings_manager_a7083517f9efc14f1859438f63aafb556}{Soundtrack}} \mbox{\hyperlink{class_settings_manager_a5686bb466ae0f161ce840a7804601a24}{get\+Soundtrack}} ()
+\item 
+void \mbox{\hyperlink{class_settings_manager_a3d493bcd8c50aae11ea5712447eb0207}{set\+Soundtrack}} (\mbox{\hyperlink{class_settings_manager_a7083517f9efc14f1859438f63aafb556}{Soundtrack}} soundtrack)
+\begin{DoxyCompactList}\small\item\em Sets a new soundtrack from the set of available. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_settings_manager_a8af0423a70cba1b011673af2cd80f192}{\+\_\+\+\_\+load\+Settings}} ()
+\begin{DoxyCompactList}\small\item\em Loads client\textquotesingle{}s settings from the data base. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_settings_manager_a9e3bf3fdc53227717810414cf259d488}{\+\_\+\+\_\+save\+Settings}} ()
+\begin{DoxyCompactList}\small\item\em Saves client\textquotesingle{}s settings to the data base. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_settings_manager_ac866fe3beb4b8f311df018dcde56bcc3}\label{class_settings_manager_ac866fe3beb4b8f311df018dcde56bcc3}} 
+const std\+::string \mbox{\hyperlink{class_settings_manager_ac866fe3beb4b8f311df018dcde56bcc3}{\+\_\+\+\_\+client\+ID}}
+\begin{DoxyCompactList}\small\item\em ID of the client owning app instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_settings_manager_a998b095dd19ce497bcb1a40b4394dc6a}\label{class_settings_manager_a998b095dd19ce497bcb1a40b4394dc6a}} 
+\mbox{\hyperlink{class_settings_manager_a7583aca15ef86b0dd170b86b7104251f}{Theme}} \mbox{\hyperlink{class_settings_manager_a998b095dd19ce497bcb1a40b4394dc6a}{\+\_\+\+\_\+theme}}
+\begin{DoxyCompactList}\small\item\em Settings values. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_settings_manager_a39b7026987509606de7f16386819266b}\label{class_settings_manager_a39b7026987509606de7f16386819266b}} 
+\mbox{\hyperlink{class_settings_manager_a7083517f9efc14f1859438f63aafb556}{Soundtrack}} {\bfseries \+\_\+\+\_\+soundtrack}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class responsible for keeping track of application instance\textquotesingle{}s global settings. 
+
+Global settings involve graphic and auto settings. Class facilitates interface to load and save client\textquotesingle{}s settings to the database when the client is logginig in and logging out. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_settings_manager_a3c9dca11e4c0c1d4dee52f0f39eb698d}\label{class_settings_manager_a3c9dca11e4c0c1d4dee52f0f39eb698d}} 
+\index{SettingsManager@{SettingsManager}!SettingsManager@{SettingsManager}}
+\index{SettingsManager@{SettingsManager}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{SettingsManager()}{SettingsManager()}}
+{\footnotesize\ttfamily Settings\+Manager\+::\+Settings\+Manager (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{client\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Creates a new settings menager for the app\textquotesingle{}s instance and loads client\textquotesingle{}s settings from the data base. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+id} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_settings_manager_a8af0423a70cba1b011673af2cd80f192}\label{class_settings_manager_a8af0423a70cba1b011673af2cd80f192}} 
+\index{SettingsManager@{SettingsManager}!\_\_loadSettings@{\_\_loadSettings}}
+\index{\_\_loadSettings@{\_\_loadSettings}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{\_\_loadSettings()}{\_\_loadSettings()}}
+{\footnotesize\ttfamily void Settings\+Manager\+::\+\_\+\+\_\+load\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Loads client\textquotesingle{}s settings from the data base. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000008}{Todo}}]Implement settings\textquotesingle{} loading \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_settings_manager_a9e3bf3fdc53227717810414cf259d488}\label{class_settings_manager_a9e3bf3fdc53227717810414cf259d488}} 
+\index{SettingsManager@{SettingsManager}!\_\_saveSettings@{\_\_saveSettings}}
+\index{\_\_saveSettings@{\_\_saveSettings}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{\_\_saveSettings()}{\_\_saveSettings()}}
+{\footnotesize\ttfamily void Settings\+Manager\+::\+\_\+\+\_\+save\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Saves client\textquotesingle{}s settings to the data base. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000009}{Todo}}]Implement settings\textquotesingle{} saving \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_settings_manager_a5686bb466ae0f161ce840a7804601a24}\label{class_settings_manager_a5686bb466ae0f161ce840a7804601a24}} 
+\index{SettingsManager@{SettingsManager}!getSoundtrack@{getSoundtrack}}
+\index{getSoundtrack@{getSoundtrack}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{getSoundtrack()}{getSoundtrack()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_settings_manager_a7083517f9efc14f1859438f63aafb556}{Settings\+Manager\+::\+Soundtrack}} Settings\+Manager\+::get\+Soundtrack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Actuall soundtrack 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_settings_manager_ad2f3f24b601ce69a45812202c209c17e}\label{class_settings_manager_ad2f3f24b601ce69a45812202c209c17e}} 
+\index{SettingsManager@{SettingsManager}!getTheme@{getTheme}}
+\index{getTheme@{getTheme}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{getTheme()}{getTheme()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_settings_manager_a7583aca15ef86b0dd170b86b7104251f}{Settings\+Manager\+::\+Theme}} Settings\+Manager\+::get\+Theme (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Actuall graphical theme 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_settings_manager_a3d493bcd8c50aae11ea5712447eb0207}\label{class_settings_manager_a3d493bcd8c50aae11ea5712447eb0207}} 
+\index{SettingsManager@{SettingsManager}!setSoundtrack@{setSoundtrack}}
+\index{setSoundtrack@{setSoundtrack}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{setSoundtrack()}{setSoundtrack()}}
+{\footnotesize\ttfamily void Settings\+Manager\+::set\+Soundtrack (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_settings_manager_a7083517f9efc14f1859438f63aafb556}{Settings\+Manager\+::\+Soundtrack}}}]{soundtrack }\end{DoxyParamCaption})}
+
+
+
+Sets a new soundtrack from the set of available. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em soundtrack} & A new soundtrack \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_settings_manager_aec4cf524a7c660b4acae24075df858df}\label{class_settings_manager_aec4cf524a7c660b4acae24075df858df}} 
+\index{SettingsManager@{SettingsManager}!setTheme@{setTheme}}
+\index{setTheme@{setTheme}!SettingsManager@{SettingsManager}}
+\doxysubsubsection{\texorpdfstring{setTheme()}{setTheme()}}
+{\footnotesize\ttfamily void Settings\+Manager\+::set\+Theme (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_settings_manager_a7583aca15ef86b0dd170b86b7104251f}{Settings\+Manager\+::\+Theme}}}]{theme }\end{DoxyParamCaption})}
+
+
+
+Sets a new graphical theme from the set of available. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em theme} & A new theme \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/mvc/model/managers/\mbox{\hyperlink{_settings_manager_8h}{Settings\+Manager.\+h}}\item 
+/home/cris/\+Desktop/\+Projekt/src/mvc/model/managers/\mbox{\hyperlink{_settings_manager_8cc}{Settings\+Manager.\+cc}}\end{DoxyCompactItemize}

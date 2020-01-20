@@ -1,0 +1,74 @@
+\hypertarget{class_server_test}{}\doxysection{Server\+Test Class Reference}
+\label{class_server_test}\index{ServerTest@{ServerTest}}
+
+
+Collaboration diagram for Server\+Test\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=145pt]{class_server_test__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_server_test_a2bf460655be0b4d4cddc8f3200745d5b}\label{class_server_test_a2bf460655be0b4d4cddc8f3200745d5b}} 
+using \mbox{\hyperlink{class_server_test_a2bf460655be0b4d4cddc8f3200745d5b}{instance}} = std\+::pair$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_controller}{Controller}} $>$, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_view}{View}} $>$ $>$
+\begin{DoxyCompactList}\small\item\em Application\textquotesingle{}s instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_test_a1b2787266f04757fb4283a429438a764}\label{class_server_test_a1b2787266f04757fb4283a429438a764}} 
+using \mbox{\hyperlink{class_server_test_a1b2787266f04757fb4283a429438a764}{client}} = std\+::pair$<$ std\+::shared\+\_\+ptr$<$ boost\+::asio\+::steady\+\_\+timer $>$, \mbox{\hyperlink{class_server_test_a2bf460655be0b4d4cddc8f3200745d5b}{instance}} $>$
+\begin{DoxyCompactList}\small\item\em Type representing a single client. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_test_a35375c49741694c1a0c1edaa7fdbd350}\label{class_server_test_a35375c49741694c1a0c1edaa7fdbd350}} 
+using \mbox{\hyperlink{class_server_test_a35375c49741694c1a0c1edaa7fdbd350}{clients\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{class_server_test_a1b2787266f04757fb4283a429438a764}{client}} $>$
+\begin{DoxyCompactList}\small\item\em Set of clients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_server_test_adcc9c77442fa33039f0db56c8859365b}\label{class_server_test_adcc9c77442fa33039f0db56c8859365b}} 
+{\bfseries Server\+Test} (const std\+::string \&config\+File)
+\item 
+\mbox{\Hypertarget{class_server_test_a391f929c69c1112366ce6487c08d1c0a}\label{class_server_test_a391f929c69c1112366ce6487c08d1c0a}} 
+void {\bfseries run} ()
+\item 
+\mbox{\Hypertarget{class_server_test_a61528d9eda81627b7b09689c07a0b6e3}\label{class_server_test_a61528d9eda81627b7b09689c07a0b6e3}} 
+void {\bfseries \+\_\+\+\_\+stop} ()
+\item 
+\mbox{\Hypertarget{class_server_test_ad846867384be0a4f811f9bb45b813e85}\label{class_server_test_ad846867384be0a4f811f9bb45b813e85}} 
+void {\bfseries \+\_\+\+\_\+load\+Config} (const std\+::string \&config\+File)
+\item 
+\mbox{\Hypertarget{class_server_test_adab7d09dcb6ebc583fbeeb40483533e0}\label{class_server_test_adab7d09dcb6ebc583fbeeb40483533e0}} 
+bool {\bfseries \+\_\+\+\_\+join} (const std\+::string \&client\+ID)
+\item 
+\mbox{\Hypertarget{class_server_test_ad3dbeeebc5f1ca10cc20b710a8fd6be2}\label{class_server_test_ad3dbeeebc5f1ca10cc20b710a8fd6be2}} 
+bool {\bfseries \+\_\+\+\_\+leave} (const std\+::string \&client\+ID)
+\item 
+\mbox{\Hypertarget{class_server_test_a042087517b825f13a7884eabcb5d165b}\label{class_server_test_a042087517b825f13a7884eabcb5d165b}} 
+void {\bfseries \+\_\+\+\_\+clean} ()
+\item 
+\mbox{\Hypertarget{class_server_test_a5bd114bbf499c93c406c61b3066800e6}\label{class_server_test_a5bd114bbf499c93c406c61b3066800e6}} 
+const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_controller}{Controller}} $>$ \& {\bfseries \+\_\+\+\_\+get\+Controller} (const std\+::string \&client\+ID)
+\item 
+\mbox{\Hypertarget{class_server_test_a1ecba21f02582db1abdae81fb14f45cd}\label{class_server_test_a1ecba21f02582db1abdae81fb14f45cd}} 
+const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_view}{View}} $>$ \& {\bfseries \+\_\+\+\_\+get\+View} (const std\+::string \&client\+ID)
+\item 
+\mbox{\Hypertarget{class_server_test_a130fdcc6a7b0d075d3e6f3df28391bf7}\label{class_server_test_a130fdcc6a7b0d075d3e6f3df28391bf7}} 
+const std\+::shared\+\_\+ptr$<$ boost\+::asio\+::steady\+\_\+timer $>$ \& {\bfseries \+\_\+\+\_\+get\+Timeout\+Timer} (const std\+::string \&client\+ID)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_server_test_a50e18f4838101415ffe69dce10c34044}\label{class_server_test_a50e18f4838101415ffe69dce10c34044}} 
+\mbox{\hyperlink{class_server}{Server}} {\bfseries server}
+\item 
+\mbox{\Hypertarget{class_server_test_ad2f7e4ead40440a5f14fd7ab8deec7d5}\label{class_server_test_ad2f7e4ead40440a5f14fd7ab8deec7d5}} 
+\mbox{\hyperlink{class_server_test_a35375c49741694c1a0c1edaa7fdbd350}{clients\+Map}} \& {\bfseries \+\_\+\+\_\+clients}
+\item 
+\mbox{\Hypertarget{class_server_test_ac316be980817d560825909fd3985ef52}\label{class_server_test_ac316be980817d560825909fd3985ef52}} 
+boost\+::asio\+::io\+\_\+context \& {\bfseries \+\_\+\+\_\+context}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/test/server/\mbox{\hyperlink{_server_test_8h}{Server\+Test.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,175 @@
+\hypertarget{class_point}{}\doxysection{Point Class Reference}
+\label{class_point}\index{Point@{Point}}
+
+
+Class represents a single point on the road.  
+
+
+
+
+{\ttfamily \#include $<$Point.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_point_aff517dc37fa1e7812e8d672a031af6e4}{Point}} (unsigned int max\+\_\+velocity, unsigned int crash\+\_\+probabiliy, unsigned int traffic\+\_\+probability, boost\+::numeric\+::ublas\+::vector$<$ float $>$ coordinates)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_point}{Point}} object. Initializes \mbox{\hyperlink{class_point}{Point}} with all required parameters. Throw exception if parameters are invalid. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_point_a152bcab3f7bf6dda89c6fcb0521b9d4e}{is\+Close}} (\mbox{\hyperlink{class_point}{Point}} point) const
+\begin{DoxyCompactList}\small\item\em States whether two points are close each other. \end{DoxyCompactList}\item 
+boost\+::numeric\+::ublas\+::vector$<$ float $>$ \mbox{\hyperlink{class_point_a06d3c34b9467369281e5721aa1d97822}{to\+Vector}} () const
+\item 
+int \mbox{\hyperlink{class_point_ad0cf40322c41bc31231902bd2dd5efa4}{get\+Max\+Velocity}} () const
+\item 
+float \mbox{\hyperlink{class_point_adeb93c25271d0548d6ec87376d395a4d}{get\+Crash\+Probability}} () const
+\item 
+float \mbox{\hyperlink{class_point_a8777a84a3c9cbb482bd080c133e2d137}{get\+Traffic\+Probability}} () const
+\item 
+bool \mbox{\hyperlink{class_point_a9819210128b41d634692447efd12c10a}{is\+Traffic}} () const
+\item 
+void \mbox{\hyperlink{class_point_ae736420435aca8401254488bb1a841ff}{set\+Traffic}} (bool \mbox{\hyperlink{class_point_a9819210128b41d634692447efd12c10a}{is\+Traffic}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_point_a0862dadac59a1ebafb055dec5bd36f04}\label{class_point_a0862dadac59a1ebafb055dec5bd36f04}} 
+const unsigned int \mbox{\hyperlink{class_point_a0862dadac59a1ebafb055dec5bd36f04}{\+\_\+\+\_\+\+M\+A\+X\+\_\+\+V\+E\+L\+O\+C\+I\+TY}}
+\begin{DoxyCompactList}\small\item\em Max velocity at the point. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_point_ab2711bc336b4c0ca95c88a36f1b75b92}\label{class_point_ab2711bc336b4c0ca95c88a36f1b75b92}} 
+const unsigned int \mbox{\hyperlink{class_point_ab2711bc336b4c0ca95c88a36f1b75b92}{\+\_\+\+\_\+\+C\+R\+A\+S\+H\+\_\+\+P\+R\+O\+B\+A\+B\+I\+L\+I\+TY}}
+\begin{DoxyCompactList}\small\item\em Probability of the car crash in \mbox{[}\%\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_point_a16088dec0f0756177c6d12b0b7b00d38}\label{class_point_a16088dec0f0756177c6d12b0b7b00d38}} 
+const unsigned int \mbox{\hyperlink{class_point_a16088dec0f0756177c6d12b0b7b00d38}{\+\_\+\+\_\+\+T\+R\+A\+F\+F\+I\+C\+\_\+\+P\+R\+O\+B\+A\+B\+I\+L\+I\+TY}}
+\begin{DoxyCompactList}\small\item\em Probability of the traffic in \mbox{[}\%\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_point_aa9c75f70433706a7f82b83dc09c0f302}\label{class_point_aa9c75f70433706a7f82b83dc09c0f302}} 
+const boost\+::numeric\+::ublas\+::vector$<$ float $>$ \mbox{\hyperlink{class_point_aa9c75f70433706a7f82b83dc09c0f302}{\+\_\+\+\_\+coordinates}}
+\begin{DoxyCompactList}\small\item\em Coordinates of the point in \mbox{[}latitude; longitude\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_point_a2c9810826d296130230d09b7c15d6cc8}\label{class_point_a2c9810826d296130230d09b7c15d6cc8}} 
+bool \mbox{\hyperlink{class_point_a2c9810826d296130230d09b7c15d6cc8}{\+\_\+\+\_\+is\+Traffic}}
+\begin{DoxyCompactList}\small\item\em States if traffic occured at the point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_point_ab76435ec06039992ae240586cf90800d}\label{class_point_ab76435ec06039992ae240586cf90800d}} 
+static const unsigned int \mbox{\hyperlink{class_point_ab76435ec06039992ae240586cf90800d}{T\+O\+L\+E\+R\+A\+N\+CE}} = 1
+\begin{DoxyCompactList}\small\item\em Distance in \mbox{[}km\mbox{]} that indicates whether or not two Routes are running close to each other at some point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class represents a single point on the road. 
+
+Accumulates all essential informations about the route point as velocity limits, accidents and traffics probabilities. As point coordinates are represented by boost\+::numeric\+::ublas\+::vector instance get\+Vector() method makes it able to perform algebralical operations on the points calculating e.\+g. their distance or direction pointed by two Points 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_point_aff517dc37fa1e7812e8d672a031af6e4}\label{class_point_aff517dc37fa1e7812e8d672a031af6e4}} 
+\index{Point@{Point}!Point@{Point}}
+\index{Point@{Point}!Point@{Point}}
+\doxysubsubsection{\texorpdfstring{Point()}{Point()}}
+{\footnotesize\ttfamily Point\+::\+Point (\begin{DoxyParamCaption}\item[{unsigned int}]{max\+\_\+velocity,  }\item[{unsigned int}]{crash\+\_\+probabiliy,  }\item[{unsigned int}]{traffic\+\_\+probability,  }\item[{boost\+::numeric\+::ublas\+::vector$<$ float $>$}]{coordinates }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{class_point}{Point}} object. Initializes \mbox{\hyperlink{class_point}{Point}} with all required parameters. Throw exception if parameters are invalid. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em max\+\_\+velocity} & Max velocity at the point of the route \\
+\hline
+{\em crash\+\_\+probabiliy} & Probability of the crash at the point of the route \\
+\hline
+{\em traffic\+\_\+probability} & Probability of the traffic at the point of the route \\
+\hline
+{\em coordinates} & Coordinates of the point in \mbox{[}latitude; longitude\mbox{]}\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_point_adeb93c25271d0548d6ec87376d395a4d}\label{class_point_adeb93c25271d0548d6ec87376d395a4d}} 
+\index{Point@{Point}!getCrashProbability@{getCrashProbability}}
+\index{getCrashProbability@{getCrashProbability}!Point@{Point}}
+\doxysubsubsection{\texorpdfstring{getCrashProbability()}{getCrashProbability()}}
+{\footnotesize\ttfamily float Point\+::get\+Crash\+Probability (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+float Crash probability in \mbox{[}\%\mbox{]} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_point_ad0cf40322c41bc31231902bd2dd5efa4}\label{class_point_ad0cf40322c41bc31231902bd2dd5efa4}} 
+\index{Point@{Point}!getMaxVelocity@{getMaxVelocity}}
+\index{getMaxVelocity@{getMaxVelocity}!Point@{Point}}
+\doxysubsubsection{\texorpdfstring{getMaxVelocity()}{getMaxVelocity()}}
+{\footnotesize\ttfamily int Point\+::get\+Max\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+int Max velocity in \mbox{[}km/h\mbox{]} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_point_a8777a84a3c9cbb482bd080c133e2d137}\label{class_point_a8777a84a3c9cbb482bd080c133e2d137}} 
+\index{Point@{Point}!getTrafficProbability@{getTrafficProbability}}
+\index{getTrafficProbability@{getTrafficProbability}!Point@{Point}}
+\doxysubsubsection{\texorpdfstring{getTrafficProbability()}{getTrafficProbability()}}
+{\footnotesize\ttfamily float Point\+::get\+Traffic\+Probability (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+float Traffic Probability in \mbox{[}\%\mbox{]} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_point_a152bcab3f7bf6dda89c6fcb0521b9d4e}\label{class_point_a152bcab3f7bf6dda89c6fcb0521b9d4e}} 
+\index{Point@{Point}!isClose@{isClose}}
+\index{isClose@{isClose}!Point@{Point}}
+\doxysubsubsection{\texorpdfstring{isClose()}{isClose()}}
+{\footnotesize\ttfamily bool Point\+::is\+Close (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_point}{Point}}}]{point }\end{DoxyParamCaption}) const}
+
+
+
+States whether two points are close each other. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & \mbox{\hyperlink{class_point}{Point}} to compare\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Points are close to each other 
+
+false Points are not close each other 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_point_a9819210128b41d634692447efd12c10a}\label{class_point_a9819210128b41d634692447efd12c10a}} 
+\index{Point@{Point}!isTraffic@{isTraffic}}
+\index{isTraffic@{isTraffic}!Point@{Point}}
+\doxysubsubsection{\texorpdfstring{isTraffic()}{isTraffic()}}
+{\footnotesize\ttfamily bool Point\+::is\+Traffic (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+true \mbox{\hyperlink{class_point}{Point}} is under the traffic 
+
+false \mbox{\hyperlink{class_point}{Point}} is not under the traffic 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_point_ae736420435aca8401254488bb1a841ff}\label{class_point_ae736420435aca8401254488bb1a841ff}} 
+\index{Point@{Point}!setTraffic@{setTraffic}}
+\index{setTraffic@{setTraffic}!Point@{Point}}
+\doxysubsubsection{\texorpdfstring{setTraffic()}{setTraffic()}}
+{\footnotesize\ttfamily void Point\+::set\+Traffic (\begin{DoxyParamCaption}\item[{bool}]{is\+Traffic }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em traffic} & Traffic state to set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_point_a06d3c34b9467369281e5721aa1d97822}\label{class_point_a06d3c34b9467369281e5721aa1d97822}} 
+\index{Point@{Point}!toVector@{toVector}}
+\index{toVector@{toVector}!Point@{Point}}
+\doxysubsubsection{\texorpdfstring{toVector()}{toVector()}}
+{\footnotesize\ttfamily boost\+::numeric\+::ublas\+::vector$<$ float $>$ Point\+::to\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+Vector representation of the point 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/mvc/model/managers/simulation/Point.\+h\item 
+/home/cris/\+Desktop/\+Projekt/src/mvc/model/managers/simulation/\mbox{\hyperlink{_point_8cc}{Point.\+cc}}\end{DoxyCompactItemize}

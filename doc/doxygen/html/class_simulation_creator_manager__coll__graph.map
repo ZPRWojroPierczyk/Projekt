@@ -1,0 +1,4 @@
+<map id="SimulationCreatorManager" name="SimulationCreatorManager">
+<area shape="rect" id="node1" title="Class responsible for app&#39;s behaviour in the simulation creator." alt="" coords="5,95,181,121"/>
+<area shape="rect" id="node2" href="$class_simulation_manager.html" title="Main program&#39;s class representing core of the simulation." alt="" coords="27,5,160,32"/>
+</map>

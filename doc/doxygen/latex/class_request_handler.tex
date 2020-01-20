@@ -1,0 +1,168 @@
+\hypertarget{class_request_handler}{}\doxysection{Request\+Handler Class Reference}
+\label{class_request_handler}\index{RequestHandler@{RequestHandler}}
+
+
+Class constituting an interface between the server-\/side and the M\+VC instances.  
+
+
+
+
+{\ttfamily \#include $<$Request\+Handler.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_request_handler_a70389be490062d7a59b8e6e2de1d7b0c}{Request\+Handler}} (const \mbox{\hyperlink{class_server}{Server}} \&server, const std\+::string \&client\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_request_handler}{Request\+Handler}} with given pointers to \mbox{\hyperlink{class_controller}{Controller}} and \mbox{\hyperlink{class_view}{View}} modules of the M\+VC instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_request_handler_ab85cd6a4071d74e48722983389e54c0d}\label{class_request_handler_ab85cd6a4071d74e48722983389e54c0d}} 
+{\footnotesize template$<$class Body , class Allocator , class Send $>$ }\\void {\bfseries operator()} (boost\+::beast\+::http\+::request$<$ Body, boost\+::beast\+::http\+::basic\+\_\+fields$<$ Allocator $>$$>$ \&\&req, Send \&\&send)
+\item 
+{\footnotesize template$<$class Body , class Allocator , class Send $>$ }\\void \mbox{\hyperlink{class_request_handler_a3cdcdae218db3f9419fa5b051bce4159}{operator()}} (http\+::request$<$ Body, http\+::basic\+\_\+fields$<$ Allocator $>$$>$ \&\&req, Send \&\&send)
+\begin{DoxyCompactList}\small\item\em Produces an H\+T\+TP response for the given request. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+boost\+::beast\+::string\+\_\+view \mbox{\hyperlink{class_request_handler_ae0c131f5c4514e7495f4ba2efaf4e231}{\+\_\+\+\_\+mime\+Type}} (const boost\+::beast\+::string\+\_\+view \&path)
+\begin{DoxyCompactList}\small\item\em Return a reasonable mime type based on the extension of a file. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_request_handler_a20951b1a803273999135280dd671184c}{\+\_\+\+\_\+path\+Cat}} (const boost\+::beast\+::string\+\_\+view \&base, const boost\+::beast\+::string\+\_\+view \&path)
+\begin{DoxyCompactList}\small\item\em Append an H\+T\+TP rel-\/path to a local filesystem path. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_request_handler_a89682bfc4162886d00025f0a21595e24}\label{class_request_handler_a89682bfc4162886d00025f0a21595e24}} 
+const std\+::string \& \mbox{\hyperlink{class_request_handler_a89682bfc4162886d00025f0a21595e24}{\+\_\+\+\_\+doc\+Root}}
+\begin{DoxyCompactList}\small\item\em Reference to the Serverj instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_request_handler_a902b669fc1c77f99039ae91422a0f2a5}\label{class_request_handler_a902b669fc1c77f99039ae91422a0f2a5}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_controller}{Controller}} $>$ \mbox{\hyperlink{class_request_handler_a902b669fc1c77f99039ae91422a0f2a5}{\+\_\+\+\_\+controller}}
+\begin{DoxyCompactList}\small\item\em Pointer to the \mbox{\hyperlink{class_controller}{Controller}} instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_request_handler_a23746cad2465e06cd3bab8ffc7c6d0ec}\label{class_request_handler_a23746cad2465e06cd3bab8ffc7c6d0ec}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_view}{View}} $>$ \mbox{\hyperlink{class_request_handler_a23746cad2465e06cd3bab8ffc7c6d0ec}{\+\_\+\+\_\+view}}
+\begin{DoxyCompactList}\small\item\em Pointer to the \mbox{\hyperlink{class_view}{View}} instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_request_handler_ada35c72329cf8f80e65b63d44a1d3b78}\label{class_request_handler_ada35c72329cf8f80e65b63d44a1d3b78}} 
+class \mbox{\hyperlink{class_request_handler_ada35c72329cf8f80e65b63d44a1d3b78}{Request\+Handler\+Test}}
+\begin{DoxyCompactList}\small\item\em Class used to public private interface for unit tests. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class constituting an interface between the server-\/side and the M\+VC instances. 
+
+\mbox{\hyperlink{class_request_handler}{Request\+Handler}} is responsible for dealing with all clients\textquotesingle{} requests. In the first place it parses H\+T\+TP messages and interprets it. Basing on the request type (either P\+O\+ST or G\+E\+T/\+H\+E\+AD) it decides if \mbox{\hyperlink{class_model}{Model}} should be modified.
+
+\begin{DoxyNote}{Note}
+Client\textquotesingle{}s action that can influence \mbox{\hyperlink{class_model}{Model}} are sent with P\+O\+ST requests by the local Java\+Script scripts.
+\end{DoxyNote}
+If so, \mbox{\hyperlink{class_request_handler}{Request\+Handler}} calls \mbox{\hyperlink{class_controller_ac4595b66a4a1be48e2ad116936a1c203}{Controller\+::action()}} passing action\+Type, and data associated with an action to it. When the method returns \mbox{\hyperlink{class_request_handler}{Request\+Handler}} decides whether some data should be sent back to the client basing on the returned value. If so, it calls \mbox{\hyperlink{class_view_a74464ce66433fad56073298ec9632c85}{View\+::get\+Data()}} to get J\+S\+O\+N-\/formatted string constituting body for the response.
+
+\begin{DoxyNote}{Note}
+Type of the action is sent in the Content-\/\+Type header of the request.
+\end{DoxyNote}
+If \mbox{\hyperlink{class_request_handler}{Request\+Handler}} receives G\+E\+T/\+H\+E\+AD request, \mbox{\hyperlink{class_model}{Model}} does not need to be modifief (as it indicates browser\textquotesingle{}s request for the resources), so it only calls \mbox{\hyperlink{class_view_a7a3cdb6874e250bc539b757c9495e80a}{View\+::get\+Resource()}} to get a path to the file that should be sent back to the client.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{_controller_8h}{Controller.\+h}} 
+
+\mbox{\hyperlink{_view_8h}{View.\+h}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_request_handler_a70389be490062d7a59b8e6e2de1d7b0c}\label{class_request_handler_a70389be490062d7a59b8e6e2de1d7b0c}} 
+\index{RequestHandler@{RequestHandler}!RequestHandler@{RequestHandler}}
+\index{RequestHandler@{RequestHandler}!RequestHandler@{RequestHandler}}
+\doxysubsubsection{\texorpdfstring{RequestHandler()}{RequestHandler()}}
+{\footnotesize\ttfamily Request\+Handler\+::\+Request\+Handler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_server}{Server}} \&}]{server,  }\item[{const std\+::string \&}]{client\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{class_request_handler}{Request\+Handler}} with given pointers to \mbox{\hyperlink{class_controller}{Controller}} and \mbox{\hyperlink{class_view}{View}} modules of the M\+VC instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Reference to the \mbox{\hyperlink{class_server}{Server}} object \\
+\hline
+{\em client\+\_\+id} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_request_handler_ae0c131f5c4514e7495f4ba2efaf4e231}\label{class_request_handler_ae0c131f5c4514e7495f4ba2efaf4e231}} 
+\index{RequestHandler@{RequestHandler}!\_\_mimeType@{\_\_mimeType}}
+\index{\_\_mimeType@{\_\_mimeType}!RequestHandler@{RequestHandler}}
+\doxysubsubsection{\texorpdfstring{\_\_mimeType()}{\_\_mimeType()}}
+{\footnotesize\ttfamily boost\+::beast\+::string\+\_\+view Request\+Handler\+::\+\_\+\+\_\+mime\+Type (\begin{DoxyParamCaption}\item[{const boost\+::beast\+::string\+\_\+view \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Return a reasonable mime type based on the extension of a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & \+: Path to the requested resource \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Mime type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_request_handler_a20951b1a803273999135280dd671184c}\label{class_request_handler_a20951b1a803273999135280dd671184c}} 
+\index{RequestHandler@{RequestHandler}!\_\_pathCat@{\_\_pathCat}}
+\index{\_\_pathCat@{\_\_pathCat}!RequestHandler@{RequestHandler}}
+\doxysubsubsection{\texorpdfstring{\_\_pathCat()}{\_\_pathCat()}}
+{\footnotesize\ttfamily std\+::string Request\+Handler\+::\+\_\+\+\_\+path\+Cat (\begin{DoxyParamCaption}\item[{const boost\+::beast\+::string\+\_\+view \&}]{base,  }\item[{const boost\+::beast\+::string\+\_\+view \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Append an H\+T\+TP rel-\/path to a local filesystem path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em base} & Path to the doc\textquotesingle{}s root folder \\
+\hline
+{\em path} & Relative path to the resource \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returned path (normalized for the platform.) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_request_handler_a3cdcdae218db3f9419fa5b051bce4159}\label{class_request_handler_a3cdcdae218db3f9419fa5b051bce4159}} 
+\index{RequestHandler@{RequestHandler}!operator()@{operator()}}
+\index{operator()@{operator()}!RequestHandler@{RequestHandler}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$class Body , class Allocator , class Send $>$ \\
+void Request\+Handler\+::operator() (\begin{DoxyParamCaption}\item[{http\+::request$<$ Body, http\+::basic\+\_\+fields$<$ Allocator $>$$>$ \&\&}]{req,  }\item[{Send \&\&}]{send }\end{DoxyParamCaption})}
+
+
+
+Produces an H\+T\+TP response for the given request. 
+
+The type of the response object depends on the contents of the request, so the interface requires the caller to pass a generic lambda for receiving the response.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Body} & Is supplied as a template argument to the message class. It controls both the type of the data member of the resulting message object \\
+\hline
+{\em Allocator} & Allocator used for a beast\+::http\+::basic\+\_\+fields \\
+\hline
+{\em Send} & Generic lambda type used to send response\\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em req} & H\+T\+TP request \\
+\hline
+{\em send} & Generic lambda used to send response\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{_request_handler_8h_source}{Request\+Handler.\+h}} to get a comprehension about what operator() is responsible for. 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/server/Request\+Handler.\+h\item 
+/home/cris/\+Desktop/\+Projekt/src/server/\mbox{\hyperlink{_request_handler_8cc}{Request\+Handler.\+cc}}\item 
+/home/cris/\+Desktop/\+Projekt/include/app/server/\mbox{\hyperlink{_request_handler_8hpp}{Request\+Handler.\+hpp}}\end{DoxyCompactItemize}

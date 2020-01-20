@@ -1,0 +1,19 @@
+<map id="/home/cris/Desktop/Projekt/include/app/mvc/view/View.h" name="/home/cris/Desktop/Projekt/include/app/mvc/view/View.h">
+<area shape="rect" id="node1" title="Header file containing View declarations." alt="" coords="343,5,480,61"/>
+<area shape="rect" id="node2" href="$_view_8cc.html" title="Implementation of the Controller class." alt="" coords="98,109,247,165"/>
+<area shape="rect" id="node3" href="$_controller_8h.html" title="Header file containing Controller declarations." alt="" coords="322,109,501,165"/>
+<area shape="rect" id="node4" href="$_server_8h_source.html" title=" " alt="" coords="469,213,607,269"/>
+<area shape="rect" id="node6" href="$_http_session_8h.html" title="HttpSession class&#39; declaration." alt="" coords="647,421,797,477"/>
+<area shape="rect" id="node10" href="$_request_handler_8h_source.html" title=" " alt="" coords="199,317,370,373"/>
+<area shape="rect" id="node5" href="$main_8cc.html" title="Main function definition." alt="" coords="445,325,583,366"/>
+<area shape="rect" id="node15" href="$_listener_8h.html" title="Listener class&#39; declaration." alt="" coords="875,317,1012,373"/>
+<area shape="rect" id="node17" href="$_server_test_8h.html" title="Class used to test private interface of HttpSession class." alt="" coords="607,317,749,373"/>
+<area shape="rect" id="node7" href="$_http_session_8cc.html" title="HttpSession class&#39; methods definitions." alt="" coords="501,525,637,581"/>
+<area shape="rect" id="node8" href="$_listener_8cc.html" title="Listener class&#39; methods definitions." alt="" coords="913,525,1049,581"/>
+<area shape="rect" id="node9" href="$_http_session_test_8h_source.html" title=" " alt="" coords="661,525,836,581"/>
+<area shape="rect" id="node11" href="$_request_handler_8cc.html" title="Implementation of RequestHandler class&#39; methods." alt="" coords="215,421,354,477"/>
+<area shape="rect" id="node12" href="$_request_handler_8hpp.html" title="HTTP responses handler." alt="" coords="5,421,191,477"/>
+<area shape="rect" id="node13" href="$_request_handler_test_8h_source.html" title=" " alt="" coords="378,421,575,477"/>
+<area shape="rect" id="node14" href="$_request_handler_test_8hpp.html" title="Implementation of the template method of the RequestHandlerTest class." alt="" coords="266,525,477,581"/>
+<area shape="rect" id="node16" href="$_listener_test_8h_source.html" title=" " alt="" coords="821,421,970,477"/>
+</map>

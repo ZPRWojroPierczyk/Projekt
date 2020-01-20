@@ -1,0 +1,17 @@
+<map id="/home/cris/Desktop/Projekt/include/app/mvc/controller/Controller.h" name="/home/cris/Desktop/Projekt/include/app/mvc/controller/Controller.h">
+<area shape="rect" id="node1" title="Header file containing Controller declarations." alt="" coords="397,5,576,61"/>
+<area shape="rect" id="node2" href="$_server_8h_source.html" title=" " alt="" coords="418,109,555,165"/>
+<area shape="rect" id="node4" href="$_http_session_8h.html" title="HttpSession class&#39; declaration." alt="" coords="293,317,443,373"/>
+<area shape="rect" id="node8" href="$_request_handler_8h_source.html" title=" " alt="" coords="632,213,803,269"/>
+<area shape="rect" id="node3" href="$main_8cc.html" title="Main function definition." alt="" coords="253,221,392,262"/>
+<area shape="rect" id="node13" href="$_listener_8h.html" title="Listener class&#39; declaration." alt="" coords="41,213,178,269"/>
+<area shape="rect" id="node15" href="$_server_test_8h.html" title="Class used to test private interface of HttpSession class." alt="" coords="416,213,557,269"/>
+<area shape="rect" id="node5" href="$_http_session_8cc.html" title="HttpSession class&#39; methods definitions." alt="" coords="489,421,625,477"/>
+<area shape="rect" id="node6" href="$_listener_8cc.html" title="Listener class&#39; methods definitions." alt="" coords="124,421,260,477"/>
+<area shape="rect" id="node7" href="$_http_session_test_8h_source.html" title=" " alt="" coords="285,421,459,477"/>
+<area shape="rect" id="node9" href="$_request_handler_8cc.html" title="Implementation of RequestHandler class&#39; methods." alt="" coords="677,317,816,373"/>
+<area shape="rect" id="node10" href="$_request_handler_8hpp.html" title="HTTP responses handler." alt="" coords="467,317,653,373"/>
+<area shape="rect" id="node11" href="$_request_handler_test_8h_source.html" title=" " alt="" coords="840,317,1037,373"/>
+<area shape="rect" id="node12" href="$_request_handler_test_8hpp.html" title="Implementation of the template method of the RequestHandlerTest class." alt="" coords="833,421,1044,477"/>
+<area shape="rect" id="node14" href="$_listener_test_8h_source.html" title=" " alt="" coords="5,317,155,373"/>
+</map>

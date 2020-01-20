@@ -1,0 +1,146 @@
+\hypertarget{class_transport}{}\doxysection{Transport Class Reference}
+\label{class_transport}\index{Transport@{Transport}}
+
+
+Class represents a single transport created by the client.  
+
+
+
+
+{\ttfamily \#include $<$Transport.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_transport_a75444c1ededb9ed43e67df1090883692}{Transport}} (const std\+::string \&id, unsigned int load, const std\+::string \&origin, const std\+::string \&destination)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_transport}{Transport}}. Default definition se \+\_\+\+\_\+is\+Accomplishable field to false. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_transport_a895523b4707662160f93a67bff74a6a0}{Transport}} (const \mbox{\hyperlink{class_transport}{Transport}} \&transport)
+\begin{DoxyCompactList}\small\item\em Copying constructor. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_transport_a7f6a08d5b95240c29fec1c9e305fc7a6}{get\+ID}} () const
+\item 
+unsigned int \mbox{\hyperlink{class_transport_a67a1b110a7b5655b1d4a70b8fd8c7343}{get\+Load}} () const
+\item 
+std\+::string \mbox{\hyperlink{class_transport_ab132c77a12c657733753d6f038ee93fc}{get\+Origin}} () const
+\item 
+std\+::string \mbox{\hyperlink{class_transport_a6573fd468d52b4af6468091ccd7f4481}{get\+Destination}} () const
+\item 
+void \mbox{\hyperlink{class_transport_ad9c461704d3179cf0fdd3d56870cae26}{set\+Accomplishability}} (bool accomplishability)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_transport_aebe3ea648d70b52d91ccda2265eceda8}\label{class_transport_aebe3ea648d70b52d91ccda2265eceda8}} 
+const std\+::string \mbox{\hyperlink{class_transport_aebe3ea648d70b52d91ccda2265eceda8}{\+\_\+\+\_\+\+ID}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_transport}{Transport}}\textquotesingle{}s identifier. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transport_a99c6264c3f23e2d9d28c48428f222cde}\label{class_transport_a99c6264c3f23e2d9d28c48428f222cde}} 
+const unsigned int \mbox{\hyperlink{class_transport_a99c6264c3f23e2d9d28c48428f222cde}{\+\_\+\+\_\+\+L\+O\+AD}}
+\begin{DoxyCompactList}\small\item\em Amount of stuff to transport. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transport_a0fd42e12dd2057e6eed74eb5dc4a985d}\label{class_transport_a0fd42e12dd2057e6eed74eb5dc4a985d}} 
+const std\+::string \mbox{\hyperlink{class_transport_a0fd42e12dd2057e6eed74eb5dc4a985d}{\+\_\+\+\_\+\+O\+R\+I\+G\+IN}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_transport}{Transport}}\textquotesingle{}s origin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transport_ae5721a4a78fd21c35696fd5e56c701a6}\label{class_transport_ae5721a4a78fd21c35696fd5e56c701a6}} 
+const std\+::string \mbox{\hyperlink{class_transport_ae5721a4a78fd21c35696fd5e56c701a6}{\+\_\+\+\_\+\+D\+E\+S\+T\+I\+N\+A\+T\+I\+ON}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_transport}{Transport}}\textquotesingle{}s destination. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_transport_adf838ec319bffe342a0bcc765464fe3a}\label{class_transport_adf838ec319bffe342a0bcc765464fe3a}} 
+bool \mbox{\hyperlink{class_transport_adf838ec319bffe342a0bcc765464fe3a}{\+\_\+\+\_\+is\+Accomplishable}}
+\begin{DoxyCompactList}\small\item\em States if the transport is accomplishable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class represents a single transport created by the client. 
+
+Every transport holds four values\+: origin, destination, amount and information if the transport is accomplishable. These informations can be displayed at the simulation\textquotesingle{}s screen. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_transport_a75444c1ededb9ed43e67df1090883692}\label{class_transport_a75444c1ededb9ed43e67df1090883692}} 
+\index{Transport@{Transport}!Transport@{Transport}}
+\index{Transport@{Transport}!Transport@{Transport}}
+\doxysubsubsection{\texorpdfstring{Transport()}{Transport()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Transport\+::\+Transport (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{id,  }\item[{unsigned int}]{load,  }\item[{const std\+::string \&}]{origin,  }\item[{const std\+::string \&}]{destination }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{class_transport}{Transport}}. Default definition se \+\_\+\+\_\+is\+Accomplishable field to false. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+{\em load} & \\
+\hline
+{\em origin} & \\
+\hline
+{\em destination} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_transport_a895523b4707662160f93a67bff74a6a0}\label{class_transport_a895523b4707662160f93a67bff74a6a0}} 
+\index{Transport@{Transport}!Transport@{Transport}}
+\index{Transport@{Transport}!Transport@{Transport}}
+\doxysubsubsection{\texorpdfstring{Transport()}{Transport()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Transport\+::\+Transport (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_transport}{Transport}} \&}]{transport }\end{DoxyParamCaption})}
+
+
+
+Copying constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em transport} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_transport_a6573fd468d52b4af6468091ccd7f4481}\label{class_transport_a6573fd468d52b4af6468091ccd7f4481}} 
+\index{Transport@{Transport}!getDestination@{getDestination}}
+\index{getDestination@{getDestination}!Transport@{Transport}}
+\doxysubsubsection{\texorpdfstring{getDestination()}{getDestination()}}
+{\footnotesize\ttfamily std\+::string Transport\+::get\+Destination (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_transport}{Transport}}\textquotesingle{}s destination 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transport_a7f6a08d5b95240c29fec1c9e305fc7a6}\label{class_transport_a7f6a08d5b95240c29fec1c9e305fc7a6}} 
+\index{Transport@{Transport}!getID@{getID}}
+\index{getID@{getID}!Transport@{Transport}}
+\doxysubsubsection{\texorpdfstring{getID()}{getID()}}
+{\footnotesize\ttfamily std\+::string Transport\+::get\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_transport}{Transport}}\textquotesingle{}s identifier 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transport_a67a1b110a7b5655b1d4a70b8fd8c7343}\label{class_transport_a67a1b110a7b5655b1d4a70b8fd8c7343}} 
+\index{Transport@{Transport}!getLoad@{getLoad}}
+\index{getLoad@{getLoad}!Transport@{Transport}}
+\doxysubsubsection{\texorpdfstring{getLoad()}{getLoad()}}
+{\footnotesize\ttfamily unsigned int Transport\+::get\+Load (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+Amount of stuff to transport 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transport_ab132c77a12c657733753d6f038ee93fc}\label{class_transport_ab132c77a12c657733753d6f038ee93fc}} 
+\index{Transport@{Transport}!getOrigin@{getOrigin}}
+\index{getOrigin@{getOrigin}!Transport@{Transport}}
+\doxysubsubsection{\texorpdfstring{getOrigin()}{getOrigin()}}
+{\footnotesize\ttfamily std\+::string Transport\+::get\+Origin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_transport}{Transport}}\textquotesingle{}s origin 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_transport_ad9c461704d3179cf0fdd3d56870cae26}\label{class_transport_ad9c461704d3179cf0fdd3d56870cae26}} 
+\index{Transport@{Transport}!setAccomplishability@{setAccomplishability}}
+\index{setAccomplishability@{setAccomplishability}!Transport@{Transport}}
+\doxysubsubsection{\texorpdfstring{setAccomplishability()}{setAccomplishability()}}
+{\footnotesize\ttfamily void Transport\+::set\+Accomplishability (\begin{DoxyParamCaption}\item[{bool}]{accomplishability }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em accomplishability} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/mvc/model/managers/simulation/Transport.\+h\item 
+/home/cris/\+Desktop/\+Projekt/src/mvc/model/managers/simulation/\mbox{\hyperlink{_transport_8cc}{Transport.\+cc}}\end{DoxyCompactItemize}

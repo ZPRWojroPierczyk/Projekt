@@ -1,0 +1,115 @@
+\hypertarget{class_view}{}\doxysection{View Class Reference}
+\label{class_view}\index{View@{View}}
+
+
+\mbox{\hyperlink{class_view}{View}} class constitutes and interface between a \mbox{\hyperlink{class_request_handler}{Request\+Handler}} and the \mbox{\hyperlink{class_model}{Model}}.  
+
+
+
+
+{\ttfamily \#include $<$View.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_view_a0d811f748bee3af8b01b3cd9a736df12}{View}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ \&model)
+\begin{DoxyCompactList}\small\item\em Initializes a new instance of the \mbox{\hyperlink{class_view}{View}}. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_view_a7a3cdb6874e250bc539b757c9495e80a}{get\+Resource}} (const std\+::string \&target, bool \&is\+\_\+redirect)
+\begin{DoxyCompactList}\small\item\em Evaluates path to the requested resource. If resource is a .css files method modifies target basing on actual Theme set in the model. Else, it returns passed path without changes. In both cases \+\_\+doc\+Root path is inserted at the beggining of the target. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_view_a74464ce66433fad56073298ec9632c85}{get\+Data}} (const std\+::string \&requested\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Get the Data object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_view_af0563112f8eb613951d12fb59ff3ba75}\label{class_view_af0563112f8eb613951d12fb59ff3ba75}} 
+const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ \mbox{\hyperlink{class_view_af0563112f8eb613951d12fb59ff3ba75}{\+\_\+\+\_\+model}}
+\begin{DoxyCompactList}\small\item\em Pointer to the model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_view}{View}} class constitutes and interface between a \mbox{\hyperlink{class_request_handler}{Request\+Handler}} and the \mbox{\hyperlink{class_model}{Model}}. 
+
+When \mbox{\hyperlink{class_request_handler}{Request\+Handler}} gets a request from the client it parses it, optionally calls \mbox{\hyperlink{class_controller}{Controller}} to inform \mbox{\hyperlink{class_model}{Model}} about an action performed by the user and calls an appropriate \mbox{\hyperlink{class_view}{View}}\textquotesingle{}s method to get response to be sent back.
+
+There are two types of responses that \mbox{\hyperlink{class_view}{View}} can provide \mbox{\hyperlink{class_request_handler}{Request\+Handler}} with. The first is a path to the static file, that should be sent back to the client This kind of response is returned, when \mbox{\hyperlink{class_request_handler}{Request\+Handler}} receives a G\+ET request. G\+ET requests are always sent by the web browser and are associated with some kind of static resources to be sent back to the client. In this scenario \mbox{\hyperlink{class_request_handler}{Request\+Handler}} calls \mbox{\hyperlink{class_view_a7a3cdb6874e250bc539b757c9495e80a}{View\+::get\+Resource}} to get the Path to the file.
+
+In the second scenario, \mbox{\hyperlink{class_request_handler}{Request\+Handler}} receives P\+O\+ST request which indicates user\textquotesingle{}s action that was noticed by the local Jav\+Script script and was sent to the server. This situations doesn\textquotesingle{}t have to require any data beeing sent back to the client, but if so, \mbox{\hyperlink{class_request_handler}{Request\+Handler}} calls \mbox{\hyperlink{class_view_a74464ce66433fad56073298ec9632c85}{View\+::get\+Data}} that returns string containing a J\+S\+O\+N-\/formatted data that should be sent back to the client.
+
+All data that is returned to the \mbox{\hyperlink{class_request_handler}{Request\+Handler}} is always based on the \mbox{\hyperlink{class_model}{Model}}\textquotesingle{}s state and is independant from the \mbox{\hyperlink{class_controller}{Controller}}\textquotesingle{}s state.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{_request_handler_8h_source}{Request\+Handler.\+h}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_view_a0d811f748bee3af8b01b3cd9a736df12}\label{class_view_a0d811f748bee3af8b01b3cd9a736df12}} 
+\index{View@{View}!View@{View}}
+\index{View@{View}!View@{View}}
+\doxysubsubsection{\texorpdfstring{View()}{View()}}
+{\footnotesize\ttfamily View\+::\+View (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ \&}]{model }\end{DoxyParamCaption})}
+
+
+
+Initializes a new instance of the \mbox{\hyperlink{class_view}{View}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Shared pointer to the \mbox{\hyperlink{class_model}{Model}} instance \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_view_a74464ce66433fad56073298ec9632c85}\label{class_view_a74464ce66433fad56073298ec9632c85}} 
+\index{View@{View}!getData@{getData}}
+\index{getData@{getData}!View@{View}}
+\doxysubsubsection{\texorpdfstring{getData()}{getData()}}
+{\footnotesize\ttfamily std\+::string View\+::get\+Data (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{requested\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Get the Data object. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000011}{Todo}}]Implements fetching data from the \mbox{\hyperlink{class_model}{Model}} \end{DoxyRefDesc}
+
+\begin{DoxyParams}{Parameters}
+{\em requested\+\_\+data} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string 
+\end{DoxyReturn}
+At now there is a single P\+O\+ST request that can demand any data to be sent back to the client. This request is a querry for a simulation snapshot -\/ J\+S\+O\+N-\/formetted text containing informations about actual simulation\textquotesingle{}s state.\mbox{\Hypertarget{class_view_a7a3cdb6874e250bc539b757c9495e80a}\label{class_view_a7a3cdb6874e250bc539b757c9495e80a}} 
+\index{View@{View}!getResource@{getResource}}
+\index{getResource@{getResource}!View@{View}}
+\doxysubsubsection{\texorpdfstring{getResource()}{getResource()}}
+{\footnotesize\ttfamily std\+::string View\+::get\+Resource (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{target,  }\item[{bool \&}]{is\+\_\+redirect }\end{DoxyParamCaption})}
+
+
+
+Evaluates path to the requested resource. If resource is a .css files method modifies target basing on actual Theme set in the model. Else, it returns passed path without changes. In both cases \+\_\+doc\+Root path is inserted at the beggining of the target. 
+
+If requested page is a simulation page and simulation was not activated yet, redirection indicator is set to true and returne path points to the redirection target.
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & \mbox{[}in\mbox{]} Relative path to the requested resource \\
+\hline
+{\em is\+\_\+redirect} & \mbox{[}out\mbox{]} True if requested page is not available at now and redirect response is required \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Evaluated, relative path to the requested reource 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000007}{Todo}}].css files constituting another themes should be placed in the /web/simple\+\_\+client/css/themename\+\_\+folder and should be divided into index.\+css and sub-\/sites/file.\+css files.\end{DoxyRefDesc}
+
+
+If theme other than default is set, the only thing to change in target string is to insert \textquotesingle{}/themename\+\_\+folder\textquotesingle{} after \textquotesingle{}.../css\textquotesingle{}.
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/mvc/view/\mbox{\hyperlink{_view_8h}{View.\+h}}\item 
+/home/cris/\+Desktop/\+Projekt/src/mvc/view/\mbox{\hyperlink{_view_8cc}{View.\+cc}}\end{DoxyCompactItemize}

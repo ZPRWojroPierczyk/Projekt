@@ -1,0 +1,356 @@
+\hypertarget{class_simulation_creator_manager}{}\doxysection{Simulation\+Creator\+Manager Class Reference}
+\label{class_simulation_creator_manager}\index{SimulationCreatorManager@{SimulationCreatorManager}}
+
+
+Class responsible for app\textquotesingle{}s behaviour in the simulation creator.  
+
+
+
+
+{\ttfamily \#include $<$Simulation\+Creator\+Manager.\+h$>$}
+
+
+
+Collaboration diagram for Simulation\+Creator\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{class_simulation_creator_manager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_simulation_creator_manager_aa851e1a12e505504d8d8358be93fb0e6}{Simulation\+Creator\+Manager}} (const std\+::string \&client\+\_\+id, \mbox{\hyperlink{class_simulation_manager}{Simulation\+Manager}} \&simulation\+\_\+manager)
+\begin{DoxyCompactList}\small\item\em Creates a new settings menager for the app\textquotesingle{}s instance and loads client\textquotesingle{}s settings from the data base. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_creator_manager_a330fab10b2c32dca822cd01611efb817}\label{class_simulation_creator_manager_a330fab10b2c32dca822cd01611efb817}} 
+\mbox{\hyperlink{class_simulation_creator_manager_a330fab10b2c32dca822cd01611efb817}{$\sim$\+Simulation\+Creator\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Simulatoion Creator Manager and saves actual creator to the database. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulation_creator_manager_a7431086ef47e8f53e02221ed9d9c0fce}{initialize\+Simulation}} ()
+\begin{DoxyCompactList}\small\item\em Runs simulation with set parameters. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_simulation_creator_manager_a63933214d8d93cb9810de62a986f6ab5}{get\+Cities}} ()
+\item 
+void \mbox{\hyperlink{class_simulation_creator_manager_ae0825e06222ff1120359bd17f8ef085b}{set\+Cities}} (const std\+::string \&cities)
+\item 
+std\+::string \mbox{\hyperlink{class_simulation_creator_manager_a5abb6e7c8818005fc1dac4d2445e76b5}{get\+Transports}} ()
+\item 
+void \mbox{\hyperlink{class_simulation_creator_manager_a566259c1d40cac663df7365d72c412d3}{set\+Transports}} (const std\+::string \&transports)
+\item 
+std\+::string \mbox{\hyperlink{class_simulation_creator_manager_acb3781064040cec98b754c029c61ce3a}{get\+Agents\+Param}} ()
+\item 
+void \mbox{\hyperlink{class_simulation_creator_manager_afa353b5322156e6eefeeb7f9405f3134}{set\+Agents\+Params}} (const std\+::string \&agents\+\_\+params)
+\item 
+std\+::string \mbox{\hyperlink{class_simulation_creator_manager_a0440a0f52687ad95bc4f1ff0651e5b6c}{get\+Map\+Params}} ()
+\item 
+void \mbox{\hyperlink{class_simulation_creator_manager_a2c558511fa91bc8bb14b8d86d36bb942}{set\+Map\+Params}} (const std\+::string \&map\+\_\+params)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulation_creator_manager_ae28849c496760016dcc7b06226ae9520}\label{class_simulation_creator_manager_ae28849c496760016dcc7b06226ae9520}} 
+void \mbox{\hyperlink{class_simulation_creator_manager_ae28849c496760016dcc7b06226ae9520}{\+\_\+\+\_\+load\+Creator}} ()
+\begin{DoxyCompactList}\small\item\em Loads client\textquotesingle{}s creator\textquotesingle{}s state from the database. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_creator_manager_aa077bc259a11ab98aa0a6609d4f38e88}\label{class_simulation_creator_manager_aa077bc259a11ab98aa0a6609d4f38e88}} 
+void \mbox{\hyperlink{class_simulation_creator_manager_aa077bc259a11ab98aa0a6609d4f38e88}{\+\_\+\+\_\+load\+Default\+Creator}} ()
+\begin{DoxyCompactList}\small\item\em Loads a default creator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_creator_manager_a6161afc6c5cd7698a8bfe63d1f44f478}\label{class_simulation_creator_manager_a6161afc6c5cd7698a8bfe63d1f44f478}} 
+void \mbox{\hyperlink{class_simulation_creator_manager_a6161afc6c5cd7698a8bfe63d1f44f478}{\+\_\+\+\_\+save\+Creator}} ()
+\begin{DoxyCompactList}\small\item\em Saves client\textquotesingle{}s creator\textquotesingle{}s state to the database. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_simulation_creator_manager_a2dcbaa0d7812faf73d7a7ce1a074f010}{\+\_\+\+\_\+get\+J\+S\+ON}} (boost\+::property\+\_\+tree\+::ptree attribute)
+\begin{DoxyCompactList}\small\item\em Converts given attribute to a J\+S\+O\+N-\/formatted string. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_simulation_creator_manager_a4da94b6ff2bc75c62ec864f7bf77a978}{\+\_\+\+\_\+is\+Table}} (sqlite3 $\ast$databse)
+\item 
+bool \mbox{\hyperlink{class_simulation_creator_manager_af9ea3de6f42a5abc9e5faf2143f4574a}{\+\_\+\+\_\+create\+Table}} (sqlite3 $\ast$database)
+\begin{DoxyCompactList}\small\item\em Creates \textquotesingle{}Creator\textquotesingle{} table in the database. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_simulation_creator_manager_ae387973114e34faac27c07e5d84a063a}{\+\_\+\+\_\+is\+Client\+Record}} (sqlite3 $\ast$database)
+\item 
+bool \mbox{\hyperlink{class_simulation_creator_manager_abd24a7b1272da53ea6523e302c33d4e3}{\+\_\+\+\_\+load\+Record}} (sqlite3 $\ast$database)
+\begin{DoxyCompactList}\small\item\em Loads creator\textquotesingle{}s configuration from the database. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_simulation_creator_manager_a9ec3b9d717d961a37385f3cfd391cc47}{\+\_\+\+\_\+save\+New}} (sqlite3 $\ast$database)
+\begin{DoxyCompactList}\small\item\em Save\textquotesingle{}s client\textquotesingle{}s creator\textquotesingle{}s configuration to the database as a new record. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_simulation_creator_manager_a4d19e3208e350694be3bb8ebb8ede25b}{\+\_\+\+\_\+save\+Update}} (sqlite3 $\ast$database)
+\begin{DoxyCompactList}\small\item\em Save\textquotesingle{}s client\textquotesingle{}s creator\textquotesingle{}s configuration to the database updating exiting record. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulation_creator_manager_aa32cd902d26f1b66d0d824c6aaeb409a}\label{class_simulation_creator_manager_aa32cd902d26f1b66d0d824c6aaeb409a}} 
+const std\+::string \mbox{\hyperlink{class_simulation_creator_manager_aa32cd902d26f1b66d0d824c6aaeb409a}{\+\_\+\+\_\+client\+ID}}
+\begin{DoxyCompactList}\small\item\em Identifier of the client\textquotesingle{}s owning app instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_creator_manager_ac4b2898e7aadcbe8df25720ba6e05d88}\label{class_simulation_creator_manager_ac4b2898e7aadcbe8df25720ba6e05d88}} 
+\mbox{\hyperlink{class_simulation_manager}{Simulation\+Manager}} \& \mbox{\hyperlink{class_simulation_creator_manager_ac4b2898e7aadcbe8df25720ba6e05d88}{\+\_\+\+\_\+simulation\+Manager}}
+\begin{DoxyCompactList}\small\item\em Reference to the Simulation Manager. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_creator_manager_a7ebe5fd7327ea43d2be94aaa2c88b8df}\label{class_simulation_creator_manager_a7ebe5fd7327ea43d2be94aaa2c88b8df}} 
+boost\+::property\+\_\+tree\+::ptree \mbox{\hyperlink{class_simulation_creator_manager_a7ebe5fd7327ea43d2be94aaa2c88b8df}{\+\_\+\+\_\+cities}}
+\begin{DoxyCompactList}\small\item\em Tree of cities with their attributes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_creator_manager_a17947875b26f4464acdcadb8c1e60d39}\label{class_simulation_creator_manager_a17947875b26f4464acdcadb8c1e60d39}} 
+boost\+::property\+\_\+tree\+::ptree \mbox{\hyperlink{class_simulation_creator_manager_a17947875b26f4464acdcadb8c1e60d39}{\+\_\+\+\_\+transports}}
+\begin{DoxyCompactList}\small\item\em Tre of planned transports. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_creator_manager_af414e77bcec60d93a399096f82f11e16}\label{class_simulation_creator_manager_af414e77bcec60d93a399096f82f11e16}} 
+boost\+::property\+\_\+tree\+::ptree \mbox{\hyperlink{class_simulation_creator_manager_af414e77bcec60d93a399096f82f11e16}{\+\_\+\+\_\+agents\+Params}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s attributes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_creator_manager_a35b06ff110c28f277516c08300d83039}\label{class_simulation_creator_manager_a35b06ff110c28f277516c08300d83039}} 
+boost\+::property\+\_\+tree\+::ptree \mbox{\hyperlink{class_simulation_creator_manager_a35b06ff110c28f277516c08300d83039}{\+\_\+\+\_\+map\+Params}}
+\begin{DoxyCompactList}\small\item\em Map\textquotesingle{}s parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class responsible for app\textquotesingle{}s behaviour in the simulation creator. 
+
+Class holds all parameters required by the creator in a shape of parameters tress. It facilitates methods responsible for serializing and deserializing parameters (within J\+S\+ON format) tress as well as methods performing loading and saving parameters to the database tables assiociated with a client.
+
+\begin{DoxyNote}{Note}
+\mbox{\hyperlink{class_simulation_creator_manager}{Simulation\+Creator\+Manager}} is the only one object that simulation can be started from in a valid way.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{_simulation_manager_8h}{Simulation\+Manager.\+h}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_simulation_creator_manager_aa851e1a12e505504d8d8358be93fb0e6}\label{class_simulation_creator_manager_aa851e1a12e505504d8d8358be93fb0e6}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!SimulationCreatorManager@{SimulationCreatorManager}}
+\index{SimulationCreatorManager@{SimulationCreatorManager}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{SimulationCreatorManager()}{SimulationCreatorManager()}}
+{\footnotesize\ttfamily Simulation\+Creator\+Manager\+::\+Simulation\+Creator\+Manager (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{client\+\_\+id,  }\item[{\mbox{\hyperlink{class_simulation_manager}{Simulation\+Manager}} \&}]{simulation\+\_\+manager }\end{DoxyParamCaption})}
+
+
+
+Creates a new settings menager for the app\textquotesingle{}s instance and loads client\textquotesingle{}s settings from the data base. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+id} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simulation_creator_manager_af9ea3de6f42a5abc9e5faf2143f4574a}\label{class_simulation_creator_manager_af9ea3de6f42a5abc9e5faf2143f4574a}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!\_\_createTable@{\_\_createTable}}
+\index{\_\_createTable@{\_\_createTable}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{\_\_createTable()}{\_\_createTable()}}
+{\footnotesize\ttfamily bool Simulation\+Creator\+Manager\+::\+\_\+\+\_\+create\+Table (\begin{DoxyParamCaption}\item[{sqlite3 $\ast$}]{database }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Creates \textquotesingle{}Creator\textquotesingle{} table in the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em database} & Pointer to the database object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Table has been created 
+
+false Failed to create table 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_creator_manager_a2dcbaa0d7812faf73d7a7ce1a074f010}\label{class_simulation_creator_manager_a2dcbaa0d7812faf73d7a7ce1a074f010}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!\_\_getJSON@{\_\_getJSON}}
+\index{\_\_getJSON@{\_\_getJSON}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{\_\_getJSON()}{\_\_getJSON()}}
+{\footnotesize\ttfamily std\+::string Simulation\+Creator\+Manager\+::\+\_\+\+\_\+get\+J\+S\+ON (\begin{DoxyParamCaption}\item[{boost\+::property\+\_\+tree\+::ptree}]{attribute }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Converts given attribute to a J\+S\+O\+N-\/formatted string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em attribute} & Ptree to convert \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Converted tree 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_creator_manager_ae387973114e34faac27c07e5d84a063a}\label{class_simulation_creator_manager_ae387973114e34faac27c07e5d84a063a}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!\_\_isClientRecord@{\_\_isClientRecord}}
+\index{\_\_isClientRecord@{\_\_isClientRecord}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{\_\_isClientRecord()}{\_\_isClientRecord()}}
+{\footnotesize\ttfamily bool Simulation\+Creator\+Manager\+::\+\_\+\+\_\+is\+Client\+Record (\begin{DoxyParamCaption}\item[{sqlite3 $\ast$}]{database }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em databse} & Pointer to the database object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Client\textquotesingle{}s record exists in \textquotesingle{}Creator\textquotesingle{} table in database 
+
+false No Client\textquotesingle{}s record exists in \textquotesingle{}Creator\textquotesingle{} table in database 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_creator_manager_a4da94b6ff2bc75c62ec864f7bf77a978}\label{class_simulation_creator_manager_a4da94b6ff2bc75c62ec864f7bf77a978}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!\_\_isTable@{\_\_isTable}}
+\index{\_\_isTable@{\_\_isTable}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{\_\_isTable()}{\_\_isTable()}}
+{\footnotesize\ttfamily bool Simulation\+Creator\+Manager\+::\+\_\+\+\_\+is\+Table (\begin{DoxyParamCaption}\item[{sqlite3 $\ast$}]{databse }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em databse} & Pointer to the database object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true \textquotesingle{}Creator\textquotesingle{} table is in database 
+
+false No \textquotesingle{}Creator\textquotesingle{} table in database 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_creator_manager_abd24a7b1272da53ea6523e302c33d4e3}\label{class_simulation_creator_manager_abd24a7b1272da53ea6523e302c33d4e3}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!\_\_loadRecord@{\_\_loadRecord}}
+\index{\_\_loadRecord@{\_\_loadRecord}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{\_\_loadRecord()}{\_\_loadRecord()}}
+{\footnotesize\ttfamily bool Simulation\+Creator\+Manager\+::\+\_\+\+\_\+load\+Record (\begin{DoxyParamCaption}\item[{sqlite3 $\ast$}]{database }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Loads creator\textquotesingle{}s configuration from the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em database} & Pointer to the database object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Configuration was loaded 
+
+false Failed to load configuartion 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_creator_manager_a9ec3b9d717d961a37385f3cfd391cc47}\label{class_simulation_creator_manager_a9ec3b9d717d961a37385f3cfd391cc47}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!\_\_saveNew@{\_\_saveNew}}
+\index{\_\_saveNew@{\_\_saveNew}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{\_\_saveNew()}{\_\_saveNew()}}
+{\footnotesize\ttfamily bool Simulation\+Creator\+Manager\+::\+\_\+\+\_\+save\+New (\begin{DoxyParamCaption}\item[{sqlite3 $\ast$}]{database }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Save\textquotesingle{}s client\textquotesingle{}s creator\textquotesingle{}s configuration to the database as a new record. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em database} & Pointer to the database object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true New record has been created 
+
+false Failed to create a new record 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_creator_manager_a4d19e3208e350694be3bb8ebb8ede25b}\label{class_simulation_creator_manager_a4d19e3208e350694be3bb8ebb8ede25b}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!\_\_saveUpdate@{\_\_saveUpdate}}
+\index{\_\_saveUpdate@{\_\_saveUpdate}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{\_\_saveUpdate()}{\_\_saveUpdate()}}
+{\footnotesize\ttfamily bool Simulation\+Creator\+Manager\+::\+\_\+\+\_\+save\+Update (\begin{DoxyParamCaption}\item[{sqlite3 $\ast$}]{database }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Save\textquotesingle{}s client\textquotesingle{}s creator\textquotesingle{}s configuration to the database updating exiting record. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em database} & Pointer to the database object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true Record has been updated 
+
+false Failed to update a record 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_creator_manager_acb3781064040cec98b754c029c61ce3a}\label{class_simulation_creator_manager_acb3781064040cec98b754c029c61ce3a}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!getAgentsParam@{getAgentsParam}}
+\index{getAgentsParam@{getAgentsParam}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{getAgentsParam()}{getAgentsParam()}}
+{\footnotesize\ttfamily std\+::string Simulation\+Creator\+Manager\+::get\+Agents\+Param (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Agents form in J\+S\+ON format 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_creator_manager_a63933214d8d93cb9810de62a986f6ab5}\label{class_simulation_creator_manager_a63933214d8d93cb9810de62a986f6ab5}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!getCities@{getCities}}
+\index{getCities@{getCities}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{getCities()}{getCities()}}
+{\footnotesize\ttfamily std\+::string Simulation\+Creator\+Manager\+::get\+Cities (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Cities form in J\+S\+ON format 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_creator_manager_a0440a0f52687ad95bc4f1ff0651e5b6c}\label{class_simulation_creator_manager_a0440a0f52687ad95bc4f1ff0651e5b6c}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!getMapParams@{getMapParams}}
+\index{getMapParams@{getMapParams}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{getMapParams()}{getMapParams()}}
+{\footnotesize\ttfamily std\+::string Simulation\+Creator\+Manager\+::get\+Map\+Params (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Map form in J\+S\+ON format 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_creator_manager_a5abb6e7c8818005fc1dac4d2445e76b5}\label{class_simulation_creator_manager_a5abb6e7c8818005fc1dac4d2445e76b5}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!getTransports@{getTransports}}
+\index{getTransports@{getTransports}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{getTransports()}{getTransports()}}
+{\footnotesize\ttfamily std\+::string Simulation\+Creator\+Manager\+::get\+Transports (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Transports form in J\+S\+ON format 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulation_creator_manager_a7431086ef47e8f53e02221ed9d9c0fce}\label{class_simulation_creator_manager_a7431086ef47e8f53e02221ed9d9c0fce}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!initializeSimulation@{initializeSimulation}}
+\index{initializeSimulation@{initializeSimulation}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{initializeSimulation()}{initializeSimulation()}}
+{\footnotesize\ttfamily void Simulation\+Creator\+Manager\+::initialize\+Simulation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Runs simulation with set parameters. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000010}{Todo}}]Implement Simulation\+Creator\+Manager\+::run\+Simulation() \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_simulation_creator_manager_afa353b5322156e6eefeeb7f9405f3134}\label{class_simulation_creator_manager_afa353b5322156e6eefeeb7f9405f3134}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!setAgentsParams@{setAgentsParams}}
+\index{setAgentsParams@{setAgentsParams}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{setAgentsParams()}{setAgentsParams()}}
+{\footnotesize\ttfamily void Simulation\+Creator\+Manager\+::set\+Agents\+Params (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{agents\+\_\+params }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em agent\+\_\+params} & Agents form in J\+S\+ON format \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_creator_manager_ae0825e06222ff1120359bd17f8ef085b}\label{class_simulation_creator_manager_ae0825e06222ff1120359bd17f8ef085b}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!setCities@{setCities}}
+\index{setCities@{setCities}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{setCities()}{setCities()}}
+{\footnotesize\ttfamily void Simulation\+Creator\+Manager\+::set\+Cities (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{cities }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em cities} & Cities form in J\+S\+ON format \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_creator_manager_a2c558511fa91bc8bb14b8d86d36bb942}\label{class_simulation_creator_manager_a2c558511fa91bc8bb14b8d86d36bb942}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!setMapParams@{setMapParams}}
+\index{setMapParams@{setMapParams}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{setMapParams()}{setMapParams()}}
+{\footnotesize\ttfamily void Simulation\+Creator\+Manager\+::set\+Map\+Params (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{map\+\_\+params }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em map\+\_\+params} & Map form in J\+S\+ON format \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_creator_manager_a566259c1d40cac663df7365d72c412d3}\label{class_simulation_creator_manager_a566259c1d40cac663df7365d72c412d3}} 
+\index{SimulationCreatorManager@{SimulationCreatorManager}!setTransports@{setTransports}}
+\index{setTransports@{setTransports}!SimulationCreatorManager@{SimulationCreatorManager}}
+\doxysubsubsection{\texorpdfstring{setTransports()}{setTransports()}}
+{\footnotesize\ttfamily void Simulation\+Creator\+Manager\+::set\+Transports (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{transports }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em transports} & Transports form in J\+S\+ON format \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/mvc/model/managers/Simulation\+Creator\+Manager.\+h\item 
+/home/cris/\+Desktop/\+Projekt/src/mvc/model/managers/Simulation\+Creator\+Manager.\+cc\end{DoxyCompactItemize}

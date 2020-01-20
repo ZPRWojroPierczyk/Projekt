@@ -1,0 +1,5 @@
+<map id="Agent" name="Agent">
+<area shape="rect" id="node1" title="Agent class represents a single Agent (a lorry) responsible for delivering transports." alt="" coords="51,95,107,121"/>
+<area shape="rect" id="node2" href="$class_route.html" title="Route class represents an agent&#39;s route computed by the planner." alt="" coords="5,5,63,32"/>
+<area shape="rect" id="node3" href="$class_transport.html" title="Class represents a single transport created by the client." alt="" coords="87,5,165,32"/>
+</map>

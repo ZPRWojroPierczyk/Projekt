@@ -1,0 +1,164 @@
+\hypertarget{class_server_1_1_listener}{}\doxysection{Server\+::Listener Class Reference}
+\label{class_server_1_1_listener}\index{Server::Listener@{Server::Listener}}
+
+
+\mbox{\hyperlink{class_server_1_1_listener}{Listener}} is responsible for listening on the given socket and creating a new sessions when a new request aproaches.  
+
+
+
+
+{\ttfamily \#include $<$Listener.\+h$>$}
+
+
+
+Inheritance diagram for Server\+::Listener\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{class_server_1_1_listener__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Server\+::Listener\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{class_server_1_1_listener__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_server_1_1_listener_acb96850ee86b5ef293d79ba0d154f8cd}{Listener}} (\mbox{\hyperlink{class_server}{Server}} \&server)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_server_1_1_listener}{Server\+::\+Listener}}\+:\+: \mbox{\hyperlink{class_server_1_1_listener}{Listener}} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_server_1_1_listener_a3db0950c8861cfd3ebfa8e11e27b6054}{run}} ()
+\begin{DoxyCompactList}\small\item\em Starts listening to the port. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_server_1_1_listener_ae656b11a631516c3f8938f673d153f38}{\+\_\+\+\_\+on\+\_\+accept}} (const boost\+::system\+::error\+\_\+code \&err\+\_\+code)
+\begin{DoxyCompactList}\small\item\em Handle a connection. Initializes new \mbox{\hyperlink{class_http_session}{Http\+Session}} and runs it in a new thread. Thread is detached, so it\textquotesingle{}s lifetime depends on the session demands. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_server_1_1_listener_aeee393f7b68d118adbe0094a71a19744}{\+\_\+\+\_\+fail}} (const boost\+::system\+::error\+\_\+code \&err\+\_\+code, char const $\ast$what)
+\begin{DoxyCompactList}\small\item\em Reporta a failure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_server_1_1_listener_a83d02b20bade560a34f8c87b05d87e93}\label{class_server_1_1_listener_a83d02b20bade560a34f8c87b05d87e93}} 
+\mbox{\hyperlink{class_server}{Server}} \& \mbox{\hyperlink{class_server_1_1_listener_a83d02b20bade560a34f8c87b05d87e93}{\+\_\+\+\_\+server}}
+\begin{DoxyCompactList}\small\item\em Reference to the \mbox{\hyperlink{class_server}{Server}} containing crucial informations about the server. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_1_1_listener_a922a94afe17d0e052fd1d2a870294acd}\label{class_server_1_1_listener_a922a94afe17d0e052fd1d2a870294acd}} 
+boost\+::asio\+::ip\+::tcp\+::acceptor \mbox{\hyperlink{class_server_1_1_listener_a922a94afe17d0e052fd1d2a870294acd}{\+\_\+\+\_\+acceptor}}
+\begin{DoxyCompactList}\small\item\em Object responsible for listening on the port and accepting new connections. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_1_1_listener_a4754d696e6394dde2cba888a783a83c6}\label{class_server_1_1_listener_a4754d696e6394dde2cba888a783a83c6}} 
+boost\+::asio\+::ip\+::tcp\+::socket \mbox{\hyperlink{class_server_1_1_listener_a4754d696e6394dde2cba888a783a83c6}{\+\_\+\+\_\+socket}}
+\begin{DoxyCompactList}\small\item\em Socket used by acceptor to connect to a new client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_server_1_1_listener_ac4a291b79c0151c308e5ee22b22775be}\label{class_server_1_1_listener_ac4a291b79c0151c308e5ee22b22775be}} 
+class \mbox{\hyperlink{class_server_1_1_listener_ac4a291b79c0151c308e5ee22b22775be}{Listener\+Test}}
+\begin{DoxyCompactList}\small\item\em Class used to public private interface for unit tests. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_server_1_1_listener}{Listener}} is responsible for listening on the given socket and creating a new sessions when a new request aproaches. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_server_1_1_listener_acb96850ee86b5ef293d79ba0d154f8cd}\label{class_server_1_1_listener_acb96850ee86b5ef293d79ba0d154f8cd}} 
+\index{Server::Listener@{Server::Listener}!Listener@{Listener}}
+\index{Listener@{Listener}!Server::Listener@{Server::Listener}}
+\doxysubsubsection{\texorpdfstring{Listener()}{Listener()}}
+{\footnotesize\ttfamily Server\+::\+Listener\+::\+Listener (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_server}{Server}} \&}]{server }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{class_server_1_1_listener}{Server\+::\+Listener}}\+:\+: \mbox{\hyperlink{class_server_1_1_listener}{Listener}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Reference to the server\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+\mbox{\hyperlink{class_server_1_1_listener}{Listener}} instance should be created by the shared pointer and \mbox{\hyperlink{class_server_1_1_listener_a3db0950c8861cfd3ebfa8e11e27b6054}{run()}} method should be called before the end of the creating scope. This approach to creation delegates listener\textquotesingle{}s life-\/time responsibility to the object itself, which is desired behaviour.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{_server_8h_source}{Server.\+h}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_server_1_1_listener_aeee393f7b68d118adbe0094a71a19744}\label{class_server_1_1_listener_aeee393f7b68d118adbe0094a71a19744}} 
+\index{Server::Listener@{Server::Listener}!\_\_fail@{\_\_fail}}
+\index{\_\_fail@{\_\_fail}!Server::Listener@{Server::Listener}}
+\doxysubsubsection{\texorpdfstring{\_\_fail()}{\_\_fail()}}
+{\footnotesize\ttfamily bool Server\+::\+Listener\+::\+\_\+\+\_\+fail (\begin{DoxyParamCaption}\item[{const boost\+::system\+::error\+\_\+code \&}]{err\+\_\+code,  }\item[{char const $\ast$}]{what }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Reporta a failure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em err\+\_\+code} & Reported error code \\
+\hline
+{\em what} & Reason of the failure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If error was critical and \mbox{\hyperlink{class_server_1_1_listener}{Listener}} should be destroyed (e.\+g. closing server by ctrl+C, or calling close() on the \+\_\+\+\_\+socket) 
+
+false If error was not critical 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_server_1_1_listener_ae656b11a631516c3f8938f673d153f38}\label{class_server_1_1_listener_ae656b11a631516c3f8938f673d153f38}} 
+\index{Server::Listener@{Server::Listener}!\_\_on\_accept@{\_\_on\_accept}}
+\index{\_\_on\_accept@{\_\_on\_accept}!Server::Listener@{Server::Listener}}
+\doxysubsubsection{\texorpdfstring{\_\_on\_accept()}{\_\_on\_accept()}}
+{\footnotesize\ttfamily void Server\+::\+Listener\+::\+\_\+\+\_\+on\+\_\+accept (\begin{DoxyParamCaption}\item[{const boost\+::system\+::error\+\_\+code \&}]{err\+\_\+code }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Handle a connection. Initializes new \mbox{\hyperlink{class_http_session}{Http\+Session}} and runs it in a new thread. Thread is detached, so it\textquotesingle{}s lifetime depends on the session demands. 
+
+\begin{DoxyNote}{Note}
+\mbox{\hyperlink{class_http_session}{Http\+Session}} objects are create with shared\+\_\+ptr in the same way \mbox{\hyperlink{class_server_1_1_listener}{Listener}} object was created. For details about the concept look at \mbox{\hyperlink{class_server_abb27d30b40a94326e3fd629d3b30b7d5}{Server\+::run()}}, \mbox{\hyperlink{class_server_1_1_listener_a3db0950c8861cfd3ebfa8e11e27b6054}{Server\+::\+Listener\+::run()}}
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em err\+\_\+code} & Reported error code\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_http_session}{Http\+Session}} 
+
+\mbox{\hyperlink{class_server_1_1_listener_a3db0950c8861cfd3ebfa8e11e27b6054}{Server\+::\+Listener\+::run()}} 
+
+\mbox{\hyperlink{class_server_abb27d30b40a94326e3fd629d3b30b7d5}{Server\+::run()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_server_1_1_listener_a3db0950c8861cfd3ebfa8e11e27b6054}\label{class_server_1_1_listener_a3db0950c8861cfd3ebfa8e11e27b6054}} 
+\index{Server::Listener@{Server::Listener}!run@{run}}
+\index{run@{run}!Server::Listener@{Server::Listener}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void Server\+::\+Listener\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Starts listening to the port. 
+
+\begin{DoxyNote}{Note}
+\mbox{\hyperlink{class_server_1_1_listener_a3db0950c8861cfd3ebfa8e11e27b6054}{run()}} method creates another shared\+\_\+ptr on the \mbox{\hyperlink{class_server_1_1_listener}{Listener}} (first was created by \mbox{\hyperlink{class_server_abb27d30b40a94326e3fd629d3b30b7d5}{Server\+::run}}) which, in turn, is again removed at the end of the scope.
+\end{DoxyNote}
+At this time it\textquotesingle{}s \mbox{\hyperlink{class_server_1_1_listener_ae656b11a631516c3f8938f673d153f38}{\+\_\+\+\_\+on\+\_\+accept()}} method\textquotesingle{}s responsibility to prolong object\textquotesingle{}s lifetime. Method\textquotesingle{}s call decides if object\textquotesingle{}s should be maintained or deleted.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_server_abb27d30b40a94326e3fd629d3b30b7d5}{Server\+::run()}} (Server.\+cc) 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/server/\mbox{\hyperlink{_listener_8h}{Listener.\+h}}\item 
+/home/cris/\+Desktop/\+Projekt/src/server/\mbox{\hyperlink{_listener_8cc}{Listener.\+cc}}\end{DoxyCompactItemize}

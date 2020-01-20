@@ -1,0 +1,163 @@
+\hypertarget{class_controller}{}\doxysection{Controller Class Reference}
+\label{class_controller}\index{Controller@{Controller}}
+
+
+\mbox{\hyperlink{class_controller}{Controller}} class is an interface between \mbox{\hyperlink{class_request_handler}{Request\+Handler}} and \mbox{\hyperlink{class_model}{Model}} instance.  
+
+
+
+
+{\ttfamily \#include $<$Controller.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_controller_a713b805386bd67aad4201c49a61f5925}{Controller}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ \&model)
+\item 
+std\+::string \mbox{\hyperlink{class_controller_ac4595b66a4a1be48e2ad116936a1c203}{action}} (const std\+::string \&action\+\_\+type, const std\+::string \&body)
+\begin{DoxyCompactList}\small\item\em Evaluates action performed by the the client. H\+T\+TP request needs to be parsed by the \mbox{\hyperlink{class_request_handler}{Request\+Handler}} first that call\textquotesingle{}s this method passing action\+Type (that is passed with the Content-\/\+Type header) and request\textquotesingle{}s body. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{class_controller_ad48b9c7e1d1fd40e88b817a79cf68a53}{\+\_\+\+\_\+creator\+Action}} (const std\+::string \&action\+\_\+type, const std\+::string \&body)
+\begin{DoxyCompactList}\small\item\em Identifies and executes client\textquotesingle{}s action performed in the simulation\textquotesingle{}s creator. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_controller_a5d8811631ab0d7854440f9e7685983e0}{\+\_\+\+\_\+simulation\+Action}} (const std\+::string \&action\+\_\+type, const std\+::string \&body)
+\begin{DoxyCompactList}\small\item\em Identifies and executes client\textquotesingle{}s action performed in the simulation window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_controller_a077812beb9206cab314ceab6067c8170}\label{class_controller_a077812beb9206cab314ceab6067c8170}} 
+const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ \mbox{\hyperlink{class_controller_a077812beb9206cab314ceab6067c8170}{\+\_\+\+\_\+model}}
+\begin{DoxyCompactList}\small\item\em Pointer to the \mbox{\hyperlink{class_model}{Model}} instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_controller}{Controller}} class is an interface between \mbox{\hyperlink{class_request_handler}{Request\+Handler}} and \mbox{\hyperlink{class_model}{Model}} instance. 
+
+\mbox{\hyperlink{class_request_handler}{Request\+Handler}} parses H\+T\+TP P\+O\+ST requests (that client\textquotesingle{}s action are sent with by the local Java\+Script scripts) and passes parsed action to the \mbox{\hyperlink{class_controller}{Controller}}. \mbox{\hyperlink{class_controller}{Controller}}\textquotesingle{}s aim is to interpret this action and call appropriate methods on the \mbox{\hyperlink{class_model}{Model}}. ~\newline
+
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{_model_8h}{Model.\+h}} 
+
+\mbox{\hyperlink{_request_handler_8h_source}{Request\+Handler.\+h}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_controller_a713b805386bd67aad4201c49a61f5925}\label{class_controller_a713b805386bd67aad4201c49a61f5925}} 
+\index{Controller@{Controller}!Controller@{Controller}}
+\index{Controller@{Controller}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{Controller()}{Controller()}}
+{\footnotesize\ttfamily Controller\+::\+Controller (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_model}{Model}} $>$ \&}]{model }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Shared pointer to the \mbox{\hyperlink{class_model}{Model}} instance \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_controller_ad48b9c7e1d1fd40e88b817a79cf68a53}\label{class_controller_ad48b9c7e1d1fd40e88b817a79cf68a53}} 
+\index{Controller@{Controller}!\_\_creatorAction@{\_\_creatorAction}}
+\index{\_\_creatorAction@{\_\_creatorAction}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{\_\_creatorAction()}{\_\_creatorAction()}}
+{\footnotesize\ttfamily std\+::string Controller\+::\+\_\+\+\_\+creator\+Action (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{action\+\_\+type,  }\item[{const std\+::string \&}]{body }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Identifies and executes client\textquotesingle{}s action performed in the simulation\textquotesingle{}s creator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+\_\+type} & \\
+\hline
+{\em body} & Data associated with an action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Type of the data that \mbox{\hyperlink{class_view}{View}} instance should be requested for. 
+\end{DoxyReturn}
+Creator\textquotesingle{}s page can send to the server a series of requests associated with forms defining simulations parameters. We can distinguish three groups of requests\+: \begin{DoxyVerb} - request for form's data recently introduced by the
+   client. Those requests are sent, when creator's page
+   is loading and client-side scripts try to load
+   default values for forms
+
+ - request for making a change in client's forms saved
+   on the server. Thoso requests are sent, when client
+   submits a form in the creator panel.
+
+ - request for starting a simulation
+\end{DoxyVerb}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Implement servicing requests for sending actually saved forms data. \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_controller_a5d8811631ab0d7854440f9e7685983e0}\label{class_controller_a5d8811631ab0d7854440f9e7685983e0}} 
+\index{Controller@{Controller}!\_\_simulationAction@{\_\_simulationAction}}
+\index{\_\_simulationAction@{\_\_simulationAction}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{\_\_simulationAction()}{\_\_simulationAction()}}
+{\footnotesize\ttfamily std\+::string Controller\+::\+\_\+\+\_\+simulation\+Action (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{action\+\_\+type,  }\item[{const std\+::string \&}]{body }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Identifies and executes client\textquotesingle{}s action performed in the simulation window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+\_\+type} & \\
+\hline
+{\em body} & Data associated with an action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Type of the data that \mbox{\hyperlink{class_view}{View}} instance should be requested for. 
+\end{DoxyReturn}
+From simulation window a series of requests can be send to the server. We can distinguish three groups of requests\+: \begin{DoxyVerb} - requests for changing simulation's speed or
+   pausing/reasuming simulation
+
+ - request for simulation's snapshot, i.e. JSON-formatted
+   set informations about actual state of the simulation
+
+ - request for applying simulation's modifications
+   introduced by the client
+\end{DoxyVerb}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]Implement incremental speed changes instead of fixed ones \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_controller_ac4595b66a4a1be48e2ad116936a1c203}\label{class_controller_ac4595b66a4a1be48e2ad116936a1c203}} 
+\index{Controller@{Controller}!action@{action}}
+\index{action@{action}!Controller@{Controller}}
+\doxysubsubsection{\texorpdfstring{action()}{action()}}
+{\footnotesize\ttfamily std\+::string Controller\+::action (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{action\+\_\+type,  }\item[{const std\+::string \&}]{body }\end{DoxyParamCaption})}
+
+
+
+Evaluates action performed by the the client. H\+T\+TP request needs to be parsed by the \mbox{\hyperlink{class_request_handler}{Request\+Handler}} first that call\textquotesingle{}s this method passing action\+Type (that is passed with the Content-\/\+Type header) and request\textquotesingle{}s body. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+\_\+type} & \\
+\hline
+{\em body} & Data associated with an action \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Type of the data that \mbox{\hyperlink{class_view}{View}} instance should be requested for. 
+\end{DoxyReturn}
+There are 4 groups of actions depending on the application\textquotesingle{}s section where an action occured. Action type comes in \textquotesingle{}group\+\_\+name/action\+\_\+name\textquotesingle{} form, where \textquotesingle{}group\+\_\+name\textquotesingle{} can be one of\+:
+\begin{DoxyItemize}
+\item menu
+\item options
+\item creator
+\item simulation
+\end{DoxyItemize}
+
+The first step of action\textquotesingle{}s evaluation is to establish group of the action and pass it\textquotesingle{}s servicing to an appropriate method
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/mvc/controller/\mbox{\hyperlink{_controller_8h}{Controller.\+h}}\item 
+/home/cris/\+Desktop/\+Projekt/src/mvc/controller/Controller.\+cc\end{DoxyCompactItemize}

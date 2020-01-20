@@ -1,0 +1,233 @@
+\hypertarget{class_agent}{}\doxysection{Agent Class Reference}
+\label{class_agent}\index{Agent@{Agent}}
+
+
+\mbox{\hyperlink{class_agent}{Agent}} class represents a single \mbox{\hyperlink{class_agent}{Agent}} (a lorry) responsible for delivering transports.  
+
+
+
+
+{\ttfamily \#include $<$Agent.\+h$>$}
+
+
+
+Collaboration diagram for Agent\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{class_agent__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_agent_a80c835ccbc46ed8c16bbd02b376bec29}{Agent}} (const std\+::string \&home, unsigned int id, boost\+::property\+\_\+tree\+::ptree params)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_agent}{Agent}} object initialized with basic parameters and identificators but without any transport assigned. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_agent_ae62a846ae7b5f9f6d84fdef27a024a10}{Agent}} (const \mbox{\hyperlink{class_agent}{Agent}} \&agent)
+\begin{DoxyCompactList}\small\item\em Simple copying constructor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_agent_aa9c61eb7dc30204069ea99054c0f66ac}{initialize\+Transport}} (\mbox{\hyperlink{class_transport}{Transport}} $\ast$transport, const std\+::string \&origin, const std\+::string \&destination, unsigned int load, boost\+::property\+\_\+tree\+::ptree map\+\_\+params)
+\begin{DoxyCompactList}\small\item\em Initializes a new transport between given cities if possible. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_agent_a41fc1a2eee459a220d5a19f6c6d7226c}{get\+Home}} () const
+\item 
+unsigned int \mbox{\hyperlink{class_agent_a5fc89d74a6d3bc92ecfe2f2925586474}{get\+Max\+Load}} () const
+\item 
+unsigned int \mbox{\hyperlink{class_agent_a229090dde81afddaa3a58424a1350af2}{get\+Load}} () const
+\item 
+const \mbox{\hyperlink{class_transport}{Transport}} $\ast$ \mbox{\hyperlink{class_agent_ac0b0ec104e66a9459bf1cb7efce0ab98}{get\+Transport}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_agent_a83d86cc34704789557663f33549def18}\label{class_agent_a83d86cc34704789557663f33549def18}} 
+const unsigned int \mbox{\hyperlink{class_agent_a83d86cc34704789557663f33549def18}{\+\_\+\+\_\+\+M\+A\+X\+\_\+\+V\+E\+L\+O\+C\+I\+TY}}
+\begin{DoxyCompactList}\small\item\em Maximum agent\textquotesingle{}s velocity in p\mbox{[}km/h\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_ac2df4e40cbe1712713a55d4c94e8adfe}\label{class_agent_ac2df4e40cbe1712713a55d4c94e8adfe}} 
+const unsigned int \mbox{\hyperlink{class_agent_ac2df4e40cbe1712713a55d4c94e8adfe}{\+\_\+\+\_\+\+M\+A\+X\+\_\+\+L\+O\+AD}}
+\begin{DoxyCompactList}\small\item\em Maximum agent\textquotesingle{}s load in \mbox{[}kg\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a26ac031bd8f726348713d073400e90ea}\label{class_agent_a26ac031bd8f726348713d073400e90ea}} 
+const unsigned int \mbox{\hyperlink{class_agent_a26ac031bd8f726348713d073400e90ea}{\+\_\+\+\_\+\+M\+A\+X\+\_\+\+D\+R\+I\+V\+E\+\_\+\+T\+I\+ME}}
+\begin{DoxyCompactList}\small\item\em Maximum agent\textquotesingle{}s continuant drive time in \mbox{[}min\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_ab77be6408fdcdc9ee1e7f74720c02cad}\label{class_agent_ab77be6408fdcdc9ee1e7f74720c02cad}} 
+const unsigned int \mbox{\hyperlink{class_agent_ab77be6408fdcdc9ee1e7f74720c02cad}{\+\_\+\+\_\+\+G\+A\+P\+\_\+\+T\+I\+ME}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s gap time (gaps are taken once per \+\_\+\+\_\+\+M\+A\+X\+\_\+\+D\+R\+I\+V\+E\+\_\+\+T\+I\+ME) in \mbox{[}min\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a1fbb6af893d056bd7b2be61a4bb0baff}\label{class_agent_a1fbb6af893d056bd7b2be61a4bb0baff}} 
+const unsigned int \mbox{\hyperlink{class_agent_a1fbb6af893d056bd7b2be61a4bb0baff}{\+\_\+\+\_\+\+B\+R\+E\+A\+K\+\_\+\+P\+R\+O\+B\+A\+B\+I\+L\+I\+TY}}
+\begin{DoxyCompactList}\small\item\em Probability for agent\textquotesingle{}s breakdown in \mbox{[}\%\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a6fa8c3b66148d6a39f0cc46d9fcd0aeb}\label{class_agent_a6fa8c3b66148d6a39f0cc46d9fcd0aeb}} 
+const std\+::string \mbox{\hyperlink{class_agent_a6fa8c3b66148d6a39f0cc46d9fcd0aeb}{\+\_\+\+\_\+\+H\+O\+ME}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s home city. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a7d4506ac7d085ebfa2732421bf016c12}\label{class_agent_a7d4506ac7d085ebfa2732421bf016c12}} 
+const unsigned int \mbox{\hyperlink{class_agent_a7d4506ac7d085ebfa2732421bf016c12}{\+\_\+\+\_\+\+ID}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s identificator (unique per home city) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a68f3cc7918c1b9aabb5f91c619ad222f}\label{class_agent_a68f3cc7918c1b9aabb5f91c619ad222f}} 
+\mbox{\hyperlink{class_transport}{Transport}} $\ast$ \mbox{\hyperlink{class_agent_a68f3cc7918c1b9aabb5f91c619ad222f}{\+\_\+\+\_\+transport}}
+\begin{DoxyCompactList}\small\item\em Pointer to the \mbox{\hyperlink{class_transport}{Transport}} object associated with an agent. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a29809a2656aec9fe54cfc279187ccdf3}\label{class_agent_a29809a2656aec9fe54cfc279187ccdf3}} 
+boost\+::numeric\+::ublas\+::vector$<$ float $>$ \mbox{\hyperlink{class_agent_a29809a2656aec9fe54cfc279187ccdf3}{\+\_\+\+\_\+coordinates}}
+\begin{DoxyCompactList}\small\item\em Coordinates given in \mbox{[}latitude; longitude\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_aaa1638f7175d8c8d7a5c6f7e606ddb76}\label{class_agent_aaa1638f7175d8c8d7a5c6f7e606ddb76}} 
+\mbox{\hyperlink{class_route}{Route}} \mbox{\hyperlink{class_agent_aaa1638f7175d8c8d7a5c6f7e606ddb76}{\+\_\+\+\_\+route}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s route. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a1bf388c6d107323322357c0e38123d9f}\label{class_agent_a1bf388c6d107323322357c0e38123d9f}} 
+unsigned int \mbox{\hyperlink{class_agent_a1bf388c6d107323322357c0e38123d9f}{\+\_\+\+\_\+toward\+Point\+Index}}
+\begin{DoxyCompactList}\small\item\em Index of the \+\_\+\+\_\+route\textquotesingle{}s point that \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s moving toward. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a728e7bc1e6ff9811a7d37f4796578532}\label{class_agent_a728e7bc1e6ff9811a7d37f4796578532}} 
+unsigned int \mbox{\hyperlink{class_agent_a728e7bc1e6ff9811a7d37f4796578532}{\+\_\+\+\_\+velocity}}
+\begin{DoxyCompactList}\small\item\em Actual velocity in \mbox{[}km/h\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_aa1be2cee1dcb0f5d1b72e1b48277fd2f}\label{class_agent_aa1be2cee1dcb0f5d1b72e1b48277fd2f}} 
+unsigned int \mbox{\hyperlink{class_agent_aa1be2cee1dcb0f5d1b72e1b48277fd2f}{\+\_\+\+\_\+load}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s load in \mbox{[}kg\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a96e4338cb1c42cccf015bb0518f25532}\label{class_agent_a96e4338cb1c42cccf015bb0518f25532}} 
+std\+::string \mbox{\hyperlink{class_agent_a96e4338cb1c42cccf015bb0518f25532}{\+\_\+\+\_\+origin}}
+\begin{DoxyCompactList}\small\item\em Start point of the route. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_aaf59b506f19508302f9aafbadf9c0d74}\label{class_agent_aaf59b506f19508302f9aafbadf9c0d74}} 
+std\+::string \mbox{\hyperlink{class_agent_aaf59b506f19508302f9aafbadf9c0d74}{\+\_\+\+\_\+destination}}
+\begin{DoxyCompactList}\small\item\em End point of the route. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a7e484c4177cb38beb51c6b84b6de5ff2}\label{class_agent_a7e484c4177cb38beb51c6b84b6de5ff2}} 
+std\+::chrono\+::milliseconds \mbox{\hyperlink{class_agent_a7e484c4177cb38beb51c6b84b6de5ff2}{\+\_\+\+\_\+continuous\+Drive\+Time}}
+\begin{DoxyCompactList}\small\item\em Duration of the continuous drive. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a17a5bcb2596e366bdec650374d3f17c9}\label{class_agent_a17a5bcb2596e366bdec650374d3f17c9}} 
+bool \mbox{\hyperlink{class_agent_a17a5bcb2596e366bdec650374d3f17c9}{\+\_\+\+\_\+is\+Gap}}
+\begin{DoxyCompactList}\small\item\em States whether agent have a break at now. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a61d7d68997490c431f0994d51a5b4b25}\label{class_agent_a61d7d68997490c431f0994d51a5b4b25}} 
+bool \mbox{\hyperlink{class_agent_a61d7d68997490c431f0994d51a5b4b25}{\+\_\+\+\_\+is\+Broken}}
+\begin{DoxyCompactList}\small\item\em States whether agent has broken. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_agent_a11ad63ada4c997328893ca22d12b2091}\label{class_agent_a11ad63ada4c997328893ca22d12b2091}} 
+bool \mbox{\hyperlink{class_agent_a11ad63ada4c997328893ca22d12b2091}{\+\_\+\+\_\+is\+Crashed}}
+\begin{DoxyCompactList}\small\item\em States whether agent is after an car accident. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_agent}{Agent}} class represents a single \mbox{\hyperlink{class_agent}{Agent}} (a lorry) responsible for delivering transports. 
+
+Class incorporates basic informations about an agent, involving machine\textquotesingle{}s and driver\textquotesingle{}s limits, identificators, actual transport specification or technical condition of the machine. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_agent_a80c835ccbc46ed8c16bbd02b376bec29}\label{class_agent_a80c835ccbc46ed8c16bbd02b376bec29}} 
+\index{Agent@{Agent}!Agent@{Agent}}
+\index{Agent@{Agent}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{Agent()}{Agent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Agent\+::\+Agent (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{home,  }\item[{unsigned int}]{id,  }\item[{boost\+::property\+\_\+tree\+::ptree}]{params }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{class_agent}{Agent}} object initialized with basic parameters and identificators but without any transport assigned. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em home} & \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s home city \\
+\hline
+{\em id} & \mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s identifier \\
+\hline
+{\em params} & Tree of parameters defining basic agent\textquotesingle{}s behaviour \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]As speed limits informations from google maps are not available, some simplification is taken and by default all agents move with maximum velocity all the time.\end{DoxyRefDesc}
+
+
+It should be changed so that agents match their velocities to the actual road.\mbox{\Hypertarget{class_agent_ae62a846ae7b5f9f6d84fdef27a024a10}\label{class_agent_ae62a846ae7b5f9f6d84fdef27a024a10}} 
+\index{Agent@{Agent}!Agent@{Agent}}
+\index{Agent@{Agent}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{Agent()}{Agent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Agent\+::\+Agent (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_agent}{Agent}} \&}]{agent }\end{DoxyParamCaption})}
+
+
+
+Simple copying constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em agent} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_agent_a41fc1a2eee459a220d5a19f6c6d7226c}\label{class_agent_a41fc1a2eee459a220d5a19f6c6d7226c}} 
+\index{Agent@{Agent}!getHome@{getHome}}
+\index{getHome@{getHome}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{getHome()}{getHome()}}
+{\footnotesize\ttfamily std\+::string Agent\+::get\+Home (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s home city 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_a229090dde81afddaa3a58424a1350af2}\label{class_agent_a229090dde81afddaa3a58424a1350af2}} 
+\index{Agent@{Agent}!getLoad@{getLoad}}
+\index{getLoad@{getLoad}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{getLoad()}{getLoad()}}
+{\footnotesize\ttfamily unsigned int Agent\+::get\+Load (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s actual load 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_a5fc89d74a6d3bc92ecfe2f2925586474}\label{class_agent_a5fc89d74a6d3bc92ecfe2f2925586474}} 
+\index{Agent@{Agent}!getMaxLoad@{getMaxLoad}}
+\index{getMaxLoad@{getMaxLoad}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{getMaxLoad()}{getMaxLoad()}}
+{\footnotesize\ttfamily unsigned int Agent\+::get\+Max\+Load (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_agent}{Agent}}\textquotesingle{}s maximum load 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_ac0b0ec104e66a9459bf1cb7efce0ab98}\label{class_agent_ac0b0ec104e66a9459bf1cb7efce0ab98}} 
+\index{Agent@{Agent}!getTransport@{getTransport}}
+\index{getTransport@{getTransport}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{getTransport()}{getTransport()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_transport}{Transport}} $\ast$ Agent\+::get\+Transport (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+Identifier of the transport realized by the agent 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_agent_aa9c61eb7dc30204069ea99054c0f66ac}\label{class_agent_aa9c61eb7dc30204069ea99054c0f66ac}} 
+\index{Agent@{Agent}!initializeTransport@{initializeTransport}}
+\index{initializeTransport@{initializeTransport}!Agent@{Agent}}
+\doxysubsubsection{\texorpdfstring{initializeTransport()}{initializeTransport()}}
+{\footnotesize\ttfamily bool Agent\+::initialize\+Transport (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_transport}{Transport}} $\ast$}]{transport,  }\item[{const std\+::string \&}]{origin,  }\item[{const std\+::string \&}]{destination,  }\item[{unsigned int}]{load,  }\item[{boost\+::property\+\_\+tree\+::ptree}]{map\+\_\+params }\end{DoxyParamCaption})}
+
+
+
+Initializes a new transport between given cities if possible. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em transport} & Pointer to the \mbox{\hyperlink{class_transport}{Transport}} object associated with an agent \\
+\hline
+{\em origin} & Start point of the transport \\
+\hline
+{\em destination} & \mbox{\hyperlink{class_transport}{Transport}}\textquotesingle{}s destination \\
+\hline
+{\em load} & Amount of stuff to transport \\
+\hline
+{\em map\+\_\+params} & Characteristic parameters of the map used during route\textquotesingle{}s planning \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true \mbox{\hyperlink{class_transport}{Transport}} was sucesfullt allocated 
+
+false It is not possible for agent to perform transport 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000004}{Todo}}]Usually, Google Maps A\+PI perform no-\/gracefull connection close that results in \textquotesingle{}scocket truncated\textquotesingle{} error. We should handle ec though but in the way that would distinguish short read from a real error. \end{DoxyRefDesc}
+
+
+Compute minimal time to perform transport. Minimal time is computed with an assumption that agent drive\textquotesingle{}s with their maximum velocity all the time and does not have breaks during a whole route. Minimal time is calculated in minutes
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000005}{Todo}}]Here, transport is accountes as impossible, if a single agent cannot accomplish it. In a target app there will be possible to change vehicles between drivers so that it can be possible that such a transport could be done. \end{DoxyRefDesc}
+
+
+Minimal number of breaks during a route. We count one additional break for a driver after delivering transport to the destination.
+
+If optimisticly estimated transport time is greater than 8h (8 $\ast$ 60 minutes) we can classify transport as impossible.
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000006}{Todo}}]In a target application each point of the route should have max\+\_\+velocity set to the real-\/data-\/based value. For now, these data is not available, so velocity is unlimited. \end{DoxyRefDesc}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/mvc/model/managers/simulation/\mbox{\hyperlink{_agent_8h}{Agent.\+h}}\item 
+/home/cris/\+Desktop/\+Projekt/src/mvc/model/managers/simulation/Agent.\+cc\end{DoxyCompactItemize}

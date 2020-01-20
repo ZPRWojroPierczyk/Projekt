@@ -1,0 +1,7 @@
+<map id="Model" name="Model">
+<area shape="rect" id="node1" title="Main model of the application. Top layer of the application state interface." alt="" coords="280,184,337,211"/>
+<area shape="rect" id="node2" href="$class_load_simulation_manager.html" title=" " alt="" coords="5,95,167,121"/>
+<area shape="rect" id="node3" href="$class_simulation_manager.html" title="Main program&#39;s class representing core of the simulation." alt="" coords="201,5,334,32"/>
+<area shape="rect" id="node5" href="$class_simulation_creator_manager.html" title="Class responsible for app&#39;s behaviour in the simulation creator." alt="" coords="383,95,559,121"/>
+<area shape="rect" id="node4" href="$class_settings_manager.html" title="Class responsible for keeping track of application instance&#39;s global settings." alt="" coords="583,95,703,121"/>
+</map>

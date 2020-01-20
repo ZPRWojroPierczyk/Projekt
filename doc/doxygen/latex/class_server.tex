@@ -1,0 +1,283 @@
+\hypertarget{class_server}{}\doxysection{Server Class Reference}
+\label{class_server}\index{Server@{Server}}
+
+
+H\+T\+TP \mbox{\hyperlink{class_server}{Server}} responsible for managing active client\textquotesingle{}s list, application instances and port listeners.  
+
+
+
+
+{\ttfamily \#include $<$Server.\+h$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_server_1_1_listener}{Listener}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_server_1_1_listener}{Listener}} is responsible for listening on the given socket and creating a new sessions when a new request aproaches. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_server_af36c9e0c4b85be33584f2ac6510a4b38}{Server}} (const std\+::string \&config\+\_\+file)
+\begin{DoxyCompactList}\small\item\em Construct a new H\+T\+TP \mbox{\hyperlink{class_server}{Server}}. Initializes it with a given config file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_server_abb27d30b40a94326e3fd629d3b30b7d5}{run}} ()
+\begin{DoxyCompactList}\small\item\em Initializes tcp listener to listen on the server\textquotesingle{}s port. Methods blocks the thread up to the moment of sending S\+I\+G\+I\+NT or S\+I\+G\+T\+E\+RM signal to it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_server_af28c2359059b7b44425e94dbd67066e7}\label{class_server_af28c2359059b7b44425e94dbd67066e7}} 
+using \mbox{\hyperlink{class_server_af28c2359059b7b44425e94dbd67066e7}{Instance}} = std\+::pair$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_controller}{Controller}} $>$, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_view}{View}} $>$ $>$
+\begin{DoxyCompactList}\small\item\em Application\textquotesingle{}s instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_a444ba8aeeefcc7068ee6ed311d1e6c06}\label{class_server_a444ba8aeeefcc7068ee6ed311d1e6c06}} 
+using \mbox{\hyperlink{class_server_a444ba8aeeefcc7068ee6ed311d1e6c06}{Client}} = std\+::pair$<$ std\+::shared\+\_\+ptr$<$ boost\+::asio\+::steady\+\_\+timer $>$, \mbox{\hyperlink{class_server_af28c2359059b7b44425e94dbd67066e7}{Instance}} $>$
+\begin{DoxyCompactList}\small\item\em Type representing a single client record in the table. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_a1e20a443e5d6c50fe7aa6dc27e399be9}\label{class_server_a1e20a443e5d6c50fe7aa6dc27e399be9}} 
+using \mbox{\hyperlink{class_server_a1e20a443e5d6c50fe7aa6dc27e399be9}{Clients\+Map}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{class_server_a444ba8aeeefcc7068ee6ed311d1e6c06}{Client}} $>$
+\begin{DoxyCompactList}\small\item\em Table of clients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_server_aebdd6efa4838f5253ab8945f8a3e19fe}{\+\_\+\+\_\+stop}} ()
+\begin{DoxyCompactList}\small\item\em Stops server (if running). Perform all actions required to perform clean server\textquotesingle{}s close. Informs io\+\_\+contexts associated with clients about server\textquotesingle{}s termination. Clears clients\textquotesingle{} table. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_server_a85d79b0d174dbc36a8ec8b406e6dab7f}{\+\_\+\+\_\+load\+Config}} (const std\+::string \&config\+\_\+file)
+\begin{DoxyCompactList}\small\item\em Loads configuration from the file given with a path passed in argument. To load parameters server have to be stopped. Otherwise methods returns imediately. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_server_a67a59772bfa322c8eeddd991f6f4bd83}{\+\_\+\+\_\+join}} (const std\+::string \&client\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Looks for client in the actual clients table. If client found method resets timeout for this client. Otherwise it creates app instance for the client. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_server_a85d0249c9c381a00ddc6f7066e94d52e}{\+\_\+\+\_\+leave}} (const std\+::string \&client\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Unregisters clients session from the table. Deallocates instance of the app assigned to the client. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_ae38258939657b4d554316d677e92c56d}\label{class_server_ae38258939657b4d554316d677e92c56d}} 
+void \mbox{\hyperlink{class_server_ae38258939657b4d554316d677e92c56d}{\+\_\+\+\_\+clean}} ()
+\begin{DoxyCompactList}\small\item\em Removes expired record from the clients table. \end{DoxyCompactList}\item 
+const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_controller}{Controller}} $>$ \& \mbox{\hyperlink{class_server_aa2fafbc5080fdb0e18be614c6b867743}{\+\_\+\+\_\+get\+Controller}} (const std\+::string \&client\+\_\+id) const
+\item 
+const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_view}{View}} $>$ \& \mbox{\hyperlink{class_server_a7a5ce34c372095ae5dac01ab1145f0b6}{\+\_\+\+\_\+get\+View}} (const std\+::string \&client\+\_\+id) const
+\item 
+const std\+::shared\+\_\+ptr$<$ boost\+::asio\+::steady\+\_\+timer $>$ \& \mbox{\hyperlink{class_server_a1693f7f0858742255ddb463d905661fe}{\+\_\+\+\_\+get\+Timeout\+Timer}} (const std\+::string \&client\+\_\+id) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_server_a46015b935063e26957a06ce54e415d5a}\label{class_server_a46015b935063e26957a06ce54e415d5a}} 
+\mbox{\hyperlink{class_server_a1e20a443e5d6c50fe7aa6dc27e399be9}{Clients\+Map}} \mbox{\hyperlink{class_server_a46015b935063e26957a06ce54e415d5a}{\+\_\+\+\_\+clients}}
+\begin{DoxyCompactList}\small\item\em Table of the active client\textquotesingle{}s. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_a7dadd835a3bef217d7ea1a79c07d7173}\label{class_server_a7dadd835a3bef217d7ea1a79c07d7173}} 
+std\+::string \mbox{\hyperlink{class_server_a7dadd835a3bef217d7ea1a79c07d7173}{\+\_\+\+\_\+doc\+Root}}
+\begin{DoxyCompactList}\small\item\em Absolute path to the folder containing static files. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_ae265dc969e1913dc4e831f5815e5ffc4}\label{class_server_ae265dc969e1913dc4e831f5815e5ffc4}} 
+boost\+::asio\+::io\+\_\+context \mbox{\hyperlink{class_server_ae265dc969e1913dc4e831f5815e5ffc4}{\+\_\+\+\_\+context}}
+\begin{DoxyCompactList}\small\item\em Context of the server. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_a9460fbd42d4037c8feb55796270ac753}\label{class_server_a9460fbd42d4037c8feb55796270ac753}} 
+boost\+::asio\+::ip\+::tcp\+::endpoint \mbox{\hyperlink{class_server_a9460fbd42d4037c8feb55796270ac753}{\+\_\+\+\_\+endpoint}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_server}{Server}} socket\textquotesingle{}s local endpoint. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_a6904a9828c21c8f9ec3d7264fa71fc40}\label{class_server_a6904a9828c21c8f9ec3d7264fa71fc40}} 
+std\+::chrono\+::minutes \mbox{\hyperlink{class_server_a6904a9828c21c8f9ec3d7264fa71fc40}{\+\_\+\+\_\+client\+Timeout}}
+\begin{DoxyCompactList}\small\item\em Client\textquotesingle{}s timeout. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_a6172a59078793a138dd229c4c00586c6}\label{class_server_a6172a59078793a138dd229c4c00586c6}} 
+std\+::chrono\+::seconds \mbox{\hyperlink{class_server_a6172a59078793a138dd229c4c00586c6}{\+\_\+\+\_\+session\+Timeout}}
+\begin{DoxyCompactList}\small\item\em Session\textquotesingle{}s timeout. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_server_a53a20affc0dd32b432b7e596a68002fe}{Listener}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_server_1_1_listener}{Listener}} needs acces to \mbox{\hyperlink{class_server}{Server}}\textquotesingle{}s methods to simplify communication \mbox{\hyperlink{class_server_1_1_listener}{Listener}} and client\textquotesingle{}s table. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_a3e611175a551b64dda26f513067e0d04}\label{class_server_a3e611175a551b64dda26f513067e0d04}} 
+class \mbox{\hyperlink{class_server_a3e611175a551b64dda26f513067e0d04}{Http\+Session}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_http_session}{Http\+Session}} needs access to \mbox{\hyperlink{class_server}{Server}}\textquotesingle{}s methods and fields to simplify communication between \mbox{\hyperlink{class_http_session}{Http\+Session}} and client\textquotesingle{}s table. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_a885dbb0d49886f3402b8ed12ab9c076a}\label{class_server_a885dbb0d49886f3402b8ed12ab9c076a}} 
+class \mbox{\hyperlink{class_server_a885dbb0d49886f3402b8ed12ab9c076a}{Request\+Handler}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_request_handler}{Request\+Handler}} needs access to the server to get \+\_\+\+\_\+doc\+Root in a straight way. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_ad28f45770d3f08c840688fb4993911ad}\label{class_server_ad28f45770d3f08c840688fb4993911ad}} 
+class \mbox{\hyperlink{class_server_ad28f45770d3f08c840688fb4993911ad}{Server\+Test}}
+\begin{DoxyCompactList}\small\item\em Class used to public private interface for unit tests. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_server_ac4a291b79c0151c308e5ee22b22775be}\label{class_server_ac4a291b79c0151c308e5ee22b22775be}} 
+class \mbox{\hyperlink{class_server_ac4a291b79c0151c308e5ee22b22775be}{Listener\+Test}}
+\begin{DoxyCompactList}\small\item\em Class used to public \mbox{\hyperlink{class_server_1_1_listener}{Listener}}\textquotesingle{}s private interface for unit tests. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+H\+T\+TP \mbox{\hyperlink{class_server}{Server}} responsible for managing active client\textquotesingle{}s list, application instances and port listeners. 
+
+\begin{DoxyNote}{Note}
+Class is not thread-\/save in this version, so a single thread should be asigned to call of \mbox{\hyperlink{class_server_abb27d30b40a94326e3fd629d3b30b7d5}{run()}} method and no other thread should access \mbox{\hyperlink{class_server}{Server}} object at that time.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{_listener_8h}{Listener.\+h}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_server_af36c9e0c4b85be33584f2ac6510a4b38}\label{class_server_af36c9e0c4b85be33584f2ac6510a4b38}} 
+\index{Server@{Server}!Server@{Server}}
+\index{Server@{Server}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{Server()}{Server()}}
+{\footnotesize\ttfamily Server\+::\+Server (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{config\+\_\+file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a new H\+T\+TP \mbox{\hyperlink{class_server}{Server}}. Initializes it with a given config file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em context} & \+: io\+\_\+context of the server \\
+\hline
+{\em timeout} & \+: client\textquotesingle{}s connection timeout. If client doesn\textquotesingle{}t interact with server within this time, application\textquotesingle{}s instance is deleted. \\
+\hline
+{\em config\+\_\+file} & \+: path to the configuration file \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em boost\+::program\+\_\+options\+::invalid\+\_\+option\+\_\+value} & \+: If failed to load configuration from a given file. \\
+\hline
+\end{DoxyExceptions}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_server_aa2fafbc5080fdb0e18be614c6b867743}\label{class_server_aa2fafbc5080fdb0e18be614c6b867743}} 
+\index{Server@{Server}!\_\_getController@{\_\_getController}}
+\index{\_\_getController@{\_\_getController}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{\_\_getController()}{\_\_getController()}}
+{\footnotesize\ttfamily const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_controller}{Controller}} $>$ \& Server\+::\+\_\+\+\_\+get\+Controller (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{client\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Instance of controller assigned to the specified client 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_server_a1693f7f0858742255ddb463d905661fe}\label{class_server_a1693f7f0858742255ddb463d905661fe}} 
+\index{Server@{Server}!\_\_getTimeoutTimer@{\_\_getTimeoutTimer}}
+\index{\_\_getTimeoutTimer@{\_\_getTimeoutTimer}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{\_\_getTimeoutTimer()}{\_\_getTimeoutTimer()}}
+{\footnotesize\ttfamily const std\+::shared\+\_\+ptr$<$ boost\+::asio\+::steady\+\_\+timer $>$ \& Server\+::\+\_\+\+\_\+get\+Timeout\+Timer (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{client\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the client\textquotesingle{}s timeout timer 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_server_a7a5ce34c372095ae5dac01ab1145f0b6}\label{class_server_a7a5ce34c372095ae5dac01ab1145f0b6}} 
+\index{Server@{Server}!\_\_getView@{\_\_getView}}
+\index{\_\_getView@{\_\_getView}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{\_\_getView()}{\_\_getView()}}
+{\footnotesize\ttfamily const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_view}{View}} $>$ \& Server\+::\+\_\+\+\_\+get\+View (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{client\+\_\+id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Instance of view assigned to the specified client 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_server_a67a59772bfa322c8eeddd991f6f4bd83}\label{class_server_a67a59772bfa322c8eeddd991f6f4bd83}} 
+\index{Server@{Server}!\_\_join@{\_\_join}}
+\index{\_\_join@{\_\_join}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{\_\_join()}{\_\_join()}}
+{\footnotesize\ttfamily bool Server\+::\+\_\+\+\_\+join (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{client\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Looks for client in the actual clients table. If client found method resets timeout for this client. Otherwise it creates app instance for the client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+id} & \+: Client\textquotesingle{}s ID (IP address)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true \+: Client was added to the table. 
+
+false \+: Client was in the table. Timeout was reset. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_server_a85d0249c9c381a00ddc6f7066e94d52e}\label{class_server_a85d0249c9c381a00ddc6f7066e94d52e}} 
+\index{Server@{Server}!\_\_leave@{\_\_leave}}
+\index{\_\_leave@{\_\_leave}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{\_\_leave()}{\_\_leave()}}
+{\footnotesize\ttfamily bool Server\+::\+\_\+\+\_\+leave (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{client\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Unregisters clients session from the table. Deallocates instance of the app assigned to the client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+id} & \+: Client\textquotesingle{}s ID (IP address)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true \+: Client was ereased 
+
+false \+: Client with the given ID doesn\textquotesingle{}t exist 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_server_a85d79b0d174dbc36a8ec8b406e6dab7f}\label{class_server_a85d79b0d174dbc36a8ec8b406e6dab7f}} 
+\index{Server@{Server}!\_\_loadConfig@{\_\_loadConfig}}
+\index{\_\_loadConfig@{\_\_loadConfig}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{\_\_loadConfig()}{\_\_loadConfig()}}
+{\footnotesize\ttfamily void Server\+::\+\_\+\+\_\+load\+Config (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{config\+\_\+file }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Loads configuration from the file given with a path passed in argument. To load parameters server have to be stopped. Otherwise methods returns imediately. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em config\+\_\+file} & \+: Path to the config file \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_server_aebdd6efa4838f5253ab8945f8a3e19fe}\label{class_server_aebdd6efa4838f5253ab8945f8a3e19fe}} 
+\index{Server@{Server}!\_\_stop@{\_\_stop}}
+\index{\_\_stop@{\_\_stop}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{\_\_stop()}{\_\_stop()}}
+{\footnotesize\ttfamily void Server\+::\+\_\+\+\_\+stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Stops server (if running). Perform all actions required to perform clean server\textquotesingle{}s close. Informs io\+\_\+contexts associated with clients about server\textquotesingle{}s termination. Clears clients\textquotesingle{} table. 
+
+\begin{DoxyNote}{Note}
+Erease all clients from the map. This action destroys\+: \begin{DoxyVerb}  - shared_ptr to the steady_timer measuring timeout
+    which results in controlled timer object's destruction
+
+  - shared_ptr to View and Controller instances. Another
+    pointer is kept by the thread servicing http session
+    and it will be destroyed when thread finishes execution
+\end{DoxyVerb}
+
+\end{DoxyNote}
+\mbox{\Hypertarget{class_server_abb27d30b40a94326e3fd629d3b30b7d5}\label{class_server_abb27d30b40a94326e3fd629d3b30b7d5}} 
+\index{Server@{Server}!run@{run}}
+\index{run@{run}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily void Server\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes tcp listener to listen on the server\textquotesingle{}s port. Methods blocks the thread up to the moment of sending S\+I\+G\+I\+NT or S\+I\+G\+T\+E\+RM signal to it. 
+
+\begin{DoxyNote}{Note}
+\mbox{\hyperlink{class_server_1_1_listener}{Listener}}\textquotesingle{}s initializations is executed via shared\+\_\+ptr which is deleted at the end of the scope. It\textquotesingle{}s \mbox{\hyperlink{class_server_1_1_listener}{Listener}}\textquotesingle{}s \mbox{\hyperlink{class_server_abb27d30b40a94326e3fd629d3b30b7d5}{run()}} function responsibility to create another shared\+\_\+ptr to prolong object\textquotesingle{}s lifetime. 
+\end{DoxyNote}
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{class_server_a53a20affc0dd32b432b7e596a68002fe}\label{class_server_a53a20affc0dd32b432b7e596a68002fe}} 
+\index{Server@{Server}!Listener@{Listener}}
+\index{Listener@{Listener}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{Listener}{Listener}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{class_server_1_1_listener}{Listener}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\mbox{\hyperlink{class_server_1_1_listener}{Listener}} needs acces to \mbox{\hyperlink{class_server}{Server}}\textquotesingle{}s methods to simplify communication \mbox{\hyperlink{class_server_1_1_listener}{Listener}} and client\textquotesingle{}s table. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/server/Server.\+h\item 
+/home/cris/\+Desktop/\+Projekt/src/server/Server.\+cc\end{DoxyCompactItemize}

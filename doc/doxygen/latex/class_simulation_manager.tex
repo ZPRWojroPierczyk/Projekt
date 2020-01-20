@@ -1,0 +1,148 @@
+\hypertarget{class_simulation_manager}{}\doxysection{Simulation\+Manager Class Reference}
+\label{class_simulation_manager}\index{SimulationManager@{SimulationManager}}
+
+
+Main program\textquotesingle{}s class representing core of the simulation.  
+
+
+
+
+{\ttfamily \#include $<$Simulation\+Manager.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_simulation_manager_aa9c1c68599be579c8e4dced2f08861d1}{Simulation\+Manager}} (const std\+::string \&client\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Constructs uninitialized simulation. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_simulation_manager_af54a32b529c5726f78df079f571a6f93}{is\+Simulation\+Initialized}} ()
+\item 
+\mbox{\Hypertarget{class_simulation_manager_a79c1df3f6d8a5733fe78ae54c8911786}\label{class_simulation_manager_a79c1df3f6d8a5733fe78ae54c8911786}} 
+void \mbox{\hyperlink{class_simulation_manager_a79c1df3f6d8a5733fe78ae54c8911786}{pause}} ()
+\begin{DoxyCompactList}\small\item\em Pauses simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_manager_ab36c1d90bc43b9ba24643c2bf76f1c43}\label{class_simulation_manager_ab36c1d90bc43b9ba24643c2bf76f1c43}} 
+void \mbox{\hyperlink{class_simulation_manager_ab36c1d90bc43b9ba24643c2bf76f1c43}{reasume}} ()
+\begin{DoxyCompactList}\small\item\em Reasumes simulation from a puse. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simulation_manager_a9933d23b4eb23de26960c53f6913a87e}{change\+Speed}} (int speed)
+\item 
+\mbox{\Hypertarget{class_simulation_manager_abc024c454960cf9118e0e1564bb9e3c3}\label{class_simulation_manager_abc024c454960cf9118e0e1564bb9e3c3}} 
+void \mbox{\hyperlink{class_simulation_manager_abc024c454960cf9118e0e1564bb9e3c3}{optimise}} ()
+\begin{DoxyCompactList}\small\item\em Optimises agents\textquotesingle{} routes to increase transports efficiency. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_simulation_manager_adcd701f9d2fa7b7a474c41dab4239bcb}{\+\_\+\+\_\+initialize}} (boost\+::property\+\_\+tree\+::ptree \&cities, boost\+::property\+\_\+tree\+::ptree \&transports, boost\+::property\+\_\+tree\+::ptree \&agents, boost\+::property\+\_\+tree\+::ptree \&map\+\_\+parameters)
+\begin{DoxyCompactList}\small\item\em Initializes the simulation with the given properties. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_manager_ad3ad5da7c7232ff4c9372816dd4d38c7}\label{class_simulation_manager_ad3ad5da7c7232ff4c9372816dd4d38c7}} 
+void \mbox{\hyperlink{class_simulation_manager_ad3ad5da7c7232ff4c9372816dd4d38c7}{\+\_\+\+\_\+tick}} ()
+\begin{DoxyCompactList}\small\item\em Performs a single \textquotesingle{}tick\textquotesingle{} of the simulation. Updates state of the agents and transpots. This method is designed to be thread-\/safe so that it could be run parallelly with the main thread. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulation_manager_abd4d40726a762819774e088e98d29bf0}\label{class_simulation_manager_abd4d40726a762819774e088e98d29bf0}} 
+const unsigned int \mbox{\hyperlink{class_simulation_manager_abd4d40726a762819774e088e98d29bf0}{\+\_\+\+\_\+frequency}} = 20
+\begin{DoxyCompactList}\small\item\em Frequency of agents\textquotesingle{} positions refreshing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_manager_ac420a7a65efc2d2f305f3604ebf4e4ae}\label{class_simulation_manager_ac420a7a65efc2d2f305f3604ebf4e4ae}} 
+const std\+::string {\bfseries \+\_\+\+\_\+client\+ID}
+\item 
+\mbox{\Hypertarget{class_simulation_manager_a2cb423390466be9c0c2c837aa4c40e03}\label{class_simulation_manager_a2cb423390466be9c0c2c837aa4c40e03}} 
+bool {\bfseries \+\_\+\+\_\+is\+Initialized}
+\item 
+\mbox{\Hypertarget{class_simulation_manager_ac8d55a4ae481f208c19ad144db6c4831}\label{class_simulation_manager_ac8d55a4ae481f208c19ad144db6c4831}} 
+std\+::atomic$<$ bool $>$ {\bfseries \+\_\+\+\_\+is\+Running}
+\item 
+\mbox{\Hypertarget{class_simulation_manager_ac334c7ffdb01d68dc9c3fa019e26977c}\label{class_simulation_manager_ac334c7ffdb01d68dc9c3fa019e26977c}} 
+std\+::atomic$<$ int $>$ \mbox{\hyperlink{class_simulation_manager_ac334c7ffdb01d68dc9c3fa019e26977c}{\+\_\+\+\_\+speed\+Multiplier}}
+\begin{DoxyCompactList}\small\item\em Indicates speed of the simulated time flow. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_manager_a1c3c56026b16a78d9fad1a54dece7579}\label{class_simulation_manager_a1c3c56026b16a78d9fad1a54dece7579}} 
+std\+::chrono\+::milliseconds \mbox{\hyperlink{class_simulation_manager_a1c3c56026b16a78d9fad1a54dece7579}{\+\_\+\+\_\+simulation\+Time}}
+\begin{DoxyCompactList}\small\item\em Simulated time in miliseconds since 10 p.\+m. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_manager_a56d41a81910d4c9dae78efadd2a03d10}\label{class_simulation_manager_a56d41a81910d4c9dae78efadd2a03d10}} 
+std\+::vector$<$ \mbox{\hyperlink{class_agent}{Agent}} $>$ \mbox{\hyperlink{class_simulation_manager_a56d41a81910d4c9dae78efadd2a03d10}{\+\_\+\+\_\+agents}}
+\begin{DoxyCompactList}\small\item\em Table of active agents. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_simulation_manager_a74b6a5a66720f42b855f39b58fef3ecf}\label{class_simulation_manager_a74b6a5a66720f42b855f39b58fef3ecf}} 
+std\+::vector$<$ \mbox{\hyperlink{class_transport}{Transport}} $>$ \mbox{\hyperlink{class_simulation_manager_a74b6a5a66720f42b855f39b58fef3ecf}{\+\_\+\+\_\+transports}}
+\begin{DoxyCompactList}\small\item\em Table of planned transports. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulation_manager_ab0a3964b51744761223d5f423225af78}\label{class_simulation_manager_ab0a3964b51744761223d5f423225af78}} 
+class {\bfseries Simulation\+Creator\+Manager}
+\item 
+\mbox{\Hypertarget{class_simulation_manager_a61b0c9e8fd2292a9f51bf24f5396f2d5}\label{class_simulation_manager_a61b0c9e8fd2292a9f51bf24f5396f2d5}} 
+class {\bfseries Load\+Simulation\+Manager}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main program\textquotesingle{}s class representing core of the simulation. 
+
+This class holds informations about simulation\textquotesingle{}s core involving agents\textquotesingle{} and transports\textquotesingle{} state. The class shares an interface that facilitates simulation\textquotesingle{}s flow controll. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_simulation_manager_aa9c1c68599be579c8e4dced2f08861d1}\label{class_simulation_manager_aa9c1c68599be579c8e4dced2f08861d1}} 
+\index{SimulationManager@{SimulationManager}!SimulationManager@{SimulationManager}}
+\index{SimulationManager@{SimulationManager}!SimulationManager@{SimulationManager}}
+\doxysubsubsection{\texorpdfstring{SimulationManager()}{SimulationManager()}}
+{\footnotesize\ttfamily Simulation\+Manager\+::\+Simulation\+Manager (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{client\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Constructs uninitialized simulation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client\+\_\+id} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simulation_manager_adcd701f9d2fa7b7a474c41dab4239bcb}\label{class_simulation_manager_adcd701f9d2fa7b7a474c41dab4239bcb}} 
+\index{SimulationManager@{SimulationManager}!\_\_initialize@{\_\_initialize}}
+\index{\_\_initialize@{\_\_initialize}!SimulationManager@{SimulationManager}}
+\doxysubsubsection{\texorpdfstring{\_\_initialize()}{\_\_initialize()}}
+{\footnotesize\ttfamily void Simulation\+Manager\+::\+\_\+\+\_\+initialize (\begin{DoxyParamCaption}\item[{boost\+::property\+\_\+tree\+::ptree \&}]{cities,  }\item[{boost\+::property\+\_\+tree\+::ptree \&}]{transports,  }\item[{boost\+::property\+\_\+tree\+::ptree \&}]{agents,  }\item[{boost\+::property\+\_\+tree\+::ptree \&}]{map\+\_\+parameters }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Initializes the simulation with the given properties. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cities} & Informations about cities and available agents. \\
+\hline
+{\em transports} & Informations about required transports. \\
+\hline
+{\em agents} & Informations about agent\textquotesingle{}s parameters. \\
+\hline
+{\em map\+\_\+parameters} & Informations about map\textquotesingle{}s parameters. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_manager_a9933d23b4eb23de26960c53f6913a87e}\label{class_simulation_manager_a9933d23b4eb23de26960c53f6913a87e}} 
+\index{SimulationManager@{SimulationManager}!changeSpeed@{changeSpeed}}
+\index{changeSpeed@{changeSpeed}!SimulationManager@{SimulationManager}}
+\doxysubsubsection{\texorpdfstring{changeSpeed()}{changeSpeed()}}
+{\footnotesize\ttfamily void Simulation\+Manager\+::change\+Speed (\begin{DoxyParamCaption}\item[{int}]{speed }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed} & A new simulation\textquotesingle{}s speed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulation_manager_af54a32b529c5726f78df079f571a6f93}\label{class_simulation_manager_af54a32b529c5726f78df079f571a6f93}} 
+\index{SimulationManager@{SimulationManager}!isSimulationInitialized@{isSimulationInitialized}}
+\index{isSimulationInitialized@{isSimulationInitialized}!SimulationManager@{SimulationManager}}
+\doxysubsubsection{\texorpdfstring{isSimulationInitialized()}{isSimulationInitialized()}}
+{\footnotesize\ttfamily bool Simulation\+Manager\+::is\+Simulation\+Initialized (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+true Simulation has been initialized 
+
+false Simulation has not been initialized 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/mvc/model/managers/\mbox{\hyperlink{_simulation_manager_8h}{Simulation\+Manager.\+h}}\item 
+/home/cris/\+Desktop/\+Projekt/src/mvc/model/managers/\mbox{\hyperlink{_simulation_manager_8cc}{Simulation\+Manager.\+cc}}\end{DoxyCompactItemize}

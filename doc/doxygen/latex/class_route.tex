@@ -1,0 +1,124 @@
+\hypertarget{class_route}{}\doxysection{Route Class Reference}
+\label{class_route}\index{Route@{Route}}
+
+
+\mbox{\hyperlink{class_route}{Route}} class represents an agent\textquotesingle{}s route computed by the planner.  
+
+
+
+
+{\ttfamily \#include $<$Route.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_route_a2b1c971aaf032109cee8081c97e9b9e9}\label{class_route_a2b1c971aaf032109cee8081c97e9b9e9}} 
+\mbox{\hyperlink{class_route_a2b1c971aaf032109cee8081c97e9b9e9}{Route}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new empty \mbox{\hyperlink{class_route}{Route}} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_route_a7d46ed347ea19578673227b903d79f7e}{Route}} (std\+::vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \mbox{\hyperlink{class_route_a0e336886d271004210339ff052444081}{\+\_\+\+\_\+path}}, int \mbox{\hyperlink{class_route_a98bcd3d95007128490b4fcd250ef3238}{\+\_\+\+\_\+length}})
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_route}{Route}} object with a given path and length. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_route}{Route}} \& \mbox{\hyperlink{class_route_a6a6e1f84365ec062f16279b3bd29771d}{operator=}} (\mbox{\hyperlink{class_route}{Route}} \&\&route)
+\begin{DoxyCompactList}\small\item\em Move assighnment operator. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ unsigned int, unsigned int $>$ $>$ \mbox{\hyperlink{class_route_a83fed5f8008bdec826c7789e85b6c7b5}{is\+Close}} (const \mbox{\hyperlink{class_route}{Route}} \&route) const
+\begin{DoxyCompactList}\small\item\em Method return set of pair of indices from both routes points arrays indicating which pairs of points are close each other. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_point}{Point}} \mbox{\hyperlink{class_route_a1d9642ae0c72e0bfdc112a0ba7507f66}{operator\mbox{[}$\,$\mbox{]}}} (unsigned int index) const
+\item 
+unsigned int \mbox{\hyperlink{class_route_aabd8c543337bef0159bb555bb78490d3}{size}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_route_a0e336886d271004210339ff052444081}\label{class_route_a0e336886d271004210339ff052444081}} 
+std\+::vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \mbox{\hyperlink{class_route_a0e336886d271004210339ff052444081}{\+\_\+\+\_\+path}}
+\begin{DoxyCompactList}\small\item\em List of points constituting the road. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_route_a98bcd3d95007128490b4fcd250ef3238}\label{class_route_a98bcd3d95007128490b4fcd250ef3238}} 
+unsigned int \mbox{\hyperlink{class_route_a98bcd3d95007128490b4fcd250ef3238}{\+\_\+\+\_\+length}}
+\begin{DoxyCompactList}\small\item\em Length of the road in \mbox{[}m\mbox{]}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_route}{Route}} class represents an agent\textquotesingle{}s route computed by the planner. 
+
+This class is a basic route containing only basic informations about route involving set of points constituting aproximate shape of the road and summary lenth. Class shares simple interface to get basic informations about the route. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_route_a7d46ed347ea19578673227b903d79f7e}\label{class_route_a7d46ed347ea19578673227b903d79f7e}} 
+\index{Route@{Route}!Route@{Route}}
+\index{Route@{Route}!Route@{Route}}
+\doxysubsubsection{\texorpdfstring{Route()}{Route()}}
+{\footnotesize\ttfamily Route\+::\+Route (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$}]{\+\_\+\+\_\+path,  }\item[{int}]{\+\_\+\+\_\+length }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{class_route}{Route}} object with a given path and length. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+path} & Vector of points constituting route \\
+\hline
+{\em \+\_\+\+\_\+length} & Length of the route in \mbox{[}m\mbox{]} \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_route_a83fed5f8008bdec826c7789e85b6c7b5}\label{class_route_a83fed5f8008bdec826c7789e85b6c7b5}} 
+\index{Route@{Route}!isClose@{isClose}}
+\index{isClose@{isClose}!Route@{Route}}
+\doxysubsubsection{\texorpdfstring{isClose()}{isClose()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ unsigned int, unsigned int $>$ $>$ Route\+::is\+Close (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_route}{Route}} \&}]{route }\end{DoxyParamCaption}) const}
+
+
+
+Method return set of pair of indices from both routes points arrays indicating which pairs of points are close each other. 
+
+\begin{DoxyReturn}{Returns}
+Vector of pairs of indices. First index of each pair is index for this object and the second is index for object passed as argument. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_route_a6a6e1f84365ec062f16279b3bd29771d}\label{class_route_a6a6e1f84365ec062f16279b3bd29771d}} 
+\index{Route@{Route}!operator=@{operator=}}
+\index{operator=@{operator=}!Route@{Route}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_route}{Route}} \& Route\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_route}{Route}} \&\&}]{route }\end{DoxyParamCaption})}
+
+
+
+Move assighnment operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em route} & \mbox{\hyperlink{class_route}{Route}} to move \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reference to this 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_route_a1d9642ae0c72e0bfdc112a0ba7507f66}\label{class_route_a1d9642ae0c72e0bfdc112a0ba7507f66}} 
+\index{Route@{Route}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Route@{Route}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_point}{Point}} Route\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{unsigned int}]{index }\end{DoxyParamCaption}) const}
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & Index of the point in the intermediate points array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_point}{Point}} of the path with a given index 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_route_aabd8c543337bef0159bb555bb78490d3}\label{class_route_aabd8c543337bef0159bb555bb78490d3}} 
+\index{Route@{Route}!size@{size}}
+\index{size@{size}!Route@{Route}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily unsigned int Route\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\begin{DoxyReturn}{Returns}
+Number of indices in the array of intermediate points 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/cris/\+Desktop/\+Projekt/include/app/mvc/model/managers/simulation/Route.\+h\item 
+/home/cris/\+Desktop/\+Projekt/src/mvc/model/managers/simulation/Route.\+cc\end{DoxyCompactItemize}

@@ -1,0 +1,7 @@
+<map id="HttpSessionTest" name="HttpSessionTest">
+<area shape="rect" id="node1" title="Class making HttpSession&#39;s private members public to perform unit tests." alt="" coords="179,199,299,225"/>
+<area shape="rect" id="node2" href="$class_http_session.html" title="Class representing a single HTTP session." alt="" coords="191,109,286,136"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,5,184,47"/>
+<area shape="rect" id="node4" href="$class_server.html" title="HTTP Server responsible for managing active client&#39;s list, application instances and port listeners." alt="" coords="209,13,269,39"/>
+<area shape="rect" id="node5" href="$class_request_handler.html" title="Class constituting an interface between the server&#45;side and the MVC instances." alt="" coords="293,13,409,39"/>
+</map>

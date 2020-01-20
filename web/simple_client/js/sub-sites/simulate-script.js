@@ -307,7 +307,7 @@ function sendInformation(element) {
     var xhttp;
     xhttp = new XMLHttpRequest();
     xhttp.open("POST", "", true);
-    var headerName = "Information";
+    var headerName = "Content-Type";
     var headerValue = "simulation/" + element.getAttribute("data-icon");
     xhttp.setRequestHeader(headerName, headerValue);
     xhttp.send();
@@ -528,7 +528,7 @@ function querying() {
     };
 
     xhttp.open("POST", "", true);
-    var headerName = "Information";
+    var headerName = "Content-Type";
     var headerValue = "simulation/snapshot-request";
     xhttp.setRequestHeader(headerName, headerValue);
     xhttp.send();
@@ -572,8 +572,8 @@ function mapUpdate(jsonData) {
                 break: false,
                 malfunction: false,
                 accident: false
-        }
-        //Direction
+            }
+            //Direction
         directionsRendererArray[i] = new google.maps.DirectionsRenderer();
         directionsRendererArray[i].setMap(map);
         directionsRendererArray[i].setDirections(agent.path);

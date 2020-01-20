@@ -68,6 +68,17 @@ private:
      * @return Type of the data that View instance should be requested for.
      */
     std::string __creatorAction(const std::string& action_type, const std::string& body);
+
+    /**
+     * @brief Identifies and executes client's action performed in the simulation
+     *        window.
+     * 
+     * @param action_type 
+     * @param body Data associated with an action
+     * @return Type of the data that View instance should be requested for.
+     */
+    std::string __simulationAction(const std::string& action_type, const std::string& body);
+
 };
 
 #endif

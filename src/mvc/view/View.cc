@@ -82,7 +82,25 @@ std::string View::getResource(const std::string& target, bool& is_redirect){
 }
 
 std::string View::getData(const std::string& requested_data){
-    return "";
+
+    /**
+     * @brief At now there is a single POST request that can demand any
+     *        data to be sent back to the client. This request is a querry
+     *        for a simulation snapshot - JSON-formetted text containing
+     *        informations about actual simulation's state. 
+     * 
+     */
+
+    if(requested_data == "snapshot"){
+        return "";
+    }
+    else{
+        std::cerr << std::endl 
+                  << "Unknown data request: " << requested_data << "." << std::endl
+                  << "No data sent back."
+                  << std::endl;
+        return "";
+    }
 }
 
 

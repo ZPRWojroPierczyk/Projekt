@@ -66,7 +66,15 @@ std::string Controller::action(const std::string& action_type, const std::string
     }
     // Actions performed in a simulation
     else if(action_type.rfind("simulation", 0) == 0){
-        return "";
+
+        return __simulationAction(
+            action_type.substr(
+                std::strlen("simulation/"),
+                action_type.length() - std::strlen("simulation/")
+            ),
+            body
+        );
+
     }
     // Unknown action's group
     else{
@@ -148,6 +156,78 @@ std::string Controller::__creatorAction(const std::string& action_type, const st
     else{
         std::cerr << std::endl 
                   << "Unknown creator's action: " << action_type << "." << std::endl
+                  << "No action performed."
+                  << std::endl;
+        return "";
+    }
+
+}
+
+std::string Controller::__simulationAction(const std::string& action_type, const std::string& body){
+
+    /**
+     * @brief From simulation window a series of requests can be send to the server.
+     *        We can distinguish three groups of requests:
+     * 
+     *             - requests for changing simulation's speed or
+     *               pausing/reasuming simulation
+     *              
+     *             - request for simulation's snapshot, i.e. JSON-formatted
+     *               set informations about actual state of the simulation
+     * 
+     *             - request for applying simulation's modifications
+     *               introduced by the client
+     *  
+     */
+
+
+    /* ------------------ Requests for changing speed or pausing/reasuming ------------------ */
+    
+    /**
+     * @todo Implement incremental speed changes instead of fixed ones
+     */
+    if(action_type == "pause"){
+        __model->simulationManager.pause();
+        return "";
+    }
+    else if(action_type == "play"){
+        __model->simulationManager.reasume();
+        return "";
+    }
+    else if(action_type == "forward"){
+        __model->simulationManager.changeSpeed(8);
+        return "";
+    }
+    else if(action_type == "backward"){
+        __model->simulationManager.changeSpeed(-8);
+        return "";
+    }
+    else if(action_type == "fast-forward"){
+        __model->simulationManager.changeSpeed(32);
+        return "";
+    }
+    else if(action_type == "fast-backward"){
+        __model->simulationManager.changeSpeed(-32);
+        return "";
+    }
+
+    /* -------------- Requests for simulation's snapshot ------------- */
+
+    else if(action_type == "snapshot-request"){
+        return "snapshot";
+    }
+
+    /* ------------ Requests for applying simulation's modifications ----------- */
+
+    else if(action_type == "modifications"){
+        return "";
+    }
+
+    /* ---------------------- Unknown request ---------------------- */
+
+    else{
+        std::cerr << std::endl 
+                  << "Unknown simulations's action: " << action_type << "." << std::endl
                   << "No action performed."
                   << std::endl;
         return "";

@@ -131,7 +131,23 @@ void RequestHandler::operator()(
 
             return send(std::move(res));
         }
-        else return;
+        else{
+            // Construct response body
+            http::empty_body::value_type response_body;
+
+            // Construct HTTP response
+            http::response<http::empty_body> res{
+                std::piecewise_construct,
+                std::make_tuple(std::move(response_body)),
+                std::make_tuple(http::status::ok, req.version())
+            };
+
+            res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
+            res.content_length(0);
+            res.keep_alive(req.keep_alive());
+
+            return send(std::move(res));
+        }
     }
     // Head/get : request for resources
     else if(req.method() == http::verb::get || req.method() == http::verb::head){

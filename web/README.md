@@ -36,7 +36,7 @@ var sendString = json_form_data;
 
 ```
 //Simulation transition, all forms acceptance confirmation
-var headerName = "Information";
+var headerName = "Content-type";
 var headerValue = "creator-success";
 ```
 
@@ -48,45 +48,45 @@ POST request - constantly querying for snapshot  - response with snapshot:
 
 ```
 //Simulation snapshot request
-var headerName = "Information";
-var headerValue = "simulation-snapshot-request";
+var headerName = "Content-type";
+var headerValue = "simulation/snapshot-request";
 ```
 
 POST requests - sending information about request - buttons state reflection (without response):
 
 ```
 //Simulation pause
-var headerName = "Information";
-var headerValue = "simulation/stop";
+var headerName = "Content-type";
+var headerValue = "simulation/pause";
 ```
 
 ```
 //Simulation play
-var headerName = "Information";
+var headerName = "Content-type";
 var headerValue = "simulation/play";
 ```
 
 ```
 //Simulation forward
-var headerName = "Information";
+var headerName = "Content-type";
 var headerValue = "simulation/forward";
 ```
 
 ```
 //Simulation backward
-var headerName = "Information";
+var headerName = "Content-type";
 var headerValue = "simulation/backward";
 ```
 
 ```
 //Simulation fast forward
-var headerName = "Information";
+var headerName = "Content-type";
 var headerValue = "simulation/fast-forward";
 ```
 
 ```
 //Simulation fast backward
-var headerName = "Information";
+var headerName = "Content-type";
 var headerValue = "simulation/fast-backward";
 ```
 

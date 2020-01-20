@@ -41,6 +41,12 @@ public:
     Agent(const std::string& home, unsigned int id,
           boost::property_tree::ptree params);
 
+    /**
+     * @brief Simple copying constructor
+     * @param agent 
+     */
+    Agent(const Agent& agent);
+
 // Interface
 public:
 
@@ -48,23 +54,49 @@ public:
      * @brief Initializes a new transport between given cities
      *        if possible.
      * 
+     * @param transport_id Identifier of the realized transport
      * @param origin Start point of the transport
      * @param destination Transport's destination
      * @param load Amount of stuff to transport
-     * @return true Transport was sucesfullt allocated
-     * @return false It is not possible for agent to perform transport
+     * @param map_params Characteristic parameters of the map used during
+     *                   route's planning
+     * @returns true Transport was sucesfullt allocated
+     * @returns false It is not possible for agent to perform transport
      */
-    bool initializeTransport(const std::string& origin,
+    bool initializeTransport(const std::string& transport_id,
+                             const std::string& origin,
                              const std::string& destination,
-                             unsigned int load);
+                             unsigned int load,
+                             boost::property_tree::ptree map_params);
 
+    /* --------- Getters & setters --------- */
+
+    /**
+     * @returns Agent's home city 
+     */
+    std::string getHome() const;
+
+    /**
+     * @returns Agent's maximum load 
+     */
+    unsigned int getMaxLoad() const;
+
+    /**
+     * @returns Agent's actual load 
+     */
+    unsigned int getLoad() const;
+
+    /**
+     * @returns Identifier of the transport realized by the agent
+     */
+    std::string getTransportID() const;
 
 // Private constants
 private:
 
     /* --- Agent's limits --- */
 
-    /// Maximum agent's velocity
+    /// Maximum agent's velocity in p[km/h]
     const unsigned int __MAX_VELOCITY;
     
     /// Maximum agent's load in [kg]
@@ -73,10 +105,10 @@ private:
     /// Maximum agent's continuant drive time in [min]
     const unsigned int __MAX_DRIVE_TIME;
 
-    /// Agent's gap time (gaps are taken once per __MAX_DRIVE_TIME)
+    /// Agent's gap time (gaps are taken once per __MAX_DRIVE_TIME) in [min]
     const unsigned int __GAP_TIME;
 
-    /// Probability for agent's breakdown
+    /// Probability for agent's breakdown in [%]
     const unsigned int __BREAK_PROBABILITY;
 
 //Private members
@@ -84,19 +116,22 @@ private:
 
     /* --- Agent's identificators --- */
 
+    /// Agent's home city
     const std::string __HOME;
 
+    /// Agent's identificator (unique per home city)
     const unsigned int __ID;
 
-    std::string __TRANSPORT_ID;
+    /// ID of the transport delivered by the agent
+    std::string __transportID;
 
 
     /* --- Localization informations --- */    
 
     /// Coordinates given in [latitude; longitude]
-     boost::numeric::ublas::vector<float> __cordinates;
+     boost::numeric::ublas::vector<float> __coordinates;
 
-    /// Agent's road
+    /// Agent's route
     Route __route;
 
     /// Index of the __route's point that Agent's moving toward

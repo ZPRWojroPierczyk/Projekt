@@ -38,7 +38,7 @@ SimulationCreatorManager::~SimulationCreatorManager(){
 /*--------------------------------------------------------------------------------*/
 
 void SimulationCreatorManager::initializeSimulation(){
-    __simulationManager.__initialize();
+    __simulationManager.__initialize(__cities, __transports, __agentsParams, __mapParams);
     return;
 }
 

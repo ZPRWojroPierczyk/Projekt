@@ -16,9 +16,10 @@
 /*-------------------------------- Constructors ----------------------------------*/
 /*--------------------------------------------------------------------------------*/
 
-Model::Model(const std::string& client_id) :
-    settingsManager(client_id),
-    simulationCreatorManager(client_id, simulationManager)
+Model::Model(const std::string& client_id)
+    : settingsManager(client_id)
+    , simulationManager(client_id)
+    , simulationCreatorManager(client_id, simulationManager)
 {}
 
 /*--------------------------------------------------------------------------------*/

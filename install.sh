@@ -23,3 +23,6 @@ cd $PROJECT_DIR/external/boost_1_72_0
     --libdir=$PROJECT_DIR/lib/boost \
     --includedir=$PROJECT_DIR/include \
     --with-system --with-program_options --with-test
+# Remove downloaded boost folder
+cd ..
+rm -r boost_1_72_0

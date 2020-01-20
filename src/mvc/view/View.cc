@@ -60,8 +60,8 @@ std::string View::getResource(const std::string& target, bool& is_redirect){
             
             /**
              * @todo .css files constituting another themes should be placed
-             *       in the /web/simple_client/css/themename_folder and should 
-             *       be divided into index.css and sub-sites/file.css files.
+             *       in the /web/css/themename_folder and should be divided
+             *       into index.css and sub-sites/file.css files.
              * 
              *       If theme other than default is set, the only thing to
              *       change in target string is to insert '/themename_folder'

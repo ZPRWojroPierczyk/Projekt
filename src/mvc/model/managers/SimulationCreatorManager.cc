@@ -90,7 +90,7 @@ void SimulationCreatorManager::__loadCreator(){
     // Open a databes with users' configuartions
     sqlite3 *db;
     int rc;
-    std::string db_name = std::string(ROOT) + "/data/users/users_config.sqlite3";
+    std::string db_name = std::string(ROOT) + "/data/databases/users_config.sqlite3";
     rc = sqlite3_open( db_name.c_str() ,&db);
 
     // If canot open database, load default configuration of creator 
@@ -155,7 +155,7 @@ void SimulationCreatorManager::__saveCreator(){
     // Open a databes with users' configuartions
     sqlite3 *db;
     int rc;
-    std::string db_name = std::string(ROOT) + "/data/users/users_config.sqlite3";
+    std::string db_name = std::string(ROOT) + "/data/databases/users_config.sqlite3";
     rc = sqlite3_open( db_name.c_str() ,&db);
 
     // If canot open database, load default configuration of creator 

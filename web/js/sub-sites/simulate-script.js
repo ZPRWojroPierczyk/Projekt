@@ -288,7 +288,7 @@ function setAccident(lat, lng) {
 
 /******************** Simulation buttons ********************/
 
-var pause_mode = false;
+var pause_mode = true;
 
 // Sending information about simulation mode (buttons state), and styling the active one
 function sendInformation(element) {
@@ -516,7 +516,8 @@ function closeSideMenuRight() {
 /******************** Constantly requesting for simulation snapshot ********************/
 
 // Querying server for simulation snapshot data
-// --- var server_querying = setInterval(querying, 10); // every 10ms
+// var server_querying = setInterval(querying, 10); // every 10ms
+var server_querying;
 
 function querying() {
     var xhttp;

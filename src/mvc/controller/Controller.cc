@@ -79,8 +79,9 @@ std::string Controller::action(const std::string& action_type, const std::string
     // Unknown action's group
     else{
 
-        std::cerr << std::endl 
-                  << "Unknown action: " << action_type << "." << std::endl
+        std::cerr << "\n" 
+                  << "Unknown action: " << action_type << "."
+                  << "\n"
                   << "No action performed."
                   << std::endl;
         return "";
@@ -154,8 +155,9 @@ std::string Controller::__creatorAction(const std::string& action_type, const st
     /* ---------------------- Unknown request ---------------------- */
 
     else{
-        std::cerr << std::endl 
-                  << "Unknown creator's action: " << action_type << "." << std::endl
+        std::cerr << "\n"
+                  << "Unknown creator's action: " << action_type << "."
+                  << "\n"
                   << "No action performed."
                   << std::endl;
         return "";
@@ -226,8 +228,9 @@ std::string Controller::__simulationAction(const std::string& action_type, const
     /* ---------------------- Unknown request ---------------------- */
 
     else{
-        std::cerr << std::endl 
-                  << "Unknown simulations's action: " << action_type << "." << std::endl
+        std::cerr << "\n" 
+                  << "Unknown simulations's action: " << action_type << "."
+                  << "\n"
                   << "No action performed."
                   << std::endl;
         return "";

@@ -95,8 +95,9 @@ std::string View::getData(const std::string& requested_data){
         return "";
     }
     else{
-        std::cerr << std::endl 
-                  << "Unknown data request: " << requested_data << "." << std::endl
+        std::cerr << "\n"
+                  << "Unknown data request: " << requested_data << "."
+                  << "\n"
                   << "No data sent back."
                   << std::endl;
         return "";

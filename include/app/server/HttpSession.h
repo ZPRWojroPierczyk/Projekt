@@ -6,6 +6,10 @@
  * @date 2020-01-02
  * 
  * @copyright Copyright (c) 2020
+ * @note This code was in large measue base on the Vinnie Falco's
+ *       speach given on the CppCon 2018. His examples regarding
+ *       boost::beast uasge are available on the git repositery
+ *       on https://github.com/vinniefalco/CppCon2018
  * 
  */
 

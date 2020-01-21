@@ -96,9 +96,9 @@ void SimulationCreatorManager::__loadCreator(){
     // If canot open database, load default configuration of creator 
     if(rc){
         __loadDefaultCreator();
-        std::cerr << std::endl
+        std::cerr << "\n"
                   << "Cannot open database containing users' configs!"
-                  << std::endl
+                  << "\n"
                   << "Default creator loaded."
                   << std::endl;
         sqlite3_close_v2(db);
@@ -161,9 +161,9 @@ void SimulationCreatorManager::__saveCreator(){
     // If canot open database, load default configuration of creator 
     if(rc){
         __loadDefaultCreator();
-        std::cerr << std::endl
+        std::cerr << "\n"
                   << "Cannot open database containing users' configs!"
-                  << std::endl
+                  << "\n"
                   << "Default creator loaded."
                   << std::endl;
         sqlite3_close_v2(db);
@@ -269,9 +269,9 @@ bool SimulationCreatorManager::__isTable(sqlite3* databse){
     
     // Load default parameters and close database if execution failed
     if(rc != SQLITE_OK){
-        std::cerr << std::endl
+        std::cerr << "\n"
                   << "Cannot prepare sql statement to use!"
-                  << std::endl
+                  << "\n"
                   << "Default creator loaded."
                   << std::endl;
         count = 0;
@@ -306,9 +306,9 @@ bool SimulationCreatorManager::__createTable(sqlite3* database){
 
     // Report if table could not be created
     if(rc != SQLITE_OK){
-        std::cerr << std::endl
+        std::cerr << "\n"
                   << "Cannot create table in the database!"
-                  << std::endl
+                  << "\n"
                   << "Creator's configuration has not been saved."
                   << std::endl;
         sqlite3_free(err_msg);
@@ -350,9 +350,9 @@ bool SimulationCreatorManager::__isClientRecord(sqlite3* database){
     );
 
     if(rc != SQLITE_OK){
-        std::cerr << std::endl
+        std::cerr << "\n"
                   << "Cannot check for client's existance in the database!"
-                  << std::endl
+                  << "\n"
                   << "Default creator loaded."
                   << std::endl;
         count = 0;
@@ -419,9 +419,9 @@ bool SimulationCreatorManager::__loadRecord(sqlite3* database){
     );    
 
     if(rc != SQLITE_OK){
-        std::cerr << std::endl
+        std::cerr << "\n"
                   << "Cannot load configuration from the database record!"
-                  << std::endl
+                  << "\n"
                   << "Default creator loaded."
                   << std::endl;
         sqlite3_free(err_msg);
@@ -471,9 +471,9 @@ bool SimulationCreatorManager::__saveNew(sqlite3* database){
 
     // Report if table could not be created
     if(rc != SQLITE_OK){
-        std::cerr << std::endl
+        std::cerr << "\n"
                   << "Cannot insert record to the database!"
-                  << std::endl
+                  << "\n"
                   << "Creator's configuration has not been saved."
                   << std::endl;
         sqlite3_free(err_msg);
@@ -522,9 +522,9 @@ bool SimulationCreatorManager::__saveUpdate(sqlite3* database){
 
     // Report if table could not be created
     if(rc != SQLITE_OK){
-        std::cerr << std::endl
+        std::cerr << "\n"
                   << "Cannot update client's record to the database!"
-                  << std::endl
+                  << "\n"
                   << "Creator's configuration has not been saved."
                   << std::endl;
         sqlite3_free(err_msg);

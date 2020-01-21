@@ -84,7 +84,7 @@ private:
 private:
 
     /// Frequency of agents' positions refreshing
-    const unsigned int __frequency = 20;
+    const unsigned int __FREQUENCY = 20;
 
 // Private members
 private:

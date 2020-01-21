@@ -6,7 +6,10 @@
  * @date 2020-01-02
  * 
  * @copyright Copyright (c) 2020
- * 
+ * @note This code was in large measue base on the Vinnie Falco's
+ *       speach given on the CppCon 2018. His examples regarding
+ *       boost::beast uasge are available on the git repositery
+ *       on https://github.com/vinniefalco/CppCon2018
  */
 
 #include <algorithm>
@@ -35,11 +38,7 @@ Server::Server(const std::string& config_file) :
     __context()
 {
     // Initial configuration loading
-    try{
-        __loadConfig(config_file);
-    } catch (...){
-        throw;
-    }
+    __loadConfig(config_file);
 }
 
 
@@ -146,8 +145,6 @@ void Server::__loadConfig(const std::string& config_file){
         ("ip", po::value<std::string>(), "Server's ip address")
         // Port number
         ("port", po::value<unsigned short>(), "Server's port number")
-        // Absolute Path to the folder containing static files
-        ("doc_root", po::value<std::string>(), "Path to the static files root folder")
         // Client's timeout. Time that should pass (without receiving any request from the client)
         // to close instance of the simulation associated with a client.
         ("client_timeout_min", po::value<short>()->default_value(30), "Client's timeout [min].")
@@ -192,14 +189,9 @@ void Server::__loadConfig(const std::string& config_file){
             __sessionTimeout = std::chrono::seconds(session_timeout);
         else
             throw po::invalid_option_value("session timeout");
-
-        // Doc root existance
-        struct stat info;
-        if(stat(vm["doc_root"].as<std::string>().c_str(), &info) !=0)
-            throw std::runtime_error("");
         
         __endpoint = asio::ip::tcp::endpoint(address, port);
-        __docRoot = vm["doc_root"].as<std::string>();
+        __docRoot = std::string(ROOT) + "/web";
 
     } catch (po::invalid_option_value &ex){
         throw;

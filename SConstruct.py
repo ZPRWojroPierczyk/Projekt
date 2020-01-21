@@ -8,8 +8,8 @@ import os
 LINUX_BOOST_INCLUDE_PATH = 'include/boost'
 LINUX_BOOST_LIB_PATH = 'lib/boost'
 
-LINUX_SQLITE3_INCLUDE_PATH = '/usr/inlude'
-LINUX_SQLITE3_LIB_PATH = '/usr/lib/x86_64-linux-gnu'
+LINUX_SQLITE3_INCLUDE_PATH = 'include/sqlite3'
+LINUX_SQLITE3_LIB_PATH = 'lib/sqlite3'
 
 LINUX_SSL_INCLUDE_PATH = '/usr/inlude'
 LINUX_SSL_LIB_PATH = '/usr/lib/x86_64-linux-gnu'

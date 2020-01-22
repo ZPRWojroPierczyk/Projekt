@@ -1,3 +1,1 @@
-build/
-sqlite-autoconf-3300100/
-boost_1_72_0/
+users_config.sqlite3

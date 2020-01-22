@@ -134,11 +134,11 @@ def version(debug):
 
 # Build app
 VariantDir('obj/' + version(debug) + '/app', 'src', duplicate = 0)
-srcObjects = SConscript('obj/' + version(debug) + '/app/SConscript.py', exports='srcDepth')
+srcObjects = SConscript('obj/' + version(debug) + '/app/SConscript', exports='srcDepth')
 
 # Build test
 VariantDir('obj/' + version(debug) + '/test', 'test', duplicate = 0)
-SConscript('obj/' + version(debug) + '/test/SConscript.py', exports = ['srcObjects', 'testDepth'])
+SConscript('obj/' + version(debug) + '/test/SConscript', exports = ['srcObjects', 'testDepth'])
 
 #----------------------------------------------------------
 #----------------------- Utilities ------------------------
